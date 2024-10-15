@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sessionstyle.css">
+    <title>Teacher Session Form</title>
+</head>
+<body>
+    <div class="session-form-container">
+        <h2>Session Details</h2>
+        <form id="session-form">
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <select id="subject" name="subject" required>
+                    <option value="" disabled selected>Select Subject</option>
+                    <option value="Aptitude">Aptitude</option>
+                    <option value="Verbal">Verbal</option>
+                    <option value="Soft Skills">Soft Skills</option>
+                    <option value="Professional Training">Professional Training</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select id="semester" name="semester" required>
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Available Classes:</label>
+                <div class="class-checkbox">
+                    <input type="checkbox" id="class1" name="class" value="BCA DS 2022">
+                    <label for="class1">BCA DS 2022</label><br>
+                    <input type="checkbox" id="class2" name="class" value="INT MCA 2022">
+                    <label for="class2">INT MCA 2022</label><br>
+                    <input type="checkbox" id="class3" name="class" value="BCA 2022">
+                    <label for="class3">BCA 2022</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="topic">Topic:</label>
+                <input type="text" id="topic" name="topic" required>
+            </div>
+
+            <div class="form-group">
+                <label for="numStudents">Number of Students:</label>
+                <input type="number" id="numStudents" name="numStudents" min="1" required>
+            </div>
+
+            <label for="sessionDateTime">Session Date and Time:</label>
+            <input type="datetime-local" id="sessionDateTime" name="sessionDateTime" required>
+
+            <div class="form-group">
+                <label for="sessionLink">Session Link:</label>
+                <input type="url" id="sessionLink" name="sessionLink" required>
+            </div>
+
+            <div class="form-group">
+                <label for="criteria">Selection Criteria:</label>
+                <select id="criteria" name="criteria">
+                    <option value="" disabled selected>Select Criteria</option>
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                    <option value="Specific Range">Specific Range</option>
+                    <option value="Greater than">Greater than</option>
+                    <option value="Less than">Less than</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="markRange">Enter Mark Range (if applicable):</label>
+                <input type="number" id="fromMark" name="fromMark" placeholder="From" min="0">
+                <input type="number" id="toMark" name="toMark" placeholder="To" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description (Optional):</label>
+                <textarea id="description" name="description" rows="4"></textarea>
+            </div>
+
+            <button type="button" onclick="showConfirmation()">Submit</button>
+        </form>
+    </div>
+
+    <div id="confirmation-popup" class="popup">
+        <div class="popup-content">
+            <h3>Confirm Session Details</h3>
+            <div id="confirmation-details"></div>
+            <button onclick="confirmSubmission()">Confirm</button>
+        </div>
+    </div>
+
+    <script>
+        function showConfirmation() {
+            const subject = document.getElementById('subject').value;
+            const semester = document.getElementById('semester').value;
+            const classes = Array.from(document.querySelectorAll('input[name="class"]:checked')).map(el => el.value).join(', ');
+            const topic = document.getElementById('topic').value;
+            const numStudents = document.getElementById('numStudents').value;
+            const sessionDateTime = document.getElementById('sessionDateTime').value; // Updated to get the correct value
+            const sessionLink = document.getElementById('sessionLink').value;
+            const criteria = document.getElementById('criteria').value;
+            const fromMark = document.getElementById('fromMark').value || "N/A";
+            const toMark = document.getElementById('toMark').value || "N/A";
+            const description = document.getElementById('description').value || "N/A";
+
+            document.getElementById('confirmation-details').innerHTML = `
+                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Semester:</strong> ${semester}</p>
+                <p><strong>Classes:</strong> ${classes}</p>
+                <p><strong>Topic:</strong> ${topic}</p>
+                <p><strong>Number of Students:</strong> ${numStudents}</p>
+                <p><strong>Session Date and Time:</strong> ${sessionDateTime}</p> <!-- Corrected the label -->
+                <p><strong>Session Link:</strong> ${sessionLink}</p>
+                <p><strong>Selection Criteria:</strong> ${criteria}</p>
+                <p><strong>Mark Range:</strong> ${fromMark} - ${toMark}</p>
+                <p><strong>Description:</strong> ${description}</p>
+            `;
+
+            document.getElementById('confirmation-popup').style.display = 'block';
+        }
+
+        function confirmSubmission() {
+            alert("Session details confirmed and submitted!");
+            document.getElementById('confirmation-popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
