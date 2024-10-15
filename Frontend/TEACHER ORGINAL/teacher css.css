@@ -183,7 +183,7 @@ body {
 }
 
 .panel:hover {
-    background-color: #8d493a; /* Change color on hover */
+    background-color: #ab886d; /* Change color on hover */
     transform: scale(1.05); /* Zoom effect on hover */
 }
 
@@ -195,8 +195,8 @@ body {
 
 .select-sem-btn, .select-training-btn {
     margin-top: 10px;
-    background-color: #d0b8a8;
-    color: white;
+    background-color: #ab886d;
+    color: black;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
