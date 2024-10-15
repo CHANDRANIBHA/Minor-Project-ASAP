@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Speaking Test Marks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Manage Student Speaking Test Marks</h2>
+
+<!-- Dropdown for selecting semester -->
+<div>
+    <label for="semester-select">Select Semester:</label>
+    <select id="semester-select">
+        <option value="3">Sem 3</option>
+        <option value="4">Sem 4</option>
+        <option value="5">Sem 5</option>
+    </select>
+</div>
+
+<!-- Table structure to match the image -->
+<table id="soft marks-table">
+    <thead>
+        <tr>
+            <th>Evaluation</th>
+            <th>Body Language</th>
+            <th>Grammar</th>
+            <th>Vocabulary</th>
+            <th>Confidence</th>
+            <th>Extra 1</th>
+            <th>Extra 2</th>
+            <th>Grand Total</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody id="marks-body">
+        <tr>
+            <td>Test 1</td>
+            <td><input type="number" class="marks-input" id="body-lang-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-1" value="0" /></td>
+            <td id="total-1">0</td>
+            <td><input type="text" id="remark-1" /></td>
+        </tr>
+        <tr>
+            <td>Speaking Test 1</td>
+            <td><input type="number" class="marks-input" id="body-lang-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-2" value="0" /></td>
+            <td id="total-2">0</td>
+            <td><input type="text" id="remark-2" /></td>
+        </tr>
+        <tr>
+            <td>Speaking Test 2</td>
+            <td><input type="number" class="marks-input" id="body-lang-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-3" value="0" /></td>
+            <td id="total-3">0</td>
+            <td><input type="text" id="remark-3" /></td>
+        </tr>
+        <tr>
+            <td>Extra 1</td>
+            <td><input type="number" class="marks-input" id="body-lang-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-4" value="0" /></td>
+            <td id="total-4">0</td>
+            <td><input type="text" id="remark-4" /></td>
+        </tr>
+        <tr>
+            <td>Extra 2</td>
+            <td><input type="number" class="marks-input" id="body-lang-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-5" value="0" /></td>
+            <td id="total-5">0</td>
+            <td><input type="text" id="remark-5" /></td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td id="total-body-lang">0</td>
+            <td id="total-grammar">0</td>
+            <td id="total-vocab">0</td>
+            <td id="total-confidence">0</td>
+            <td id="total-extra1">0</td>
+            <td id="total-extra2">0</td>
+            <td id="grand-total">0</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Overall Marks Table -->
+<table border="1">
+    <tr>
+        <th>Overall Total Marks</th>
+        <td id="overall-total-marks">0</td>
+    </tr>
+</table>
+
+<button id="save-button" style="display: none;">Save Marks</button>
+
+<script>
+    // Get student name and mode from the query parameters
+    const params = new URLSearchParams(window.location.search);
+    const studentName = params.get('student');
+    const mode = params.get('mode'); // 'update' or 'view'
+    const className = params.get('class');
+    document.getElementById('class-name').innerText = className;
+    document.getElementById('student-name').innerText = studentName;
+
+    const saveButton = document.getElementById('save-button');
+    const marksInputs = document.querySelectorAll('.marks-input');
+
+    // Initialize marks data if it's not already available
+    let marksData = {
+        bodyLang1: 0,
+        grammar1: 0,
+        vocab1: 0,
+        confidence1: 0,
+        extra1_1: 0,
+        extra2_1: 0,
+        bodyLang2: 0,
+        grammar2: 0,
+        vocab2: 0,
+        confidence2: 0,
+        extra1_2: 0,
+        extra2_2: 0,
+        overallRemark: "0"
+    };
+
+    // Load saved marks from localStorage (if any)
+    const savedMarks = JSON.parse(localStorage.getItem('student-marks'));
+    if (savedMarks) {
+        // Load marks into the input fields here if required
+    }
+
+    // Show the table and pre-fill it with marks data
+    function loadMarksTable() {
+        document.getElementById('body-lang-1').value = marksData.bodyLang1;
+        document.getElementById('grammar-1').value = marksData.grammar1;
+        document.getElementById('vocab-1').value = marksData.vocab1;
+        document.getElementById('confidence-1').value = marksData.confidence1;
+        document.getElementById('extra1-1').value = marksData.extra1_1;
+        document.getElementById('extra2-1').value = marksData.extra2_1;
+        document.getElementById('body-lang-2').value = marksData.bodyLang2;
+        document.getElementById('grammar-2').value = marksData.grammar2;
+        document.getElementById('vocab-2').value = marksData.vocab2;
+        document.getElementById('confidence-2').value = marksData.confidence2;
+        document.getElementById('extra1-2').value = marksData.extra1_2;
+        document.getElementById('extra2-2').value = marksData.extra2_2;
+        document.getElementById('overall-remark').value = marksData.overallRemark;
+        calculateTotals(); // Recalculate totals after loading data
+    }
+
+    // Handle saving of marks
+    if (mode === 'update') {
+        saveButton.style.display = 'block'; // Show save button in update mode
+
+        // Enable marks input for teacher
+        marksInputs.forEach(input => {
+            input.disabled = false;
+        });
+
+        saveButton.addEventListener('click', () => {
+            const updatedMarksData = {
+                bodyLang1: document.getElementById('body-lang-1').value,
+                grammar1: document.getElementById('grammar-1').value,
+                vocab1: document.getElementById('vocab-1').value,
+                confidence1: document.getElementById('confidence-1').value,
+                extra1_1: document.getElementById('extra1-1').value,
+                extra2_1: document.getElementById('extra2-1').value,
+                bodyLang2: document.getElementById('body-lang-2').value,
+                grammar2: document.getElementById('grammar-2').value,
+                vocab2: document.getElementById('vocab-2').value,
+                confidence2: document.getElementById('confidence-2').value,
+                extra1_2: document.getElementById('extra1-2').value,
+                extra2_2: document.getElementById('extra2-2').value,
+                overallRemark: document.getElementById('overall-remark').value
+            };
+
+            // Save the marks data to localStorage
+            localStorage.setItem(`${studentName}-marks`, JSON.stringify(updatedMarksData));
+            alert('Marks saved!');
+        });
+
+        loadMarksTable(); // Ensure the table is loaded in 'update' mode
+    } else if (mode === 'view') {
+        // Hide save button and disable inputs in view mode
+        saveButton.style.display = 'none';
+
+        // Disable marks input for viewing mode
+        marksInputs.forEach(input => {
+            input.disabled = true;
+        });
+
+        // If saved marks data exists, populate it into the form
+        if (savedMarks) {
+            loadMarksTable(); // Ensure the table is loaded in 'view' mode
+        } else {
+            alert('No marks data available');
+        }
+    }
+
+    // Function to auto-calculate totals dynamically
+    function calculateTotals() {
+        let totalBodyLang = 0, totalGrammar = 0, totalVocab = 0, totalConfidence = 0, totalExtra1 = 0, totalExtra2 = 0;
+        let grandTotal = 0;
+
+        // Loop through each row, assuming there are 5 rows for tests (modify as needed)
+        for (let i = 1; i <= 5; i++) {
+            // const bodyLang = parseFloat(document.getElementById(`body-lang-${i}`).value) || 0;
+            const bodyLang = parseFloat(document.getElementById(`body-lang-${i}`).value) || 0;
+            const grammar = parseFloat(document.getElementById(`grammar-${i}`).value) || 0;
+            const vocab = parseFloat(document.getElementById(`vocab-${i}`).value) || 0;
+            const confidence = parseFloat(document.getElementById(`confidence-${i}`).value) || 0;
+            const extra1 = parseFloat(document.getElementById(`extra1-${i}`).value) || 0;
+            const extra2 = parseFloat(document.getElementById(`extra2-${i}`).value) || 0;
+
+            // const grammar = parseFloat(document.getElementById(`grammar-${i}`).value) || 0;
+            // const vocab = parseFloat(document.getElementById(`vocab-${i}`).value) || 0;
+            // const confidence = parseFloat(document.getElementById(`confidence-${i}`).value) || 0;
+            // const extra1 = parseFloat(document.getElementById(`extra1-${i}`).value) || 0;
+            // const extra2 = parseFloat(document.getElementById(`extra2-${i}`).value) || 0;
+            
+            const total = bodyLang + grammar + vocab + confidence + extra1 + extra2;
+            // document.getElementById(`${eval}-total`).innerText = grandTotal;
+            // document.getElementById(`total-${i}`).textContent = total;
+
+            document.getElementById(`total-${i}`).textContent = total;
+
+            // Sum up for the overall totals
+            totalBodyLang += bodyLang;
+            totalGrammar += grammar;
+            totalVocab += vocab;
+            totalConfidence += confidence;
+            totalExtra1 += extra1;
+            totalExtra2 += extra2;
+            grandTotal += total;
+        }
+
+        // Display the total marks for each category and grand total
+        document.getElementById('total-body-lang').textContent = totalBodyLang;
+        document.getElementById('total-grammar').textContent = totalGrammar;
+        document.getElementById('total-vocab').textContent = totalVocab;
+        document.getElementById('total-confidence').textContent = totalConfidence;
+        document.getElementById('total-extra1').textContent = totalExtra1;
+        document.getElementById('total-extra2').textContent = totalExtra2;
+
+        // Update the overall total marks
+        // document.getElementById('grand-total').textContent = grandTotal; // Fixed the grand total display
+        // document.getElementById('overall-total-marks').textContent = grandTotal; 
+        document.getElementById('grand-total').textContent = grandTotal;
+        document.getElementById('overall-total-marks').textContent = grandTotal;
+
+    }
+    // Attach event listeners to input fields for dynamic updates
+    marksInputs.forEach(input => {
+        input.addEventListener('input', calculateTotals);
+    });
+    // Initial calculation
+    calculateTotals();
+</script>
+</body>
+</html>

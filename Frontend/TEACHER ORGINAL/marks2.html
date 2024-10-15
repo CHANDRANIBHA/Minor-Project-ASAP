@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Student Marks - Grammar & Reading</title>
+    <link rel="stylesheet" href="teacher.css"> <!-- Assuming you have a common stylesheet -->
+</head>
+<body>
+    <div class="main-content">
+        <h2>Manage Student Marks:</h2>
+        <label for="semester">Select Semester: </label>
+        <select id="semester">
+            <option>Sem 1</option>
+            <option>Sem 2</option>
+            <option>Sem 3</option>
+            <!-- Add other semesters as needed -->
+        </select>
+
+        <table id="marks-table" border="1">
+            <thead>
+                <tr>
+                    <th>Evaluation</th>
+                    <th>Grammar</th>
+                    <th>Reading</th>
+                    <th>Total</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="marks-body">
+                <tr>
+                    <td>Mid Term</td>
+                    <td><input type="number" class="marks-input" id="grammar-midterm" value="0" /></td>
+                    <td><input type="number" class="marks-input" id="reading-midterm" value="0" /></td>
+                    <td id="total-midterm">0</td>
+                    <td><input type="text" id="remarks-midterm" /></td>
+                </tr>
+                <tr>
+                    <td>End Sem Mark</td>
+                    <td><input type="number" class="marks-input" id="grammar-endsem" value="0" /></td>
+                    <td><input type="number" class="marks-input" id="reading-endsem" value="0" /></td>
+                    <td id="total-endsem">0</td>
+                    <td><input type="text" id="remarks-endsem" /></td>
+                </tr>
+                <tr>
+                    <td>Assignment 1</td>
+                    <td><input type="number" class="marks-input" id="grammar-assignment1" value="0" /></td>
+                    <td><input type="number" class="marks-input" id="reading-assignment1" value="0" /></td>
+                    <td id="total-assignment1">0</td>
+                    <td><input type="text" id="remarks-assignment1" /></td>
+                </tr>
+                <tr>
+                    <td>Assignment 2</td>
+                    <td><input type="number" class="marks-input" id="grammar-assignment2" value="0" /></td>
+                    <td><input type="number" class="marks-input" id="reading-assignment2" value="0" /></td>
+                    <td id="total-assignment2">0</td>
+                    <td><input type="text" id="remarks-assignment2" /></td>
+                </tr>
+                <tr>
+                    <td>Extra 1</td>
+                    <td><input type="number" class="marks-input" id="grammar-extra1" value="0" /></td>
+                    <td><input type="number" class="marks-input" id="reading-extra1" value="0" /></td>
+                    <td id="total-extra1">0</td>
+                    <td><input type="text" id="remarks-extra1" /></td>
+                </tr>
+                <tr>
+                    <td>Extra 2</td>
+                    <td><input type="number" class="marks-input" id="grammar-extra2" value="0" /></td>
+                    <td><input type="number" class="marks-input" id="reading-extra2" value="0" /></td>
+                    <td id="total-extra2">0</td>
+                    <td><input type="text" id="remarks-extra2" /></td>
+                </tr>
+                <tr>
+                    <td>Grand Total</td>
+                    <td id="grammar-grand-total">0</td>
+                    <td id="reading-grand-total">0</td>
+                    <td id="overall-grand-total">0</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button id="save-button" style="display: none;">Save Marks</button>
+    </div>
+
+    <script>
+        // const params = new URLSearchParams(window.location.search);
+        // const mode = params.get('mode'); // 'update' or 'view'
+        // const saveButton = document.getElementById('save-button');
+        // const marksInputs = document.querySelectorAll('.marks-input');
+
+            const params = new URLSearchParams(window.location.search);
+    const studentName = params.get('student');
+    const mode = params.get('mode'); // 'update' or 'view'
+    const className = params.get('class');
+    document.getElementById('class-name').innerText = className;
+    document.getElementById('student-name').innerText = studentName;
+
+const saveButton = document.getElementById('save-button');
+const marksInputs = document.querySelectorAll('.marks-input');
+
+        // Sample marks data (This will be stored/retrieved from localStorage)
+        let marksData = {
+            grammarMidterm: 0,
+            readingMidterm: 0,
+            grammarEndsem: 0,
+            readingEndsem: 0,
+            grammarAssignment1: 0,
+            readingAssignment1: 0,
+            grammarAssignment2: 0,
+            readingAssignment2: 0,
+            grammarExtra1: 0,
+            readingExtra1: 0,
+            grammarExtra2: 0,
+            readingExtra2: 0,
+            remarksMidterm: '',
+            remarksEndsem: '',
+            remarksAssignment1: '',
+            remarksAssignment2: '',
+            remarksExtra1: '',
+            remarksExtra2: ''
+        };
+
+        // const studentName = params.get('student');
+        // const savedMarks = JSON.parse(localStorage.getItem(`${studentName}-writing-marks`));
+        // if (savedMarks) {
+        //     marksData = savedMarks;
+        // }
+
+        function loadMarksTable() {
+            document.getElementById('grammar-midterm').value = marksData.grammarMidterm;
+            document.getElementById('reading-midterm').value = marksData.readingMidterm;
+            document.getElementById('grammar-endsem').value = marksData.grammarEndsem;
+            document.getElementById('reading-endsem').value = marksData.readingEndsem;
+            document.getElementById('grammar-assignment1').value = marksData.grammarAssignment1;
+            document.getElementById('reading-assignment1').value = marksData.readingAssignment1;
+            document.getElementById('grammar-assignment2').value = marksData.grammarAssignment2;
+            document.getElementById('reading-assignment2').value = marksData.readingAssignment2;
+            document.getElementById('grammar-extra1').value = marksData.grammarExtra1;
+            document.getElementById('reading-extra1').value = marksData.readingExtra1;
+            document.getElementById('grammar-extra2').value = marksData.grammarExtra2;
+            document.getElementById('reading-extra2').value = marksData.readingExtra2;
+            document.getElementById('remarks-midterm').value = marksData.remarksMidterm;
+            document.getElementById('remarks-endsem').value = marksData.remarksEndsem;
+            document.getElementById('remarks-assignment1').value = marksData.remarksAssignment1;
+            document.getElementById('remarks-assignment2').value = marksData.remarksAssignment2;
+            document.getElementById('remarks-extra1').value = marksData.remarksExtra1;
+            document.getElementById('remarks-extra2').value = marksData.remarksExtra2;
+            calculateTotals();
+        }
+
+        if (mode === 'update') {
+            saveButton.style.display = 'block';
+            marksInputs.forEach(input => input.disabled = false);
+
+            saveButton.addEventListener('click', () => {
+                const updatedMarks = {
+                    grammarMidterm: document.getElementById('grammar-midterm').value,
+                    readingMidterm: document.getElementById('reading-midterm').value,
+                    grammarEndsem: document.getElementById('grammar-endsem').value,
+                    readingEndsem: document.getElementById('reading-endsem').value,
+                    grammarAssignment1: document.getElementById('grammar-assignment1').value,
+                    readingAssignment1: document.getElementById('reading-assignment1').value,
+                    grammarAssignment2: document.getElementById('grammar-assignment2').value,
+                    readingAssignment2: document.getElementById('reading-assignment2').value,
+                    grammarExtra1: document.getElementById('grammar-extra1').value,
+                    readingExtra1: document.getElementById('reading-extra1').value,
+                    grammarExtra2: document.getElementById('grammar-extra2').value,
+                    readingExtra2: document.getElementById('reading-extra2').value,
+                    remarksMidterm: document.getElementById('remarks-midterm').value,
+                    remarksEndsem: document.getElementById('remarks-endsem').value,
+                    remarksAssignment1: document.getElementById('remarks-assignment1').value,
+                    remarksAssignment2: document.getElementById('remarks-assignment2').value,
+                    remarksExtra1: document.getElementById('remarks-extra1').value,
+                    remarksExtra2: document.getElementById('remarks-extra2').value
+                };
+
+                localStorage.setItem(`${studentName}-writing-marks`, JSON.stringify(updatedMarks));
+                alert('Marks saved!');
+            });
+            
+        } else if (mode === 'view') {
+            saveButton.style.display = 'none';
+            marksInputs.forEach(input => input.disabled = true);
+
+            if (savedMarks) {
+                loadMarksTable();
+            } else {
+                alert('No marks available for this student.');
+            }
+        }
+
+        function calculateTotals() {
+            const grammarMidterm = parseFloat(document.getElementById('grammar-midterm').value) || 0;
+            const readingMidterm = parseFloat(document.getElementById('reading-midterm').value) || 0;
+            const grammarEndsem = parseFloat(document.getElementById('grammar-endsem').value) || 0;
+            const readingEndsem = parseFloat(document.getElementById('reading-endsem').value) || 0;
+            const grammarAssignment1 = parseFloat(document.getElementById('grammar-assignment1').value) || 0;
+            const readingAssignment1 = parseFloat(document.getElementById('reading-assignment1').value) || 0;
+            const grammarAssignment2 = parseFloat(document.getElementById('grammar-assignment2').value) || 0;
+            const readingAssignment2 = parseFloat(document.getElementById('reading-assignment2').value) || 0;
+            const grammarExtra1 = parseFloat(document.getElementById('grammar-extra1').value) || 0;
+            const readingExtra1 = parseFloat(document.getElementById('reading-extra1').value) || 0;
+            const grammarExtra2 = parseFloat(document.getElementById('grammar-extra2').value) || 0;
+            const readingExtra2 = parseFloat(document.getElementById('reading-extra2').value) || 0;
+
+            const totalMidterm = grammarMidterm + readingMidterm;
+            const totalEndsem = grammarEndsem + readingEndsem;
+            const totalAssignment1 = grammarAssignment1 + readingAssignment1;
+            const totalAssignment2 = grammarAssignment2 + readingAssignment2;
+            const totalExtra1 = grammarExtra1 + readingExtra1;
+            const totalExtra2 = grammarExtra2 + readingExtra2;
+
+            document.getElementById('total-midterm').innerText = totalMidterm;
+            document.getElementById('total-endsem').innerText = totalEndsem;
+            document.getElementById('total-assignment1').innerText = totalAssignment1;
+            document.getElementById('total-assignment2').innerText = totalAssignment2;
+            document.getElementById('total-extra1').innerText = totalExtra1;
+            document.getElementById('total-extra2').innerText = totalExtra2;
+
+            document.getElementById('grammar-grand-total').innerText = grammarMidterm + grammarEndsem + grammarAssignment1 + grammarAssignment2 + grammarExtra1 + grammarExtra2;
+            document.getElementById('reading-grand-total').innerText = readingMidterm + readingEndsem + readingAssignment1 + readingAssignment2 + readingExtra1 + readingExtra2;
+            document.getElementById('overall-grand-total').innerText = (grammarMidterm + readingMidterm) + (grammarEndsem + readingEndsem) + (grammarAssignment1 + readingAssignment1) + (grammarAssignment2 + readingAssignment2) + (grammarExtra1 + readingExtra1) + (grammarExtra2 + readingExtra2);
+        }
+
+        marksInputs.forEach(input => input.addEventListener('input', calculateTotals));
+
+        loadMarksTable();
+    </script>
+</body>
+</html>
