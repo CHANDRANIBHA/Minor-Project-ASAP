@@ -137,52 +137,75 @@
 <button id="save-button" style="display: none;">Save Marks</button>
 
 <script>
+    const saveButton = document.getElementById('save-button');
     const marksInputs = document.querySelectorAll('.marks-input');
 
-    // Function to calculate totals
-    function calculateTotals() {
-        let totalBodyLang = 0, totalGrammar = 0, totalVocab = 0, totalConfidence = 0, totalExtra1 = 0, totalExtra2 = 0;
-        let grandTotal = 0;
-
-        // Loop through each row (adjust according to the number of rows)
-        for (let i = 1; i <= 5; i++) {
-            const bodyLang = parseFloat(document.getElementById(body-lang-${i}).value) || 0;
-            const grammar = parseFloat(document.getElementById(grammar-${i}).value) || 0;
-            const vocab = parseFloat(document.getElementById(vocab-${i}).value) || 0;
-            const confidence = parseFloat(document.getElementById(confidence-${i}).value) || 0;
-            const extra1 = parseFloat(document.getElementById(extra1-${i}).value) || 0;
-            const extra2 = parseFloat(document.getElementById(extra2-${i}).value) || 0;
-
-            const total = bodyLang + grammar + vocab + confidence + extra1 + extra2;
-            document.getElementById(total-${i}).textContent = total;
-
-            totalBodyLang += bodyLang;
-            totalGrammar += grammar;
-            totalVocab += vocab;
-            totalConfidence += confidence;
-            totalExtra1 += extra1;
-            totalExtra2 += extra2;
-            grandTotal += total;
-        }
-
-        // Update total marks for each category and grand total
-        document.getElementById('total-body-lang').textContent = totalBodyLang;
-        document.getElementById('total-grammar').textContent = totalGrammar;
-        document.getElementById('total-vocab').textContent = totalVocab;
-        document.getElementById('total-confidence').textContent = totalConfidence;
-        document.getElementById('total-extra1').textContent = totalExtra1;
-        document.getElementById('total-extra2').textContent = totalExtra2;
-        document.getElementById('grand-total').textContent = grandTotal;
-        document.getElementById('overall-total-marks').textContent = grandTotal;
+    // Load saved marks from localStorage (if any)
+    const savedMarks = JSON.parse(localStorage.getItem('student-marks'));
+    if (savedMarks) {
+        // Load marks into the input fields here if required
     }
 
-    // Attach event listeners to input fields
-    marksInputs.forEach(input => {
-        input.addEventListener('input', calculateTotals);
-    });
+// Function to calculate totals
+function calculateTotals() {
+    let totalBodyLang = 0, totalGrammar = 0, totalVocab = 0, totalConfidence = 0, totalExtra1 = 0, totalExtra2 = 0, grandTotal = 0;
 
-    // Initial calculation on page load
-    calculateTotals();
+    console.log('--- Start Calculating Totals ---'); // Debugging
+
+    // Loop through each row and calculate totals
+    for (let i = 1; i <= 5; i++) {
+        const bodyLang = parseFloat(document.getElementById(`body-lang-${i}`).value) || 0;
+        const grammar = parseFloat(document.getElementById(`grammar-${i}`).value) || 0;
+        const vocab = parseFloat(document.getElementById(`vocab-${i}`).value) || 0;
+        const confidence = parseFloat(document.getElementById(`confidence-${i}`).value) || 0;
+        const extra1 = parseFloat(document.getElementById(`extra1-${i}`).value) || 0;
+        const extra2 = parseFloat(document.getElementById(`extra2-${i}`).value) || 0;
+
+        // Calculate the total for this row
+        const rowTotal = bodyLang + grammar + vocab + confidence + extra1 + extra2;
+        console.log(`Row ${i} -> Total:`, rowTotal); // Debugging row totals
+
+        // Set the total in the respective row
+        document.getElementById(`total-${i}`).textContent = rowTotal.toFixed(2);
+
+        // Accumulate totals for each category and overall grand total
+        totalBodyLang += bodyLang;
+        totalGrammar += grammar;
+        totalVocab += vocab;
+        totalConfidence += confidence;
+        totalExtra1 += extra1;
+        totalExtra2 += extra2;
+        grandTotal += rowTotal;
+    }
+
+    // Update total marks for each category
+    document.getElementById('total-body-lang').textContent = totalBodyLang.toFixed(2);
+    document.getElementById('total-grammar').textContent = totalGrammar.toFixed(2);
+    document.getElementById('total-vocab').textContent = totalVocab.toFixed(2);
+    document.getElementById('total-confidence').textContent = totalConfidence.toFixed(2);
+    document.getElementById('total-extra1').textContent = totalExtra1.toFixed(2);
+    document.getElementById('total-extra2').textContent = totalExtra2.toFixed(2);
+
+    // Update the grand total
+    document.getElementById('grand-total').textContent = grandTotal.toFixed(2);
+    document.getElementById('overall-total-marks').textContent = grandTotal.toFixed(2);
+
+    console.log('Grand Total:', grandTotal); // Debugging grand total
+    console.log('--- End Calculation ---'); // Debugging
+}
+
+// Attach event listeners to input fields
+const marksInputs = document.querySelectorAll('.marks-input');
+marksInputs.forEach(input => {
+    input.addEventListener('input', () => {
+        console.log('Input changed, recalculating...');  // Debugging
+        calculateTotals();
+    });
+});
+
+// Initial calculation on page load
+window.onload = calculateTotals;
+
 
     // Save marks if in update mode
     const saveButton = document.getElementById('save-button');
