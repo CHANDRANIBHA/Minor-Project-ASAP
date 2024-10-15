@@ -1,0 +1,244 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.chat-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar styles */
+.user-sidebar {
+    width: 25%;
+    background-color: #2F2F2F;
+    padding: 20px;
+    color: white;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #404040;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.user:hover {
+    background-color: #555555;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.user-register-number {
+    font-size: 12px;
+    color: #ccc;
+}
+
+/* Chat area styles */
+.chat-area {
+    width: 75%;
+    background-color: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 20px;
+    background-color: #E1E1E1;
+    border-bottom: 1px solid #C1C1C1;
+}
+
+.chat-header h2 {
+    margin: 0;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+/* Message styles */
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+    position: relative;
+}
+
+.message.sent {
+    background-color: #DCF8C6;
+    align-self: flex-end;
+}
+
+.message.received {
+    background-color: #FFFFFF;
+    align-self: flex-start;
+}
+
+/* Date and time styling */
+.message-time {
+    display: none;
+    position: absolute;
+    bottom: -1px;
+    right: -60px;
+    font-size: 12px;
+    color: #666;
+}
+
+.message:hover .message-time {
+    display: block;
+}
+
+.chat-date {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #666;
+    background-color: #E1E1E1;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Message file styles */
+.message.file-message {
+    background-color: #FFEDD5;
+    border: 1px solid #E69138;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+}
+
+.message .forward-btn {
+    display: none;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #0078D4;
+    font-size: 18px;
+}
+
+.message.file-message:hover .forward-btn {
+    display: inline-block;
+}
+
+.chat-input-area {
+    padding: 20px;
+    display: flex;
+    background-color: #E1E1E1;
+}
+
+.chat-input-area input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat-input-area button {
+    padding: 10px 20px;
+    background-color: #0078D4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-input-area button:hover {
+    background-color: #005A9E;
+}
+
+/* Tick marks styles */
+.message-status {
+    display: inline-block;
+    font-size: 14px;
+    color: grey; /* Grey color for sent and delivered */
+    margin-left: 5px;
+    float: right;
+}
+
+.message-status.blue-tick {
+    color: #0078D4; /* Blue color for read */
+}
+
+/* Existing message styles */
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+    position: relative;
+}
+
+.message.sent {
+    background-color: #DCF8C6;
+    align-self: flex-end;
+}
+
+.message.received {
+    background-color: #FFFFFF;
+    align-self: flex-start;
+}
+
+/* Time styling */
+.message-time {
+    display: inline-block;
+    font-size: 12px;
+    color: #666;
+    float: right; /* Align time to the right */
+    margin-left: 5px;
+}
+
+/* Other existing styles */
+
+/* Date separator styles */
+.chat-date {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #666;
+    background-color: #E1E1E1;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

@@ -40,31 +40,31 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Navigation for semesters
-document.querySelectorAll('.semester-dropdown select').forEach(select => {
-    select.addEventListener('change', function() {
-        const semester = this.value;
-        const panelId = this.closest('.panel').id;
-        if (semester) {
-            window.location.href = `classes.html?panel=${panelId}&semester=${semester}`;
-        }
-    });
-});
+// // Navigation for semesters
+// document.querySelectorAll('.semester-dropdown select').forEach(select => {
+//     select.addEventListener('change', function() {
+//         const semester = this.value;
+//         const panelId = this.closest('.panel').id;
+//         if (semester) {
+//             window.location.href = `classes.html?panel=${panelId}&semester=${semester}`;
+//         }
+//     });
+// });
 
 // Navigation for classes
-document.querySelectorAll('.class-dropdown').forEach(select => {
-    select.addEventListener('change', function() {
-        const action = this.value;
-        const className = this.closest('.panel').querySelector('h3').innerText;
-        if (action) {
-            if (action === 'view') {
-                window.location.href = `view-class.html?class=${className}`;
-            } else if (action === 'update') {
-                window.location.href = `update-class.html?class=${className}`;
-            }
-        }
-    });
-});
+// document.querySelectorAll('.class-dropdown').forEach(select => {
+//     select.addEventListener('change', function() {
+//         const action = this.value;
+//         const className = this.closest('.panel').querySelector('h3').innerText;
+//         if (action) {
+//             if (action === 'view') {
+//                 window.location.href = `view-aptitude.html?class=${className}`;
+//             } else if (action === 'update') {
+//                 window.location.href = `update-aptitude.html?class=${className}`;
+//             }
+//         }
+//     });
+// });
 
 // Handle menu toggle on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -109,45 +109,4 @@ function saveMarksForStudent() {
     });
 
     saveMarks(studentName, chapter, data);
-}
-// script.js - Dashboard navigation logic
-document.getElementById('chat').addEventListener('click', function() {
-    window.location.href = 'chattr html.html'; // Navigates to chat page
-});
-
-// chat.js - You can add more functionalities like search, messaging, etc.
-
-
-// Function to toggle the dropdown visibility
-function toggleDropdown() {
-    const dropdown = document.getElementById('resources-dropdown');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-// Function to handle navigation
-function navigateTo(page) {
-    if (page === 'home') {
-        window.location.href = 'teacher html.html'; // Redirect to Teacher Page
-    } else if (page === 'aptitude') {
-        window.location.href = 'aptitude html.html'; // Redirect to Aptitude Resources
-    } else if (page === 'verbal') {
-        window.location.href = 'verbal html.html'; // Redirect to Verbal Resources
-    } else if (page === 'softskills') {
-        window.location.href = 'softskills html.html'; // Redirect to Soft Skills Resources
-    } else if (page === 'training') {
-        window.location.href = 'training html.html'; // Redirect to Personal Training Resources
-    }
-}
-
-// Close dropdown when clicking outside
-window.onclick = function(event) {
-    if (!event.target.matches('.dropdown span')) {
-        const dropdowns = document.getElementsByClassName("dropdown-content");
-        for (let i = 0; i < dropdowns.length; i++) {
-            const openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-                openDropdown.style.display = 'none';
-            }
-        }
-    }
 }

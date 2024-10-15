@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User-Specific Chat System</title>
+    <link rel="stylesheet" href="chattr css.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Sidebar for users -->
+        <div class="user-sidebar">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Search users..." onkeyup="filterUsers()">
+            </div>
+            <div class="users-list" id="users-list">
+                <!-- Dynamic user list with profile picture, name, and register number -->
+                <div class="user" onclick="selectUser('John Doe', 'KH.EN.U3CDS22000')">
+                    <img src="profile1.jpg" alt="John's Profile" class="profile-picture">
+                    <div class="user-info">
+                        <div class="user-name">John Doe</div>
+                        <div class="user-register-number">KH.EN.U3CDS22000</div>
+                    </div>
+                </div>
+                <div class="user" onclick="selectUser('Jane Smith', 'KH.EN.U3CDS289')">
+                    <img src="profile2.jpg" alt="Jane's Profile" class="profile-picture">
+                    <div class="user-info">
+                        <div class="user-name">Jane Smith</div>
+                        <div class="user-register-number">KH.EN.U3CDS289</div>
+                    </div>
+                </div>
+                <div class="user" onclick="selectUser('Alice Brown', 'KH.EN.U3CDS22019')">
+                    <img src="profile3.jpg" alt="Alice's Profile" class="profile-picture">
+                    <div class="user-info">
+                        <div class="user-name">Alice Brown</div>
+                        <div class="user-register-number">KH.EN.U3CDS22019</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <h2 id="chat-header-name">Select a user</h2>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Chat messages will be added here dynamically -->
+            </div>
+            <div class="chat-input-area">
+                <input type="file" id="attach-file" style="display: none;" onchange="attachFile(event)">
+                <button id="attach-btn" onclick="document.getElementById('attach-file').click()">📎</button>
+                <input type="text" id="chat-input" placeholder="Type a message...">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="chattr js.js"></script>
+</body>
+</html>
