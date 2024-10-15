@@ -62,7 +62,7 @@
                     <select class="chapter-dropdown">
                         <option value="">Select...</option>
                         <option value="softmarks.html">Speaking</option> <!-- Link to marks1.html -->
-                        <option value="marks2.html">Writing</option> <!-- Link to marks2.html -->
+                        <option value="marks3.html">Writing</option> <!-- Link to marks2.html -->
                     </select>
                 </div>
 
@@ -71,7 +71,7 @@
                     <select class="chapter-dropdown">
                         <option value="">Select...</option>
                         <option value="softmarks.html">Speaking</option> <!-- Link to marks1.html -->
-                        <option value="marks2.html">Writing</option> <!-- Link to marks2.html -->
+                        <option value="marks3.html">Writing</option> <!-- Link to marks2.html -->
                     </select>
                 </div>
 
@@ -80,7 +80,7 @@
                     <select class="chapter-dropdown">
                         <option value="">Select...</option>
                         <option value="softmarks.html">Speaking</option> <!-- Link to marks1.html -->
-                        <option value="marks2.html">Writing</option> <!-- Link to marks2.html -->
+                        <option value="marks3.html">Writing</option> <!-- Link to marks2.html -->
                     </select>
                 </div>
             </div>
@@ -89,35 +89,38 @@
     <script src="teacher js.js"></script>      
     <script>
     // Function to set the user's name
-    function setUserName(name) {
-        document.getElementById('username').innerText = name;
-    }
-    function studentClicked(studentName) {
-            const mode = "update"; // For updating, pass 'update'
-            window.location.href = `aptimarks.html?student=${studentName}&mode=${mode}`;
+function setUserName(name) {
+    document.getElementById('username').innerText = name;
+}
+
+function studentClicked(studentName) {
+    // No need to set 'aptimarks.html' here, let the dropdown handle the page navigation
+    console.log(`Student clicked: ${studentName}`);
+}
+
+// Call this function with the actual user's name
+setUserName('John Doe'); // Replace 'John Doe' with the actual user's name
+
+// Set the class name from URL parameter
+const params = new URLSearchParams(window.location.search);
+const className = params.get('class');
+document.getElementById('class-name').innerText = className;
+
+// Handle chapter dropdown selection and navigate to the appropriate marks page
+document.querySelectorAll('.chapter-dropdown').forEach(dropdown => {
+    dropdown.addEventListener('change', function() {
+        const selectedPage = this.value; // Get the selected page (marks1.html or marks2.html)
+        const studentName = this.closest('.panel').querySelector('h3').innerText; // Get student name from panel
+        const mode = "update"; // Append the mode parameter
+
+        // Check if a page is selected before navigating
+        if (selectedPage) {
+            // Navigate to the selected page (marks1.html, marks2.html, etc.) with class, student info, and mode=update
+            window.location.href = `${selectedPage}?class=${className}&student=${studentName}&mode=${mode}`;
         }
-
-    // Call this function with the actual user's name
-    setUserName('John Doe'); // Replace 'John Doe' with the actual user's name
-
-    // Set the class name from URL parameter
-    const params = new URLSearchParams(window.location.search);
-    const className = params.get('class');
-    document.getElementById('class-name').innerText = className;
-
-    // Handle chapter dropdown selection and navigate to the appropriate marks page
-    document.querySelectorAll('.chapter-dropdown').forEach(dropdown => {
-        dropdown.addEventListener('change', function() {
-            const selectedPage = this.value; // Get the selected page (marks1.html or marks2.html)
-            const studentName = this.closest('.panel').querySelector('h3').innerText;
-
-            // Check if a page is selected before navigating
-            if (selectedPage) {
-                window.location.href = `${selectedPage}?class=${className}&student=${studentName}`; // Append class and student name
-            }
-        });
     });
-    
+});
+
     </script>
 </body>
 </html>
