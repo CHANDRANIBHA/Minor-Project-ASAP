@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="teachercss.css"> <!-- Use the same CSS file -->
+    <script src="teacher js.js"></script> <!-- Use the same JS file -->
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profile-pic.png" alt="Profile Image" class="profile-img">
+                <h3 id="username">John Doe</h3>
+                <p id="reg-number">Reg No: 12345678</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li>Home</li>
+                    <li>Resources</li>
+                    <li>Chat</li>
+                    <li>My History</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <ul>
+                                <li>No new notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chat" id="chat">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content Area -->
+        <div class="main-content">
+            <h2> Aptitude Select Class</h2>
+            <div class="class-panels">
+                <!-- Panels for each class -->
+                <div class="panel">
+                    <h3>BCA DS2022</h3>
+                    <select class="class-dropdown">
+                        <option value="view">View</option>
+                        <option value="update">Update</option>
+                    </select>
+                </div>
+
+                <div class="panel">
+                    <h3>BCA 2022</h3>
+                    <select class="class-dropdown">
+                        <option value="view">View</option>
+                        <option value="update">Update</option>
+                    </select>
+                </div>
+
+                <div class="panel">
+                    <h3>INTMCA(A) 2022</h3>
+                    <select class="class-dropdown">
+                        <option value="view">View</option>
+                        <option value="update">Update</option>
+                    </select>
+                </div>
+                <script src="teacher js.js"></script>
+            </div>
+        </div>
+        <script>
+            document.querySelectorAll('.class-dropdown').forEach(select => {
+                select.addEventListener('change', function() {
+                    const action = this.value; // Get the selected action (view or update)
+                    const className = this.closest('.panel').querySelector('h3').innerText; // Get the class name from the panel's <h3>
+        
+                    if (action) {
+                        // Redirect based on the selected action
+                        if (action === 'view') {
+                            window.location.href = `view-aptitude.html?class=${className}`;
+                        } else if (action === 'update') {
+                            window.location.href = `updateaptitude.html?class=${className}`;
+                        }
+                    }
+                });
+            });
+        </script>
+        
+    </body>
+    </html>
+    
