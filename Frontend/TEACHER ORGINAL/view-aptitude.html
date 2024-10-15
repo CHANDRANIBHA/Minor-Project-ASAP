@@ -19,7 +19,32 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
-
+        .dropdown {
+    position: relative;
+    display: inline-block;
+}
+ 
+.dropdown-content {
+    display: none; /* Hide by default */
+    position: absolute;
+    background-color: #d0b8a8;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+ 
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+ 
+.dropdown-content a:hover {
+    background-color: #8d493a;
+}
+ 
+ 
         .student-panel:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -62,13 +87,25 @@
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li>Home</li>
-                    <li>Resources</li>
-                    <li>Chat</li>
-                    <li>My History</li>
-                    <li>FAQ</li>
+                    <li onclick="navigateTo('home')">Home</li>
+                    <li>
+                        <div class="dropdown">
+                            <span onclick="toggleDropdown()">Resources</span>
+                            <div class="dropdown-content" id="resources-dropdown">
+                                <a href="#" onclick="navigateTo('aptitude')">Aptitude</a>
+                                <a href="#" onclick="navigateTo('verbal')">Verbal</a>
+                                <a href="#" onclick="navigateTo('softskills')">Soft Skills</a>
+                                <a href="#" onclick="navigateTo('training')">Professional Training</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="navigateTo('chat')">Chat</li>
+                    <li onclick="navigateTo('history')">My History</li>
+                    <li onclick="navigateTo('faq')">FAQ</li>
                 </ul>
             </div>
+        </div>
+ 
         </div>
 
         <button id="menuToggle" class="menu-icon">
@@ -137,6 +174,40 @@
             const mode = "view";
             window.location.href = `aptimarks.html?student=${encodeURIComponent(studentName)}&mode=${mode}&class=${encodeURIComponent(className)}`;
         }
+        // Function to toggle the dropdown visibility
+function toggleDropdown() {
+    const dropdown = document.getElementById('resources-dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+ 
+// Function to handle navigation
+function navigateTo(page) {
+    if (page === 'home') {
+        window.location.href = 'teacher html.html'; // Redirect to Teacher Page
+    } else if (page === 'aptitude') {
+        window.location.href = 'aptitude html.html'; // Redirect to Aptitude Resources
+    } else if (page === 'verbal') {
+        window.location.href = 'verbal html.html'; // Redirect to Verbal Resources
+    } else if (page === 'softskills') {
+        window.location.href = 'softskills html.html'; // Redirect to Soft Skills Resources
+    } else if (page === 'training') {
+        window.location.href = 'training html.html'; // Redirect to Personal Training Resources
+    }
+}
+ 
+// Close dropdown when clicking outside
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown span')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+}
+ 
     </script>
 </body>
 </html>

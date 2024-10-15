@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User-Specific Chat System</title>
-    <link rel="stylesheet" href="chattr css.css">
+    <link rel="stylesheet" href="chattr.css">
 </head>
 <body>
     <div class="chat-container">
@@ -15,24 +15,24 @@
             </div>
             <div class="users-list" id="users-list">
                 <!-- Dynamic user list with profile picture, name, and register number -->
-                <div class="user" onclick="selectUser('John Doe', 'KH.EN.U3CDS22000')">
-                    <img src="profile1.jpg" alt="John's Profile" class="profile-picture">
+                <div class="user" onclick="selectUser('KIRAN S', 'KH.EN.U3CDS22000')">
+                    <img src="profile1.jpg" alt="KIRAN's Profile" class="profile-picture">
                     <div class="user-info">
-                        <div class="user-name">John Doe</div>
+                        <div class="user-name">KIRAN S</div>
                         <div class="user-register-number">KH.EN.U3CDS22000</div>
                     </div>
                 </div>
-                <div class="user" onclick="selectUser('Jane Smith', 'KH.EN.U3CDS289')">
-                    <img src="profile2.jpg" alt="Jane's Profile" class="profile-picture">
+                <div class="user" onclick="selectUser('MADHAV KRISHNA', 'KH.EN.U3CDS289')">
+                    <img src="profile2.jpg" alt="MADHAV's Profile" class="profile-picture">
                     <div class="user-info">
-                        <div class="user-name">Jane Smith</div>
+                        <div class="user-name">MADHAV KRISHNA</div>
                         <div class="user-register-number">KH.EN.U3CDS289</div>
                     </div>
                 </div>
-                <div class="user" onclick="selectUser('Alice Brown', 'KH.EN.U3CDS22019')">
-                    <img src="profile3.jpg" alt="Alice's Profile" class="profile-picture">
+                <div class="user" onclick="selectUser('GEETHA C', 'KH.EN.U3CDS22019')">
+                    <img src="profile3.jpg" alt="GEETHA's Profile" class="profile-picture">
                     <div class="user-info">
-                        <div class="user-name">Alice Brown</div>
+                        <div class="user-name">GEETHA C</div>
                         <div class="user-register-number">KH.EN.U3CDS22019</div>
                     </div>
                 </div>
@@ -45,6 +45,15 @@
                 <h2 id="chat-header-name">Select a user</h2>
             </div>
             <div class="chat-messages" id="chat-messages">
+                    <!-- Received message -->
+                    <div class="message received">
+                        <div class="message-text">Hello! How are you?</div>
+                    </div>
+                    
+                    <!-- Sent message -->
+                    <div class="message sent">
+                        <div class="message-text">I'm good, thanks! How about you?</div>
+                    </div>
                 <!-- Chat messages will be added here dynamically -->
             </div>
             <div class="chat-input-area">
@@ -56,6 +65,6 @@
         </div>
     </div>
 
-    <script src="chattr js.js"></script>
+    <script src="chattr.js"></script>
 </body>
 </html>

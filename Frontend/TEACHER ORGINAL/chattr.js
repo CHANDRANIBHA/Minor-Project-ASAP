@@ -1,10 +1,10 @@
 let userChats = {
-    "John Doe": [],
-    "Jane Smith": [],
-    "Alice Brown": []
+    "KIRAN S": [],
+    "MADHAV KRISHNA": [],
+    "GEETHA C": []
 };
 
-let currentUser = "John Doe";  // Default to the first user
+  // Default to the first user
 let lastMessageDate = null;  // Keep track of the last message's date
 
 document.getElementById("send-btn").addEventListener("click", function() {
@@ -38,6 +38,40 @@ function loadChatHistory(userName) {
         addMessage(msg.message, msg.type, msg.date, msg.status);
     });
 }
+
+
+
+
+function sendMessage() {
+    const messageInput = document.getElementById('chat-input');
+    const messageText = messageInput.value.trim();
+
+    if (messageText) {
+        // Create a new message element
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', 'sent'); // Add 'sent' class for user message
+        
+        const textElement = document.createElement('div');
+        textElement.classList.add('message-text');
+        textElement.textContent = messageText;
+        
+        messageElement.appendChild(textElement);
+        
+        // Add the message to the chat area
+        document.getElementById('chat-messages').appendChild(messageElement);
+        
+        // Clear the input box after sending the message
+        messageInput.value = '';
+        
+        // Scroll to the bottom of the chat area
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+    }
+}
+
+
+
+
+
 
 function sendMessage() {
     let message = document.getElementById("chat-input").value;

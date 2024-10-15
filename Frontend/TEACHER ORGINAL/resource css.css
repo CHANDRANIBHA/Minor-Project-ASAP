@@ -1,0 +1,177 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.dashboard {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #8d493a;
+    color: white;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar.open {
+    transform: translateX(-250px);
+}
+
+.profile {
+    text-align: center;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu ul li {
+    padding: 15px 0;
+    border-bottom: 1px solid #444;
+}
+
+.menu ul li:hover {
+    background-color: #dfd3c3;
+}
+
+.menu-icon {
+    display: none;
+}
+
+.resource-container {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.note {
+    padding: 10px;
+    border: 1px solid #d0b8a8;
+    margin-bottom: 10px;
+}
+
+.note-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+    }
+
+    .sidebar {
+        transform: translateX(-250px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        height: 100vh;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .resource-container {
+        margin-left: 0;
+    }
+}
+
+.resource-container {
+    /* Existing styles */
+    padding: 20px;
+    background-color: #dfd3c3;
+    border-radius: 8px;
+    transition: transform 0.1s, box-shadow 0.1s; /* Smooth transition */
+    /* Add any other styles you need */
+}
+
+/* Hover effect */
+.resource-container:hover {
+    transform: scale(1.02); /* Slightly enlarge the container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Add a shadow */
+}
+
+#notes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between notes */
+}
+
+.note-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+    display: block; /* Make the link a block element to fill the note card */
+}
+
+.note-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit the text color from the note */
+    display: block; /* Make the link a block element to fill the note card */
+    padding: 10px; /* Add padding to the link */
+    border-radius: 8px; /* Match the note card */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.note-link:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+}
+
+.note-card {
+    border: 1px solid #d0b8a8;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.note-card:hover {
+    background-color: #ab886d;
+    transform: scale(1.02);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; /* Hide by default */
+    position: absolute;
+    background-color: #d0b8a8;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #dfd3c3;
+}
