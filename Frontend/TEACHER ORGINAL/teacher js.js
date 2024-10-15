@@ -139,6 +139,10 @@ function navigateTo(page) {
     }
 }
 
+function navigateTo(page) {
+    window.location.href = page; // This will redirect to the specified page
+}
+
 // Close dropdown when clicking outside
 window.onclick = function(event) {
     if (!event.target.matches('.dropdown span')) {
@@ -185,5 +189,5 @@ const sessionMenu = document.getElementById('session');
 // Add an event listener for the click event
 sessionMenu.addEventListener('click', function() {
     // Navigate to the session page
-    window.location.href = 'session.html'; // Adjust this path if your session page is in a different folder
+    window.location.href = 'sessionform.html'; // Adjust this path if your session page is in a different folder
 });
