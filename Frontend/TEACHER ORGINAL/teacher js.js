@@ -112,7 +112,7 @@ function saveMarksForStudent() {
 }
 // script.js - Dashboard navigation logic
 document.getElementById('chat').addEventListener('click', function() {
-    window.location.href = 'chattr html.html'; // Navigates to chat page
+    window.location.href = 'chattr.html'; // Navigates to chat page
 });
 
 // chat.js - You can add more functionalities like search, messaging, etc.
@@ -129,13 +129,13 @@ function navigateTo(page) {
     if (page === 'home') {
         window.location.href = 'teacher html.html'; // Redirect to Teacher Page
     } else if (page === 'aptitude') {
-        window.location.href = 'aptitude html.html'; // Redirect to Aptitude Resources
+        window.location.href = 'resoaptitude.html'; // Redirect to Aptitude Resources
     } else if (page === 'verbal') {
-        window.location.href = 'verbal html.html'; // Redirect to Verbal Resources
+        window.location.href = 'resoverbal.html'; // Redirect to Verbal Resources
     } else if (page === 'softskills') {
-        window.location.href = 'softskills html.html'; // Redirect to Soft Skills Resources
+        window.location.href = 'resosoftskills.html'; // Redirect to Soft Skills Resources
     } else if (page === 'training') {
-        window.location.href = 'training html.html'; // Redirect to Personal Training Resources
+        window.location.href = 'resotraining.html'; // Redirect to Personal Training Resources
     }
 }
 
@@ -151,3 +151,39 @@ window.onclick = function(event) {
         }
     }
 }
+
+// Function to save marks to localStorage
+function saveMarks(studentName, chapter, data) {
+    let studentData = JSON.parse(localStorage.getItem(studentName)) || {};
+    studentData[chapter] = data;
+    localStorage.setItem(studentName, JSON.stringify(studentData));
+}
+
+// Function to collect marks data and save it
+function saveMarksForStudent() {
+    const studentName = document.querySelector('.panel h3').innerText;
+    const chapter = document.querySelector('.chapter-dropdown').value;
+    const data = {};
+
+    document.querySelectorAll('.marks-table tbody tr').forEach(row => {
+        const rowKey = row.querySelector('td').innerText;
+        data[rowKey] = {
+            internalMarks1: row.querySelector('input[data-col="1"]').value,
+            internalMarks2: row.querySelector('input[data-col="2"]').value,
+            assignment: row.querySelector('input[data-col="3"]').value,
+            mainExam: row.querySelector('input[data-col="4"]').value,
+            total: row.querySelector('.total').innerText
+        };
+    });
+
+    saveMarks(studentName, chapter, data);
+}
+
+// Get the session menu item by its ID
+const sessionMenu = document.getElementById('session');
+
+// Add an event listener for the click event
+sessionMenu.addEventListener('click', function() {
+    // Navigate to the session page
+    window.location.href = 'session.html'; // Adjust this path if your session page is in a different folder
+});
