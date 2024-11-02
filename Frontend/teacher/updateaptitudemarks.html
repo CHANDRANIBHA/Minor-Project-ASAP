@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - Update Aptitude Marks</title>
+    <style>
+        /* Basic styles for the body and layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8ede3;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full height of the viewport */
+            display: flex; /* Enable flex layout */
+        }
+
+        .dashboard {
+            display: flex;
+            width: 100%; /* Ensure full width */
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #8d493a;
+            color: white;
+            height: 100vh; /* Set height to full viewport height */
+            padding: 20px 0; /* Padding for sidebar */
+            position: relative; /* Position relative for inner elements */
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Round profile picture */
+        }
+
+        .user-id {
+            margin-top: 10px; /* Space above user ID */
+            font-size: 14px; /* Adjust font size */
+            color: #bdc3c7; /* Lighter color for user ID */
+        }
+
+        .menu {
+            padding: 10px 0;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Remove default margin */
+        }
+
+        .menu li {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu li:hover {
+            background-color: #8d493a; /* Highlight on hover */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .semester-selection {
+            margin-bottom: 20px; /* Space below the dropdown */
+        }
+
+        .semester-selection label {
+            margin-right: 10px; /* Space between label and dropdown */
+        }
+
+        .table-container {
+            overflow-x: auto; /* Allow horizontal scrolling for small screens */
+        }
+
+        /* Basic table and layout styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        input {
+            width: 100%;
+            text-align: right;
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="profile">
+            <img src="profilepic.jpeg" alt="Profile" class="profile-img"> <!-- Replace with actual profile image -->
+            <h2>Sachin Tendulkar</h2>
+            <div class="user-id">User ID: TH.EN.U3CDS9999</div> <!-- User ID display -->
+        </div>
+        <div class="menu">
+            <ul>
+                <li>HOME</li>
+                <li>CHAT</li>
+                <li>SESSION</li>
+                <li>RESOURCES</li>
+                <li>FAQ</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1>Update Aptitude Marks</h1>
+        <div class="semester-selection">
+            <label for="semester">Semester:</label>
+            <select id="semester">
+                <option value="" disabled selected>Select semester</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Evaluation</th>
+                        <th>Quantitative</th>
+                        <th>LR</th>
+                        <th>Total</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mid Term</td>
+                        <td><input type="number" class="marks-input" data-type="quant" value="0"></td>
+                        <td><input type="number" class="marks-input" data-type="lr" value="0"></td>
+                        <td class="row-total">0</td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>End Sem Mark</td>
+                        <td><input type="number" class="marks-input" data-type="quant" value="0"></td>
+                        <td><input type="number" class="marks-input" data-type="lr" value="0"></td>
+                        <td class="row-total">0</td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 1</td>
+                        <td><input type="number" class="marks-input" data-type="quant" value="0"></td>
+                        <td><input type="number" class="marks-input" data-type="lr" value="0"></td>
+                        <td class="row-total">0</td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 2</td>
+                        <td><input type="number" class="marks-input" data-type="quant" value="0"></td>
+                        <td><input type="number" class="marks-input" data-type="lr" value="0"></td>
+                        <td class="row-total">0</td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>Extra 1</td>
+                        <td><input type="number" class="marks-input" data-type="quant" value="0"></td>
+                        <td><input type="number" class="marks-input" data-type="lr" value="0"></td>
+                        <td class="row-total">0</td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>Extra 2</td>
+                        <td><input type="number" class="marks-input" data-type="quant" value="0"></td>
+                        <td><input type="number" class="marks-input" data-type="lr" value="0"></td>
+                        <td class="row-total">0</td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Grand Total</td>
+                        <td id="quant-grand-total">0</td>
+                        <td id="lr-grand-total">0</td>
+                        <td id="grand-total">0</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <button id="save-button">Save</button>
+    </div>
+</div>
+
+<script>
+    // Function to calculate totals in real-time
+    const calculateTotal = () => {
+        let grandQuantTotal = 0;
+        let grandLRTotal = 0;
+        let grandTotal = 0;
+
+        // Loop through each row in the table body
+        document.querySelectorAll('tbody tr').forEach(row => {
+            const quantInput = row.querySelector('input[data-type="quant"]');
+            const lrInput = row.querySelector('input[data-type="lr"]');
+            const quant = parseFloat(quantInput.value) || 0;
+            const lr = parseFloat(lrInput.value) || 0;
+
+            const rowTotal = quant + lr;
+            row.querySelector('.row-total').innerText = rowTotal;
+
+            // Add to the grand totals
+            grandQuantTotal += quant;
+            grandLRTotal += lr;
+            grandTotal += rowTotal;
+        });
+
+        // Update the grand totals in the footer
+        document.getElementById('quant-grand-total').innerText = grandQuantTotal;
+        document.getElementById('lr-grand-total').innerText = grandLRTotal;
+        document.getElementById('grand-total').innerText = grandTotal;
+    };
+
+    // Save button click event
+    document.getElementById('save-button').addEventListener('click', () => {
+        const data = [];
+        document.querySelectorAll('tbody tr').forEach(row => {
+            const evaluation = row.cells[0].innerText;
+            const quant = row.querySelector('input[data-type="quant"]').value;
+            const lr = row.querySelector('input[data-type="lr"]').value;
+            const total = row.querySelector('.row-total').innerText;
+            const remarks = row.cells[4].querySelector('input').value;
+
+            data.push({ evaluation, quant, lr, total, remarks });
+        });
+
+        // Save data to local storage
+        localStorage.setItem('aptitudeMarksData', JSON.stringify(data));
+        alert('Data saved successfully!');
+    });
+
+    // Attach 'input' event listener to each marks input for real-time calculation
+    document.querySelectorAll('.marks-input').forEach(input => {
+        input.addEventListener('input', calculateTotal); // Call calculateTotal whenever input changes
+    });
+
+    // Run initial calculation to set totals
+    calculateTotal();
+</script>
+
+</body>
+</html>
