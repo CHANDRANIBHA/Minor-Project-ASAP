@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="teacher css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profile-pic.png" alt="Profile Image" class="profile-img">
+                <h3 id="username">John Doe</h3>
+                <p id="reg-number">Reg No: 12345678</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li>Home</li>
+                    <li>Resources</li>
+                    <li>Chat</li>
+                    <li>My History</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <ul>
+                                <li>No new notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chat" id="chat">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Banner Section -->
+            <div class="banner">
+                <div class="confetti left"></div>
+                <h1>Welcome Back, <span id="username">John Doe</span>!!!</h1>
+                <p>We are excited to have you back!</p>
+                <div class="confetti right"></div>
+            </div>
+
+            <!-- Panels Section -->
+            <div class="panel" id="aptitude">
+                <h4 class="panel-title">Aptitude</h4>
+                <button class="select-sem-btn">Select Semester</button>
+                <div class="semester-dropdown" id="Asem-dropdown-aptitude">
+                    <select id="aptitude-semester">
+                        <option value="sem3">Sem 3</option>
+                        <option value="sem4">Sem 4</option>
+                        <option value="sem5">Sem 5</option>
+                    </select>
+                    <!-- Add the Go button -->
+                    <button id="goToAptitudePage">Go</button>
+                </div>
+            </div>
+
+
+            <div class="panel" id="verbal">
+                <h4 class="panel-title">Verbal</h4>
+                <button class="select-sem-btn">Select Semester</button>
+                <div class="semester-dropdown" id="Vsem-dropdown-aptitude">
+                    <select id="verbal-semester">
+                        <option value="sem3">Sem 3</option>
+                        <option value="sem4">Sem 4</option>
+                        <option value="sem5">Sem 5</option>
+                    </select>
+                    <!-- Add the Go button -->
+                    <button id="goToVerbalPage">Go</button>
+                </div>
+            </div>
+            
+
+                <!-- <div class="panel" id="verbal">
+                    <h4 class="panel-title">Verbal</h4>
+                    <button class="select-sem-btn">Select Semester</button>
+                    <div class="semester-dropdown" id="sem-dropdown-verbal">
+                        <select>
+                            <option value="sem3">Sem 3</option>
+                            <option value="sem4">Sem 4</option>
+                            <option value="sem5">Sem 5</option>
+                        </select>
+                    </div>
+                </div> -->
+
+                <div class="panel" id="softskills">
+                    <h4 class="panel-title">Softskills</h4>
+                    <button class="select-sem-btn">Select Semester</button>
+                    <div class="semester-dropdown" id="Sosem-dropdown-aptitude">
+                        <select id="softskills-semester">
+                            <option value="sem3">Sem 3</option>
+                            <option value="sem4">Sem 4</option>
+                            <option value="sem5">Sem 5</option>
+                        </select>
+                        <!-- Add the Go button -->
+                        <button id="goTosoftskillPage">Go</button>
+                    </div>
+                </div>
+                
+
+                <!-- <div class="panel" id="softskill">
+                    <h4 class="panel-title">Soft Skill</h4>
+                    <button class="select-sem-btn">Select Semester</button>
+                    <div class="semester-dropdown" id="sem-dropdown-softskill">
+                        <select>
+                            <option value="sem3">Sem 3</option>
+                            <option value="sem4">Sem 4</option>
+                            <option value="sem5">Sem 5</option>
+                        </select>
+                    </div>
+                </div> -->
+
+                <div class="panel" id="training">
+                    <h4 class="panel-title">Professional Training</h4>
+                    <button class="select-training-btn">Select Training</button>
+                    <div class="training-options" id="training-dropdown" style="display: none;">
+                        <select>
+                            <option value="gd">Group Discussion</option>
+                            <option value="mock">Mock Interview</option>
+                            <option value="public-speaking">Public Speaking</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+           
+
+    <script src="teacher js.js"></script>
+    <script>
+        // Function to set the user's name
+        function setUserName(name) {
+            document.getElementById('username').innerText = name;
+        }
+
+        // Call this function with the actual user's name
+        setUserName('John Doe'); // Replace 'John Doe' with the actual user's name
+        
+        // // Function to navigate to the classes page based on semester selection
+        // document.querySelectorAll('.semester-dropdown select').forEach(select => {
+        //     select.addEventListener('change', function() {
+        //         const semester = this.value;
+        //         const panelId = this.closest('.panel').id;
+        //         if (semester) {
+        //             window.location.href = `classes.html?panel=${panelId}&semester=${semester}`;
+        //         }
+        //     });
+        // });
+        
+        // // Function to navigate to the correct classes page when class is selected
+        // document.querySelectorAll('.class-dropdown').forEach(select => {
+        //     select.addEventListener('change', function() {
+        //         const action = this.value;
+        //         const className = this.closest('.panel').querySelector('h3').innerText;
+
+        //         // Redirect to classes.html instead of students.html
+        //         if (action) {
+        //             window.location.href = `classes.html?class=${className}&action=${action}`;
+        //         }
+        //     });
+        // });
+        // Handle the Go button click for Aptitude
+document.getElementById('goToAptitudePage').addEventListener('click', function() {
+    const semester = document.getElementById('aptitude-semester').value;
+    if (semester) {
+        window.location.href = `aptitude.html?semester=${semester}`; // Redirect to aptitude.html with the selected semester
+    } else {
+        alert("Please select a semester."); // Error message if no semester is selected
+    }
+});
+
+
+document.getElementById('goToVerbalPage').addEventListener('click', function() {
+    const semester = document.getElementById('verbal-semester').value;
+    if (semester) {
+        window.location.href = `verbal.html?semester=${semester}`; // Redirect to aptitude.html with the selected semester
+    } else {
+        alert("Please select a semester."); // Error message if no semester is selected
+    }
+});
+
+
+document.getElementById('goTosoftskillPage').addEventListener('click', function() {
+    const semester = document.getElementById('softskills-semester').value;
+    if (semester) {
+        window.location.href = `softskills.html?semester=${semester}`; // Redirect to aptitude.html with the selected semester
+    } else {
+        alert("Please select a semester."); // Error message if no semester is selected
+    }
+});
+
+        
+    </script>
+</body>
+</html>

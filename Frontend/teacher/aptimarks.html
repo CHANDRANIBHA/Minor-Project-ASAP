@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Management</title>
+    <link rel="stylesheet" href="teacher css.css"> <!-- Same CSS for consistency -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar and other common content here -->
+    </div>
+
+    <div class="main-content">
+        <h2>Manage Student Marks: <span id="class-name"></span><span id="student-name"></span></h2>
+        <div>
+            <label for="semester-select">Select Semester:</label>
+            <select id="semester-select">
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+            </select>
+        </div>
+
+        <div id="marks-table-container">
+            <!-- Table for marks entry or viewing will be populated here -->
+        </div>
+
+        <table id="marks-table" border="1">
+            <thead>
+                <tr>
+                    <th>Evaluation</th>
+                    <th>Quantitative</th>
+                    <th>LR</th>
+                    <th>Total</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="marks-body">
+                <tr>
+                    <td>Mid Term</td>
+                    <td><input type="number" class="marks-input" id="midterm-quant" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="midterm-lr" value="0"/></td>
+                    <td id="midterm-total">0</td>
+                    <td><input type="text" id="midterm-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>End Sem Mark</td>
+                    <td><input type="number" class="marks-input" id="endsem-quant" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="endsem-lr" value="0"/></td>
+                    <td id="endsem-total">0</td>
+                    <td><input type="text" id="endsem-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Assignment 1</td>
+                    <td><input type="number" class="marks-input" id="assign1-quant" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="assign1-lr" value="0"/></td>
+                    <td id="assign1-total">0</td>
+                    <td><input type="text" id="assign1-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Assignment 2</td>
+                    <td><input type="number" class="marks-input" id="assign2-quant" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="assign2-lr" value="0"/></td>
+                    <td id="assign2-total">0</td>
+                    <td><input type="text" id="assign2-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Extra 1</td>
+                    <td><input type="number" class="marks-input" id="extra1-quant" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="extra1-lr" value="0"/></td>
+                    <td id="extra1-total">0</td>
+                    <td><input type="text" id="extra1-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Extra 2</td>
+                    <td><input type="number" class="marks-input" id="extra2-quant" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="extra2-lr" value="0"/></td>
+                    <td id="extra2-total">0</td>
+                    <td><input type="text" id="extra2-remarks" /></td>
+                </tr>
+            </tbody>
+            
+            <tfoot>
+                <tr>
+                    <td>Grand Total</td>
+                    <td id="quant-grand-total">0</td>
+                    <td id="lr-grand-total">0</td>
+                    <td id="grand-total">0</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <button id="save-button" style="display: none;">Save Marks</button>
+    </div>
+
+    <script>
+        // Get student name and mode from the query parameters
+const params = new URLSearchParams(window.location.search);
+const studentName = params.get('student');
+const mode = params.get('mode'); // 'update' or 'view'
+const className = params.get('class');
+document.getElementById('class-name').innerText = className;
+document.getElementById('student-name').innerText = studentName;
+
+const saveButton = document.getElementById('save-button');
+const marksInputs = document.querySelectorAll('.marks-input');
+
+// Initialize marks data if it's not already available
+let marksData = {
+    midtermQuant: 0,
+    midtermLR: 0,
+    midtermRemarks: "",
+    endsemQuant: 0,
+    endsemLR: 0,
+    endsemRemarks: "",
+    assign1Quant: 0,
+    assign1LR: 0,
+    assign1Remarks: "",
+    assign2Quant: 0,
+    assign2LR: 0,
+    assign2Remarks: "",
+    extra1Quant: 0,
+    extra1LR: 0,
+    extra1Remarks: "",
+    extra2Quant: 0,
+    extra2LR: 0,
+    extra2Remarks: ""
+};
+
+// Load saved marks from localStorage (if any)
+const savedMarks = JSON.parse(localStorage.getItem(`${studentName}-marks`));
+if (savedMarks) {
+    marksData = savedMarks;
+}
+
+// Show the table and pre-fill it with marks data
+function loadMarksTable() {
+    document.getElementById('midterm-quant').value = marksData.midtermQuant;
+    document.getElementById('midterm-lr').value = marksData.midtermLR;
+    document.getElementById('midterm-remarks').value = marksData.midtermRemarks;
+    document.getElementById('endsem-quant').value = marksData.endsemQuant;
+    document.getElementById('endsem-lr').value = marksData.endsemLR;
+    document.getElementById('endsem-remarks').value = marksData.endsemRemarks;
+    document.getElementById('assign1-quant').value = marksData.assign1Quant;
+    document.getElementById('assign1-lr').value = marksData.assign1LR;
+    document.getElementById('assign1-remarks').value = marksData.assign1Remarks;
+    document.getElementById('assign2-quant').value = marksData.assign2Quant;
+    document.getElementById('assign2-lr').value = marksData.assign2LR;
+    document.getElementById('assign2-remarks').value = marksData.assign2Remarks;
+    document.getElementById('extra1-quant').value = marksData.extra1Quant;
+    document.getElementById('extra1-lr').value = marksData.extra1LR;
+    document.getElementById('extra1-remarks').value = marksData.extra1Remarks;
+    document.getElementById('extra2-quant').value = marksData.extra2Quant;
+    document.getElementById('extra2-lr').value = marksData.extra2LR;
+    document.getElementById('extra2-remarks').value = marksData.extra2Remarks;
+
+    calculateTotals(); // Recalculate totals after loading data
+}
+
+// Handle saving of marks
+if (mode === 'update') {
+    saveButton.style.display = 'block'; // Show save button in update mode
+
+    // Enable marks input for teacher
+    marksInputs.forEach(input => {
+        input.disabled = false;
+    });
+
+    saveButton.addEventListener('click', () => {
+        const updatedMarksData = {
+            midtermQuant: document.getElementById('midterm-quant').value,
+            midtermLR: document.getElementById('midterm-lr').value,
+            midtermRemarks: document.getElementById('midterm-remarks').value,
+            endsemQuant: document.getElementById('endsem-quant').value,
+            endsemLR: document.getElementById('endsem-lr').value,
+            endsemRemarks: document.getElementById('endsem-remarks').value,
+            assign1Quant: document.getElementById('assign1-quant').value,
+            assign1LR: document.getElementById('assign1-lr').value,
+            assign1Remarks: document.getElementById('assign1-remarks').value,
+            assign2Quant: document.getElementById('assign2-quant').value,
+            assign2LR: document.getElementById('assign2-lr').value,
+            assign2Remarks: document.getElementById('assign2-remarks').value,
+            extra1Quant: document.getElementById('extra1-quant').value,
+            extra1LR: document.getElementById('extra1-lr').value,
+            extra1Remarks: document.getElementById('extra1-remarks').value,
+            extra2Quant: document.getElementById('extra2-quant').value,
+            extra2LR: document.getElementById('extra2-lr').value,
+            extra2Remarks: document.getElementById('extra2-remarks').value
+        };
+
+        // Save the marks data to localStorage
+        localStorage.setItem(`${studentName}-marks`, JSON.stringify(updatedMarksData));
+        alert('Marks saved!');
+    });
+} else if (mode === 'view') {
+    // Hide save button and disable inputs in view mode
+    saveButton.style.display = 'none';
+
+    // Disable marks input for viewing mode
+    marksInputs.forEach(input => {
+        input.disabled = true;
+    });
+
+    // If saved marks data exists, populate it into the form
+    if (savedMarks) {
+        loadMarksTable();
+    } else {
+        alert('No marks data available');
+    }
+}
+
+// Function to auto-calculate totals dynamically
+function calculateTotals() {
+    const evaluations = ['midterm', 'endsem', 'assign1', 'assign2', 'extra1', 'extra2'];
+
+    let quantGrandTotal = 0;
+    let lrGrandTotal = 0;
+
+    evaluations.forEach(eval => {
+        const quantScore = parseFloat(document.getElementById(`${eval}-quant`).value) || 0;
+        const lrScore = parseFloat(document.getElementById(`${eval}-lr`).value) || 0;
+
+        const totalScore = quantScore + lrScore;
+        document.getElementById(`${eval}-total`).innerText = totalScore;
+
+        quantGrandTotal += quantScore;
+        lrGrandTotal += lrScore;
+    });
+
+    const grandTotal = quantGrandTotal + lrGrandTotal;
+    document.getElementById('quant-grand-total').innerText = quantGrandTotal;
+    document.getElementById('lr-grand-total').innerText = lrGrandTotal;
+    document.getElementById('grand-total').innerText = grandTotal;
+}
+
+// Add event listeners to all input fields for dynamic total calculation
+marksInputs.forEach(input => {
+    input.addEventListener('input', calculateTotals);
+});
+
+// Initial calculation on page load
+calculateTotals();
+loadMarksTable();
+
+    </script>
+</body>
+</html>
