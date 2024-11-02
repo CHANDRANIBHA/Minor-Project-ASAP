@@ -127,7 +127,7 @@ function toggleDropdown() {
 // Function to handle navigation
 function navigateTo(page) {
     if (page === 'home') {
-        window.location.href = 'teacher html.html'; // Redirect to Teacher Page
+        window.location.href = 'teacher_html.html'; // Redirect to Teacher Page
     } else if (page === 'aptitude') {
         window.location.href = 'resoaptitude.html'; // Redirect to Aptitude Resources
     } else if (page === 'verbal') {
