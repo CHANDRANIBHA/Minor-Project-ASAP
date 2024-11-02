@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My History</title>
+    <link rel="stylesheet" href="admincss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profile-pic.png" alt="Profile Image" class="profile-img">
+                <h3 id="username">Kiara</h3>
+                <p id="reg-number">Reg No: AD.EN.U3MIN00011</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li onclick="navigateTo('teacher html.html')">Home</li>
+                    <li onclick="navigateTo('Manage.html')">Manage</li>
+                    <li onclick="navigateTo('viewadmin.html')">View</li>
+                    <li onclick="navigateTo('history.html')">History</li>
+                    <li onclick="navigateTo('faq')">FAQ</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panels Section for History -->
+            <div class="panels-section">
+                <div class="panel">
+                    <h4 class="panel-title">Sessions</h4>
+                    <p>Details about your sessions will appear here.</p>
+                </div>
+                <div class="panel">
+                    <h4 class="panel-title">Updations</h4>
+                    <p>Details about updates will appear here.</p>
+                </div>
+                <div class="panel">
+                    <h4 class="panel-title">Feedback</h4>
+                    <p>Your feedback history will appear here.</p>
+                </div>
+                <div class="panel">
+                    <h4 class="panel-title">sljsldfjsldfj</h4>
+                    <p>Information about sljsldfjsldfj will appear here.</p>
+                </div>
+                <div class="panel">
+                    <h4 class="panel-title">hfdjfhdskjfsk</h4>
+                    <p>Information about hfdjfhdskjfsk will appear here.</p>
+                </div>
+                <div class="panel">
+                    <h4 class="panel-title">jafhkajfhkdsjf</h4>
+                    <p>Information about jafhkajfhkdsjf will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="adminjs.js"></script>
+</body>
+</html>
