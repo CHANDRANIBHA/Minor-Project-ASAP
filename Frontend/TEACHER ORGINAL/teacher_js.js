@@ -40,6 +40,18 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// JavaScript to handle the Go button for Verbal panel
+document.getElementById('goToVerbalPage').addEventListener('click', function() {
+    const semester = document.getElementById('verbal-semester').value;
+    if (semester) {
+        // Redirect to verbal.html with the selected semester as a query parameter
+        window.location.href = `verbal.html?semester=${semester}`;
+    } else {
+        alert("Please select a semester."); // Alert if no semester is selected
+    }
+});
+
+
 // Navigation for semesters
 document.querySelectorAll('.semester-dropdown select').forEach(select => {
     select.addEventListener('change', function() {

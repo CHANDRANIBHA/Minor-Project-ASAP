@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
-    <link rel="stylesheet" href="teacher css.css">
+    <link rel="stylesheet" href="teacher_css.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
@@ -92,7 +92,7 @@
                     <h4 class="panel-title">Verbal</h4>
                     <button class="select-sem-btn">Select Semester</button>
                     <div class="semester-dropdown" id="sem-dropdown-verbal">
-                        <select>
+                        <select id="verbal-semester">
                             <option value="sem3">Sem 3</option>
                             <option value="sem4">Sem 4</option>
                             <option value="sem5">Sem 5</option>
@@ -162,7 +162,7 @@
         </div>
     </div>
 
-    <script src="teacher js.js"></script>
+    <script src="teacher_js.js"></script>
     <script>
         // Function to set the user's name
         function setUserName(name) {
