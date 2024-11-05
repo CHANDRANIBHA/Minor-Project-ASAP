@@ -90,14 +90,15 @@ function navigateTo(page) {
     if (page === 'home') {
         window.location.href = 'teacher html.html'; // Redirect to Teacher Page
     } else if (page === 'aptitude') {
-        window.location.href = 'aptitude html.html'; // Redirect to Aptitude Resources
+        window.location.href = 'resoaptitude.html'; // Redirect to Aptitude Resources
     } else if (page === 'verbal') {
-        window.location.href = 'verbal html.html'; // Redirect to Verbal Resources
+        window.location.href = 'resoverbal.html'; // Redirect to Verbal Resources
     } else if (page === 'softskills') {
-        window.location.href = 'softskills html.html'; // Redirect to Soft Skills Resources
+        window.location.href = 'resosoftskills.html'; // Redirect to Soft Skills Resources
     } else if (page === 'training') {
-        window.location.href = 'training html.html'; // Redirect to Personal Training Resources
+        window.location.href = 'resotraining.html'; // Redirect to Personal Training Resources
     }
 }
+
 
 

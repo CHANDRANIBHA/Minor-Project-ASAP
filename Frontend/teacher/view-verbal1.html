@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIEW STUDENT DETAILS</title>
+    <link rel="stylesheet" href="teacher css.css"> <!-- Same CSS for consistency -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profile-pic.png" alt="Profile Image" class="profile-img">
+                <h3 id="username">John Doe</h3>
+                <p id="reg-number">Reg No: 12345678</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li>Home</li>
+                    <li>Resources</li>
+                    <li>Chat</li>
+                    <li>My History</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <ul>
+                                <li>No new notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chat" id="chat">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+
+            <h2>View students marks: verbal <span id="class-name"></span></h2>
+            
+            <div class="student-panels">
+                <div class="panel">
+                    <h3>John Doe (Roll No: 001)</h3>
+                    <select class="chapter-dropdown">
+                        <option value="">Select...</option>
+                        <option value="marks1.html">Speaking</option> <!-- Link to marks1.html -->
+                        <option value="marks2.html">Writing</option> <!-- Link to marks2.html -->
+                    </select>
+                </div>
+
+                <div class="panel">
+                    <h3>Jane Smith (Roll No: 002)</h3>
+                    <select class="chapter-dropdown">
+                        <option value="">Select...</option>
+                        <option value="marks1.html">Speaking</option> <!-- Link to marks1.html -->
+                        <option value="marks2.html">Writing</option> <!-- Link to marks2.html -->
+                    </select>
+                </div>
+
+                <div class="panel">
+                    <h3>Michael Johnson (Roll No: 003)</h3>
+                    <select class="chapter-dropdown">
+                        <option value="">Select...</option>
+                        <option value="marks1.html">Speaking</option> <!-- Link to marks1.html -->
+                        <option value="marks2.html">Writing</option> <!-- Link to marks2.html -->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    <script src="teacher js.js"></script>      
+    <script>
+    // Function to set the user's name
+    function setUserName(name) {
+        document.getElementById('username').innerText = name;
+    }
+
+    // Call this function with the actual user's name
+    setUserName('John Doe'); // Replace 'John Doe' with the actual user's name
+
+    // Set the class name from URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const className = params.get('class');
+    document.getElementById('class-name').innerText = className;
+
+    // Handle chapter dropdown selection and navigate to the appropriate marks page
+    document.querySelectorAll('.chapter-dropdown').forEach(dropdown => {
+        dropdown.addEventListener('change', function() {
+            const selectedPage = this.value; // Get the selected page (marks1.html or marks2.html)
+            const studentName = this.closest('.panel').querySelector('h3').innerText;
+
+            // Check if a page is selected before navigating
+            if (selectedPage) {
+                window.location.href = `${selectedPage}?class=${className}&student=${studentName}`; // Append class and student name
+            }
+        });
+    });
+    function studentClicked(studentName) {
+            const mode = "view";
+            window.location.href = `aptimarks.html?student=${encodeURIComponent(studentName)}&mode=${mode}&class=${encodeURIComponent(className)}`;
+        }
+
+    </script>
+</body>
+</html>

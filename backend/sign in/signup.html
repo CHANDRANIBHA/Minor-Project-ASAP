@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="signup css.css"> <!-- Correct link to your CSS file -->
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <!-- Updated form with POST method and action pointing to db.php -->
+        <form id="signupForm" method="POST" action=""C:\xampp\htdocs\db.php""> 
+            <label for="username">User Name</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <p class="error" id="usernameError"></p>
+
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+                <option value="admin">Admin</option>
+            </select>
+            <p class="error" id="roleError"></p>
+
+            <label for="registration-number">Registration Number</label>
+            <input type="text" id="registration-number" name="registration-number" placeholder="Enter your registration number" required>
+            <p class="error" id="registrationError"></p>
+
+            <label for="email">Email ID</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <p class="error" id="emailError"></p>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <p class="error" id="passwordError"></p>
+
+            <button type="submit" id="signupBtn" class="signup-btn">Signup</button>
+        </form>
+    </div>
+
+    <!-- Message Container for Success Message and Login Button -->
+    <div id="messageContainer" style="text-align: center; margin-top: 20px;"></div>
+
+    <script src="signup js.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
