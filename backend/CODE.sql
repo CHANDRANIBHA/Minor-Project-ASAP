@@ -28,3 +28,11 @@ CREATE TABLE `teacher_tbl` (
   PRIMARY KEY (`teacher_id`),
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+ALTER TABLE `asap`.`teacher_tbl` 
+ADD CONSTRAINT `td`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `asap`.`users` (`user_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
