@@ -46,3 +46,37 @@ CREATE TABLE `users` (
   `role` enum('student','teacher','admin') DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE subject_tbl (
+    id INT AUTO_INCREMENT,            -- id is auto-incremented
+    subject_id VARCHAR(15) NOT NULL,   -- subject_id is a regular column
+    subject_name VARCHAR(100) NOT NULL, -- subject_name cannot be NULL
+    PRIMARY KEY (subject_id),          -- subject_id is the primary key
+    UNIQUE (id)                        -- id is a unique key
+);
+DELIMITER //
+
+CREATE TRIGGER before_insert_subject_tbl
+BEFORE INSERT ON subject_tbl
+FOR EACH ROW
+BEGIN
+    -- Set the subject_id to 'SUB' followed by the id (which will be auto-incremented)
+    SET NEW.subject_id = CONCAT('SUB', NEW.id);
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+CREATE TABLE topic_tbl (
+    topic_id VARCHAR(50) PRIMARY KEY,
+    subject_id VARCHAR(50),
+    topic_name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (subject_id) REFERENCES subject_tbl(subject_id)
+);
+
