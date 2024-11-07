@@ -2,7 +2,7 @@
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "Admin";
+$password = "admin";
 $dbname = "asap";
 
 // Create connection
