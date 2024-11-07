@@ -1,6 +1,6 @@
 <?php
 // Include database connection file
-include "C:/xampp/htdocs/db.php"; // Update the path as needed
+include "C:\Users\USER\Desktop\Minor-Project-ASAP\Frontend\TEACHER ORGINAL"; // Update the path as needed
 
 // Initialize variables
 $currentUser = $_SESSION['user_id'] ?? ''; // Assumes user is logged in and session has user_id
