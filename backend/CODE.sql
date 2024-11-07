@@ -80,3 +80,47 @@ CREATE TABLE topic_tbl (
     FOREIGN KEY (subject_id) REFERENCES subject_tbl(subject_id)
 );
 
+
+
+
+CREATE TABLE `subject_tbl` (
+  `subject_id` int NOT NULL AUTO_INCREMENT,
+  `subject_name` varchar(100) NOT NULL,
+  `std_id` int DEFAULT NULL,
+  PRIMARY KEY (`subject_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+CREATE TABLE `topic_tbl` (
+  `topic_id` int NOT NULL AUTO_INCREMENT,
+  `topic_name` varchar(100) NOT NULL,
+  `subject_id` int DEFAULT NULL,
+  PRIMARY KEY (`topic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE `evaluation_tbl` (
+  `eval_id` int NOT NULL AUTO_INCREMENT,
+  `eval_name` varchar(100) NOT NULL,
+  `topic_id` int DEFAULT NULL,
+  PRIMARY KEY (`eval_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE `mark_tbl` (
+  `mark_id` int NOT NULL AUTO_INCREMENT,
+  `topic_id` int DEFAULT NULL,
+  `marks` int DEFAULT NULL,
+  `remarks` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`mark_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+1	aptitude	1
+2	verbal	1
+3	soft_skill	1
+		
