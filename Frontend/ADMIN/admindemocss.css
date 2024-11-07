@@ -1,0 +1,121 @@
+/* Sidebar and Layout Adjustments */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #8d493a;
+    color: white;
+    height: 100vh; /* Ensures sidebar fills full height on desktop */
+    position: fixed; /* Fixed sidebar */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.sidebar .profile-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.sidebar h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.sidebar p {
+    font-size: 0.9em;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.sidebar nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+.sidebar nav a:hover {
+    background-color: #b75e4c;
+    border-radius: 5px;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.banner {
+    background-color: #8d493a;
+    color: white;
+    text-align: center;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.banner h1 {
+    font-size: 2em;
+}
+
+.banner p {
+    font-size: 1.2em;
+}
+
+/* Counting Panels */
+.counting-area {
+    display: flex;
+    gap: 15px; /* Reduced gap between count boxes */
+    margin-top: 20px;
+}
+
+.count-box {
+    flex: 1; /* Maintain flexible layout */
+    background-color: #ffffff;
+    padding: 15px; /* Reduced padding */
+    border-radius: 8px; /* Slightly smaller border radius */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #8d493a; /* Border to define the panel */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.count-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.count-box h2 {
+    font-size: 1.2em; /* Reduced font size for title */
+    margin-bottom: 8px; /* Slightly reduced margin */
+    color: #8d493a; /* Matching title color */
+}
+
+.count-box p {
+    font-size: 2em; /* Reduced font size for count */
+    color: #8d493a;
+    font-weight: bold;
+}
+.count {
+    font-size: 2em; /* Adjust the size as needed */
+    color: #8d493a;
+    font-weight: bold;
+    transition: transform 0.5s ease; /* Smooth transition for scaling effect */
+}

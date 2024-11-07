@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #f8ede3, #8d493a);
+            color: #333;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #8d493a;
+            color: white;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 18px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+
+        .sidebar a:hover {
+            border-left: 5px solid #ffffff;
+            background: #8d493a;
+        }
+
+        .logout a {
+            font-size: 18px;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        /* Profile Icon Container */
+        .container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #8d493a;
+            padding: 10px 20px;
+            position: fixed;
+            right: 0;
+            width: calc(100% - 240px);
+            top: 0;
+        }
+
+        .container img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        .container .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #8d493a;
+            right: 20px;
+            top: 60px;
+            min-width: 150px;
+            z-index: 1;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .container .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background 0.2s;
+        }
+
+        .container .dropdown-content a:hover {
+            background-color: #8d493a;
+        }
+
+        /* Feedback Container */
+        .feedback-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-container h2 {
+            color: #8d493a;
+            margin-bottom: 15px;
+        }
+
+        .feedback-container textarea {
+            width: 500px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+            resize: none;
+            font-size: 16px;
+        }
+
+        .feedback-container button {
+            background-color: #8d493a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 200px;
+            transition: background-color 0.3s;
+        }
+
+        .feedback-container button:hover {
+            background-color: #8d493a;
+        }
+
+        .feedback-container .feedback-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Profile Icon and Dropdown -->
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>    
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <a href="Home"></i> Home</a>
+        <a href="Resources">Resources</i> </a>
+        <a href="Chat"></i> Chat</a>
+        <a href="Feedback"></i> Feedback</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="feedback-container">
+            <h2>Share your thoughts</h2>
+            <textarea id="feedbackText" name="feedback" placeholder="Enter here..." rows="10"></textarea>
+            <button onclick="submitFeedback()">SUBMIT</button>
+          
+        </div>
+    </div>
+
+    <script>
+        // Toggle Dropdown Menu
+        let dropdownOpen = false;
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdownOpen = !dropdownOpen;
+            dropdown.style.display = dropdownOpen ? "block" : "none";
+        }
+
+        // Profile Picture Upload
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileIcon').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Feedback Submission (Mock)
+        function submitFeedback() {
+            var feedback = document.getElementById('feedbackText').value;
+            alert('Feedback submitted: ' + feedback);
+            // Implement AJAX or API call here to submit the feedback to the server
+        }
+    </script>
+</body>
+</html>
