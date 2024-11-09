@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASAP - Evaluate, Educate, Develop</title>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="homepage.css">
+
 </head>
 <body> 
     <div class="bg"></div>
@@ -20,9 +21,11 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            <a href="signup html.html" class="signup-btn">Sign Up</a>
-            <a href="trialpassword.html" class="login-btn">Login</a>
-            
+            <!-- <a href="signup.php" class="signup-btn">Sign Up</a> Link to signup PHP file -->
+            <!-- <a href="login.php" class="login-btn">Login</a> Link to login PHP file -->
+            <a href="../sign in/signup.php" class="signup-btn">Sign Up</a>
+            <a href="../login/login.php" class="login-btn">Login</a>
+
         </nav>
         <div class="mobile-menu" id="mobile-menu">&#9776;</div>
     </header>
@@ -76,13 +79,12 @@
     <section id="signup" class="signup-section">
         <h2>Join ASAP Today</h2>
         <p>Sign up to start exploring all the features and enhance your learning journey.</p>
-        <a href="#" class="signup-btn">Sign Up Now</a>
+        <a href="signup.php" class="signup-btn">Sign Up Now</a> <!-- Link to signup PHP file -->
     </section>
     
-
     <!-- Footer Section -->
     <footer id="contact" class="footer">
-        <p>&copy; 2024 ASAP Platform. All rights reserved.</p>
+        <p>&copy; <?php echo date("Y"); ?> ASAP Platform. All rights reserved.</p>
         <div class="footer-links">
             <a href="#">Privacy Policy</a> | 
             <a href="#">Terms of Service</a> | 

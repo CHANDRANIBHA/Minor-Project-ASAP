@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="signup css.css">
+</head>
+<body>
+    <div class="signup-container"> <!-- Changed id to class -->
+        <h2>Signup</h2>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username">
+        <span id="usernameError" class="error"></span>
+
+        <label for="role">Role:</label>
+        <select id="role">
+            <option value="">Select role</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+        </select>
+        <span id="roleError" class="error"></span>
+
+        <label for="registration-number">Registration Number:</label>
+        <input type="text" id="registration-number" placeholder="Enter your registration number">
+        <span id="registrationError" class="error"></span>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        <span id="emailError" class="error"></span>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        <span id="passwordError" class="error"></span>
+
+        <button id="signupBtn">Sign Up</button>
+        <span id="formError" class="error"></span>
+    </div>
+    <div class="context">
+        
+    </div>
+
+
+<div class="area" >
+            <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+    </div >
+
+    <div id="messageContainer"></div> <!-- Success message container -->
+
+    <script src="signup js.js"></script>
+</body>
+</html>
