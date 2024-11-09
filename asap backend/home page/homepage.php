@@ -39,7 +39,7 @@
             
             <p style="font-style: italic; font-size: 0.7em; color:white;">EMPOWERING STUDENTS TO ACHIEVE THEIR GOALS, AS SOON AS POSSIBLE</p>
 
-            <a href="#signup" class="cta-btn">Discover Features</a>
+            <a href="../sign in/signup.php" class="cta-btn">Discover Features</a>
         </div>
         
         <div class="hero-illustration">
@@ -79,7 +79,7 @@
     <section id="signup" class="signup-section">
         <h2>Join ASAP Today</h2>
         <p>Sign up to start exploring all the features and enhance your learning journey.</p>
-        <a href="signup.php" class="signup-btn">Sign Up Now</a> <!-- Link to signup PHP file -->
+        <a href="../sign in/signup.php" class="signup-btn">Sign Up Now</a> <!-- Link to signup PHP file -->
     </section>
     
     <!-- Footer Section -->
