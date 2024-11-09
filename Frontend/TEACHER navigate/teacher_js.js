@@ -212,9 +212,7 @@ function goBack() {
 
 // Function for Logout
 function logout() {
-    const confirmLogout = confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-        // Redirect to the login page or clear session as needed
+    
         window.location.href = 'home.html'; 
-    }
+   
 }
