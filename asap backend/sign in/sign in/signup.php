@@ -17,26 +17,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST['confirm_password'] ?? '';
 
     // Perform server-side validation
-    if (empty($username)) {
-        $errors['username'] = "Username is required.";
-    }
-    if (empty($role)) {
-        $errors['role'] = "Role is required.";
-    }
-    if (empty($user_id)) {
-        $errors['user_id'] = "User ID is required.";
-    }
-    if (empty($email)) {
-        $errors['email'] = "Email is required.";
-    }
-    if (empty($password)) {
-        $errors['password'] = "Password is required.";
-    } elseif ($password !== $confirm_password) {
-        $errors['confirm_password'] = "Passwords do not match.";
-    } else {
-        // Hash the password for security
-        $password = password_hash($password, PASSWORD_DEFAULT);
-    }
+    // Perform server-side validation
+$errors = [];
+
+if (empty($username)) {
+    $errors['username'] = "Username is required.";
+}
+if (empty($role)) {
+    $errors['role'] = "Role is required.";
+}
+if (empty($user_id)) {
+    $errors['user_id'] = "User ID is required.";
+}
+if (empty($email)) {
+    $errors['email'] = "Email is required.";
+}
+if (empty($password)) {
+    $errors['password'] = "Password is required.";
+} elseif ($password !== $confirm_password) {
+    $errors['confirm_password'] = "Passwords do not match.";
+} else {
+    // Hash the password for security
+    $password = password_hash($password, PASSWORD_DEFAULT); 
+}
+
+// Check if there are any errors before proceeding
+if (empty($errors)) {
+    // Proceed with further processing (e.g., saving to the database)
+} else {
+    // Handle errors (e.g., show errors to the user)
+}
+
 
     // If there are no validation errors, check for existing username and user_id
     if (count($errors) === 0) {
