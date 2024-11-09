@@ -185,7 +185,7 @@ body {
 
 h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 25px;
     color: #8d493a;
 }
@@ -314,23 +314,18 @@ button[type="button"]:hover {
 }
 
 /* Back button style */
-.back-button {
-    Display: inline-block;
-    Margin: 10px;
-    Padding: 8px 16px;
-    Font-size: 16px;
-    Color: #fff;
-    Background-color: #8d493a;
-    Border: none;
-    Border-radius: 5px;
+.back-arrow {
+    Margin: 15px;
+    Font-size: 24px;
+    Color: #8d493a;
     Cursor: pointer;
+    text-decoration: none;
 }
 
-.back-button:hover {
-    Background-color: #dfd3c3;
-    color: #8d493a;
+body,select,input,label,textarea{
+    font-size: initial;
+    font-family: Arial, Helvetica, sans-serif;
 }
-
 /* Logout link style in the sidebar */
 .sidebar ul li {
     Cursor: pointer;

@@ -215,6 +215,6 @@ function logout() {
     const confirmLogout = confirm("Are you sure you want to log out?");
     if (confirmLogout) {
         // Redirect to the login page or clear session as needed
-        window.location.href = 'login.html'; // Replace 'login.html' with the actual login page path
+        window.location.href = 'home.html'; 
     }
 }
