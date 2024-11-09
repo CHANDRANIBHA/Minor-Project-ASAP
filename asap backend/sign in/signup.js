@@ -122,7 +122,6 @@ function validatePassword() {
     const passwordInput = document.getElementById('password');
     const password = passwordInput.value.trim();
     const passwordError = document.getElementById('passwordError');
-    console.log("hi");
 
     if (!passwordPattern.test(password)) {
         passwordInput.style.borderColor = 'red';
