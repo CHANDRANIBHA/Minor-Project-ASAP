@@ -60,27 +60,42 @@ document.querySelectorAll('select criteria').forEach(button => {
         });
     });
 });
+
 // Function to toggle the dropdown visibility
 function toggleDropdown() {
     const dropdown = document.getElementById('resources-dropdown');
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
  
-// Function to handle navigation
+function navigateTo(page) {
+    window.location.href = page; // Redirect to the page
+}
+
 function navigateTo(page) {
     if (page === 'home') {
-        window.location.href = 'teacher html.html'; // Redirect to Teacher Page
+        window.location.href = 'stud_html.html'; 
     } else if (page === 'aptitude') {
-        window.location.href = 'aptitude html.html'; // Redirect to Aptitude Resources
+        window.location.href = 'resoaptitude.html'; 
     } else if (page === 'verbal') {
-        window.location.href = 'verbal html.html'; // Redirect to Verbal Resources
+        window.location.href = 'resoverbal.html'; 
     } else if (page === 'softskills') {
-        window.location.href = 'softskills html.html'; // Redirect to Soft Skills Resources
+        window.location.href = 'resosoftskills.html'; 
     } else if (page === 'training') {
-        window.location.href = 'training html.html'; // Redirect to Personal Training Resources
+        window.location.href = 'resotraining.html'; 
+    } else if (page === 'session') {
+        window.location.href = 'session_student.html'; 
+    } else if (page === 'history') {
+        window.location.href = 'history.html'; 
+    } else if (page === 'faq') {
+        window.location.href = 'faq.html'; 
     }
 }
- 
+
+// script.js - Dashboard navigation logic
+document.getElementById('chat').addEventListener('click', function() {
+    window.location.href = 'chathtml.html'; // Navigates to chat page
+});
+
 // Close dropdown when clicking outside
 window.onclick = function(event) {
     if (!event.target.matches('.dropdown span')) {
@@ -93,4 +108,14 @@ window.onclick = function(event) {
         }
     }
 }
+
+// Get the session menu item by its ID
+const sessionMenu = document.getElementById('session');
+
+// Add an event listener for the click event
+sessionMenu.addEventListener('click', function() {
+    // Navigate to the session page
+    window.location.href = 'sessionform.html'; // Adjust this path if your session page is in a different folder
+});
+
  
