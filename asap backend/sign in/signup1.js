@@ -44,7 +44,7 @@ function validateUsername() {
     }
 }
 
-// Validate role selection
+// Validate role selections
 function validateRoleSelection() {
     const roleSelect = document.getElementById('role');
     const roleError = document.getElementById('roleError');

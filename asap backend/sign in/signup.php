@@ -100,7 +100,7 @@ $conn->close();
                 <option value="" disabled <?php echo $role == '' ? 'selected' : ''; ?>>Select your role</option>
                 <option value="student" <?php echo $role == 'student' ? 'selected' : ''; ?>>Student</option>
                 <option value="teacher" <?php echo $role == 'teacher' ? 'selected' : ''; ?>>Teacher</option>
-                <option value="admin" <?php echo $role == 'admin' ? 'selected' : ''; ?>>Admin</option>
+                <!-- <option value="admin" <?php echo $role == 'admin' ? 'selected' : ''; ?>>Admin</option> -->
             </select>
             <p id="roleError" class="error"><?php echo isset($errors['role']) ? $errors['role'] : ''; ?></p>
 
@@ -119,6 +119,10 @@ $conn->close();
             <label for="confirm_password">Confirm Password</label>
             <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
             <p id="confirmPasswordError" class="error"><?php echo isset($errors['confirm_password']) ? $errors['confirm_password'] : ''; ?></p>
+
+            <label for="confirm_password"> Confirm Password</label>
+            <input type="confirm_password" id="confirm_password" name="confirm_password" placeholder="Enter your password" required>
+            <p class="error"><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></p>
 
             <p class="error"><?php echo isset($errors['duplicate']) ? $errors['duplicate'] : ''; ?></p> <!-- Display duplicate error message -->
 
