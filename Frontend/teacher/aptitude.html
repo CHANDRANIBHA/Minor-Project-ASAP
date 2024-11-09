@@ -55,14 +55,27 @@
                     </div>
                 </div>
             </div>
-            <!-- Main Content Area -->
-        <div class="main-content">
+            
+            <!-- Back and Logout Buttons -->
+            <div class="action-buttons">
+                <!-- Back Button -->
+                <button onclick="window.history.back();" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <!-- Logout Button -->
+                <button onclick="logout();" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+
+            <!-- Aptitude Select Class Content -->
             <h2> Aptitude Select Class</h2>
             <div class="class-panels">
                 <!-- Panels for each class -->
                 <div class="panel">
                     <h3>BCA DS2022</h3>
                     <select class="class-dropdown">
+                        <option value="Choose">Choose</option>
                         <option value="view">View</option>
                         <option value="update">Update</option>
                     </select>
@@ -83,27 +96,34 @@
                         <option value="update">Update</option>
                     </select>
                 </div>
-                <script src="teacher js.js"></script>
             </div>
+
         </div>
-        <script>
-            document.querySelectorAll('.class-dropdown').forEach(select => {
-                select.addEventListener('change', function() {
-                    const action = this.value; // Get the selected action (view or update)
-                    const className = this.closest('.panel').querySelector('h3').innerText; // Get the class name from the panel's <h3>
+    </div>
+
+    <script>
+        document.querySelectorAll('.class-dropdown').forEach(select => {
+            select.addEventListener('change', function() {
+                const action = this.value; // Get the selected action (view or update)
+                const className = this.closest('.panel').querySelector('h3').innerText; // Get the class name from the panel's <h3>
         
-                    if (action) {
-                        // Redirect based on the selected action
-                        if (action === 'view') {
-                            window.location.href = `view-aptitude.html?class=${className}`;
-                        } else if (action === 'update') {
-                            window.location.href = `update-aptitude.html?class=${className}`;
-                        }
+                if (action) {
+                    // Redirect based on the selected action
+                    if (action === 'view') {
+                        window.location.href = `view-aptitude.html?class=${className}`;
+                    } else if (action === 'update') {
+                        window.location.href = `update-aptitude.html?class=${className}`;
                     }
-                });
+                }
             });
-        </script>
-        
-    </body>
-    </html>
-    
+        });
+
+        // Logout function (you can adjust it based on your logout mechanism)
+        function logout() {
+            // You can replace the following line with actual logout functionality
+            // For example, clearing sessionStorage or redirecting to a logout page
+            window.location.href = "logout.html"; // Redirect to a logout page
+        }
+    </script>
+</body>
+</html>
