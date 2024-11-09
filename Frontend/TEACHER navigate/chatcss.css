@@ -21,10 +21,23 @@ body {
     padding: 20px;
     overflow-y: auto;
     border-right: 1px solid #8d493a;
+    scrollbar-width: thin;
+    scrollbar-color: #dfd3c3 #8d493a;
+}
+
+.chat-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+    background-color: #dfd3c3;
+    border-radius: 4px;
 }
 
 .chat-list h2 {
     text-align: center;
+    color: #dfd3c3;
+    font-size: 1.5em;
     margin-bottom: 20px;
 }
 
@@ -37,8 +50,9 @@ body {
     align-items: center;
     padding: 15px;
     cursor: pointer;
-    border-bottom: 1px solid #8d493a;
+    border-bottom: 1px solid #dfd3c3;
     transition: background-color 0.3s, transform 0.3s;
+    color: #dfd3c3;
 }
 
 .chat-list li:hover {
@@ -52,12 +66,14 @@ body {
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
+    border: 2px solid #dfd3c3;
 }
 
 .chat-area {
     width: 75%;
     display: flex;
     flex-direction: column;
+    background-color: #f2ebe1;
 }
 
 .chat-header {
@@ -73,10 +89,12 @@ body {
     height: 50px;
     border-radius: 50%;
     margin-right: 15px;
+    border: 2px solid #8d493a;
 }
 
 .chat-header h2 {
     color: #8d493a;
+    font-size: 1.2em;
 }
 
 .chat-messages {
@@ -87,19 +105,31 @@ body {
     flex-direction: column;
 }
 
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #8d493a;
+    border-radius: 4px;
+}
+
 .message {
     padding: 10px 15px;
     margin: 10px 0;
     border-radius: 10px;
     background-color: #8d493a;
     max-width: 60%;
+    color: white;
     word-wrap: break-word;
     opacity: 0; /* Initially hidden */
     transition: opacity 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .message.me {
-    background-color: #8d493a;
+    background-color: #d0b8a8;
+    color: #8d493a;
     align-self: flex-end;
 }
 
@@ -114,6 +144,7 @@ body {
     background-color: #8d493a;
     display: flex;
     align-items: center;
+    border-top: 1px solid #dfd3c3;
 }
 
 .message-input input[type="text"] {
@@ -125,20 +156,22 @@ body {
     color: #8d493a;
     outline: none;
     margin-right: 15px;
+    font-size: 1em;
 }
 
 .file-label {
     display: inline-block;
     cursor: pointer;
     padding: 10px;
-    background-color: #8d493a;
+    background-color: #d0b8a8;
     border-radius: 5px;
-    color: white;
+    color: #8d493a;
     margin-right: 10px;
+    transition: background-color 0.3s;
 }
 
 .file-label:hover {
-    background-color:#8d493a;
+    background-color: #dfd3c3;
 }
 
 #sendButton {
@@ -148,11 +181,13 @@ body {
     color: #8d493a;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #sendButton:hover {
     background-color: #d0b8a8;
 }
+
 .timestamp {
     font-size: 12px;
     color: #b3b3b3;
@@ -160,7 +195,6 @@ body {
 }
 
 .sent-tick {
-    color: #4caf50; /* Green color for the tick */
-    margin-left: 5px; /* Space between the message and tick */
+    color: #4caf50;
+    margin-left: 5px;
 }
-
