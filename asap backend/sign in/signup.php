@@ -38,36 +38,76 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    // If there are no validation errors, check for existing username and user_id
+    // If there are no validation errors, proceed with checking the user_id
     if (count($errors) === 0) {
-        // Prepare a statement to check if a user with the same username and user_id already exists
-        $checkStmt = $conn->prepare("SELECT * FROM users WHERE user_name = ? AND user_id = ?");
-        $checkStmt->bind_param("ss", $username, $user_id);
+        // Check if the user_id already exists
+        $checkStmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $checkStmt->bind_param("s", $user_id);
         $checkStmt->execute();
         $result = $checkStmt->get_result();
 
-        // If a matching record is found, set an error message
         if ($result->num_rows > 0) {
-            $errors['duplicate'] = "A user with this username and user ID already exists.";
+            // User ID already exists, set error message
+            $errors['duplicate'] = "The user ID already exists. Please use a different one.";
         } else {
-            // Prepare and bind the statement to insert a new user
+            // Proceed with inserting the new user
             $stmt = $conn->prepare("INSERT INTO users (user_id, user_name, email_id, password, role) VALUES (?, ?, ?, ?, ?)");
-            
-            if ($stmt === false) {
-                die("Prepare failed: " . htmlspecialchars($conn->error));
-            }
-
-            // Bind parameters
             $stmt->bind_param("sssss", $user_id, $username, $email, $password, $role);
 
-            // Execute the query
-            if ($stmt->execute()) {
-                echo "<script>alert('Signup successful! Redirecting to login page.'); window.location.href = '../login/login.php';</script>";
-            } else {
-                echo "Error executing statement: " . htmlspecialchars($stmt->error);
-            }
+           // Proceed with inserting the new user
+if ($stmt->execute()) {
+    // If the role is 'student', insert the student data into students_tbl
+    if ($role === 'student') {
+        echo "Role is student. Proceeding with student insertion..."; // Debug message
+        // Extract year_of_joining and set batch as before
+        $year_of_joining = substr(strrchr($user_id, '.'), 1);
+        $batch = '';
+    
+        // Determine batch
+        if (strpos($user_id, 'u3cds') !== false) {
+            $batch = 'BCA DATASCIENCE';
+        } elseif (strpos($user_id, 'u3imca') !== false) {
+            $batch = 'INT MCA A';
+        } elseif (strpos($user_id, 'u3bca') !== false) {
+            $batch = 'BCA';
+        } elseif (strpos($user_id, 'u3imcb') !== false) {
+            $batch = 'INT MCA B';
+        }
+    
+        // Debug output for batch and year_of_joining
+        echo "Year of Joining: $year_of_joining, Batch: $batch";
+    
+        // Insert student data into students_tbl
+        $class_id = NULL; // or set dynamically if needed
+        $insertStudentStmt = $conn->prepare("INSERT INTO asap.students_tbl (user_id, year_of_joining, batch, class_id) VALUES (?, ?, ?, ?)");
+        $insertStudentStmt->bind_param("ssss", $user_id, $year_of_joining, $batch, $class_id);
 
-            // Close the statement
+        // Check if the insertion was successful
+        if ($insertStudentStmt->execute()) {
+            echo "Student data inserted successfully!";
+        } else {
+            echo "Error inserting student: " . htmlspecialchars($insertStudentStmt->error);
+        }
+        $insertStudentStmt->close();
+    }
+
+    // If the role is 'teacher', insert teacher data
+    if ($role === 'teacher') {
+        $subject_id = NULL; // You can set this dynamically based on your application's needs
+
+        // Insert teacher data into teacher_tbl
+        $insertTeacherStmt = $conn->prepare("INSERT INTO teacher_tbl (user_id, subject_id) VALUES (?, ?)");
+        $insertTeacherStmt->bind_param("ss", $user_id, $subject_id);
+        $insertTeacherStmt->execute();
+        $insertTeacherStmt->close();
+    }
+
+    echo "<script>alert('Signup successful! Redirecting to login page.'); window.location.href = '../login/login.php';</script>";
+} else {
+    echo "Error executing statement: " . htmlspecialchars($stmt->error);
+}
+$stmt->close();
+
             $stmt->close();
         }
         // Close the check statement
@@ -77,7 +117,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Close the database connection
 $conn->close();
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -231,6 +274,7 @@ $conn->close();
             <li></li>
         </ul>
     </div>
+    
 
     <script src="signup1.js"></script> <!-- Link to your JavaScript file -->
 </body>

@@ -92,7 +92,7 @@ if ($_FILES['file']) {
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('teacher_html.php')">Home</li>
+                    <li onclick="navigateTo('teacher_interface.php')">Home</li>
                     <li>
                         <div class="dropdown">
                             <span onclick="toggleDropdown()">Resources</span>
