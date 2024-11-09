@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profstyle.css">
+    <link rel="stylesheet" href="teacher_css.css">
+    <title>Teacher Session Form</title>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profilepic.jpeg" alt="Profile Image" class="profile-img">
+                <h3 id="username">Sachin Tendulkar</h3>
+                <p id="reg-number">Reg No: TH.EN.U3CDS9999</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li onclick="navigateTo('teacher_html.html')">Home</li>
+                    <li>
+                        <div class="dropdown">
+                            <span onclick="toggleDropdown()">Resources</span>
+                            <div class="dropdown-content" id="resources-dropdown">
+                                <a href="#" onclick="navigateTo('resoaptitude.html')">Aptitude</a>
+                                <a href="#" onclick="navigateTo('resoverbal.html')">Verbal</a>
+                                <a href="#" onclick="navigateTo('resosoftskills.html')">Soft Skills</a>
+                                <a href="#" onclick="navigateTo('resotraining.html')">Professional Training</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="navigateTo('chattr.html')">Chat</li>
+                    <li onclick="navigateTo('sessionform.html')">Session</li>
+                    <li onclick="navigateTo('history')">My History</li>
+                    <li onclick="logout()">Logout</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <a onclick="goBack()" class="back-arrow">&larr;</button>
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <ul>
+                                <li>No new notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chat" id="chat">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+    <div class="session-form-container">
+        <h2>Proffessional Training Session Details</h2>
+        <form id="session-form">
+            <label for="Activity">Activity:</label>
+            <select id="activity" name="activity" required>
+                <option value="" disabled selected>Select Activity</option>
+                <option value="Mock Interview">Mock Interview</option>
+                <option value="Public Speaking">Public Speaking</option>
+                <option value="Group Discussion">Group Discussion</option>
+            </select>
+            <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select id="semester" name="semester" required>
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Available Classes:</label>
+                <div class="class-checkbox">
+                    <input type="checkbox" id="class1" name="class" value="BCA DS 2022">
+                    <label for="class1">BCA DS 2022</label><br>
+                    <input type="checkbox" id="class2" name="class" value="INT MCA 2022">
+                    <label for="class2">INT MCA 2022</label><br>
+                    <input type="checkbox" id="class3" name="class" value="BCA 2022">
+                    <label for="class3">BCA 2022</label>
+                </div>
+            </div>
+
+            
+
+            <div class="form-group">
+                <label for="numStudents">Number of Students:</label>
+                <input type="number" id="numStudents" name="numStudents" min="1" max="50">required
+            </div>
+
+            <label for="sessionDateTime"> Date and Time:</label>
+            <input type="datetime-local" id="sessionDateTime" name="sessionDateTime" required>
+
+            <div class="form-group">
+                <label for="sessionLink">Session Link:</label>
+                <input type="url" id="sessionLink" name="sessionLink" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description (Optional):</label>
+                <textarea id="description" name="description" rows="4"></textarea>
+            </div>
+
+            <div id="error-message" style="color: red; margin-bottom: 10px;"></div>
+
+            <button type="button" onclick="showConfirmation()">Submit</button>
+        </form>
+    </div>
+
+    <div id="confirmation-popup" class="popup">
+        <div class="popup-content">
+            <h2><b>Confirm Session Details</b></h2>
+            <div id="confirmation-details"></div>
+            <button onclick="confirmSubmission()">Confirm</button>
+        </div>
+    </div>
+
+
+    <script>
+
+
+document.getElementById('subject').addEventListener('change', function() {
+            updateTopicOptions();
+        });
+
+        function updateTopicOptions() {
+            const subject = document.getElementById('subject').value;
+            const topicSelect = document.getElementById('topic');
+            
+            // Clear any previous selection
+            topicSelect.value = '';
+
+            // Enable/Disable options based on subject selection
+            Array.from(topicSelect.options).forEach(option => {
+                if (subject === 'Aptitude') {
+                    // Only allow "Quantitative" and "Logical Reasoning" if subject is Aptitude
+                    if (option.value === 'Quantitavive' || option.value === 'Logical Reasoning') {
+                        option.disabled = false;
+                    } else {
+                        option.disabled = true;
+                    }
+                } else {
+                    // Disable "Quantitative" and "Logical Reasoning" for other subjects
+                    if (option.value === 'Quantitavive' || option.value === 'Logical Reasoning') {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
+                    }
+                }
+            });
+        }
+
+          // Function to set the minimum date and time for the sessionDateTime field
+          function setMinDateTime() {
+            const sessionDateTime = document.getElementById('sessionDateTime');
+            const now = new Date();
+
+            // Format date to YYYY-MM-DDTHH:MM for datetime-local input
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            // Set the min attribute to the current date and time
+            sessionDateTime.min = `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        // Run the setMinDateTime function on page load
+        window.onload = setMinDateTime;
+
+
+        function validateForm() {
+            updateTopicOptions(); // Ensure topic options are updated before validation
+
+            // Validation Code Here
+        }
+
+
+        function validateForm() {
+    // Get values from the form fields
+    const subject = document.getElementById('subject').value;
+    const semester = document.getElementById('semester').value;
+    const classes = Array.from(document.querySelectorAll('input[name="class"]:checked')).map(el => el.value).join(', ');
+    const topic = document.getElementById('topic').value;
+    const numStudents = document.getElementById('numStudents').value;
+    const sessionDateTime = document.getElementById('sessionDateTime').value;
+    const criteria = document.getElementById('criteria').value;
+
+    // Clear previous error messages
+    let errorMessage = "";
+
+    // Check for mandatory fields and add error messages if any validation fails
+    if (!subject) {
+        errorMessage += "<p>Please select a subject.</p>";
+    }
+    if (!semester) {
+        errorMessage += "<p>Please select a semester.</p>";
+    }
+    if (!classes) {
+        errorMessage += "<p>Please select at least one class.</p>";
+    }
+    if (!topic) {
+        errorMessage += "<p>Please enter a topic.</p>";
+    }
+    if (!numStudents) {
+        errorMessage += "<p>Please enter the number of students.</p>";
+    } else if (parseInt(numStudents) > 50) {
+        // Check if the number of students is more than 50
+        errorMessage += "<p>Number of students cannot exceed 50.</p>";
+    }
+
+     // Validate session date and time to ensure it’s not in the past
+     if (!sessionDateTime) {
+            errorMessage += "<p>Please select a session date and time.</p>";
+        } else {
+            const selectedDate = new Date(sessionDateTime);
+            const currentDate = new Date();
+            if (selectedDate < currentDate) {
+                errorMessage += "<p>Session date and time cannot be in the past.</p>";
+            }
+        }
+
+    if (!criteria) {
+        errorMessage += "<p>Please select a selection criteria.</p>";
+    }
+
+    // Display error messages if validation fails
+    if (errorMessage) {
+        document.getElementById('error-message').innerHTML = errorMessage;
+        return false; // Form is not valid
+    } else {
+        document.getElementById('error-message').innerHTML = ""; // Clear errors if validation passes
+        return true; // Form is valid
+    }
+}
+
+// Modify the showConfirmation function to include validation
+function showConfirmation() {
+    if (validateForm()) {
+        // If the form is valid, proceed with showing the confirmation popup
+        const subject = document.getElementById('subject').value;
+        const semester = document.getElementById('semester').value;
+        const classes = Array.from(document.querySelectorAll('input[name="class"]:checked')).map(el => el.value).join(', ');
+        const topic = document.getElementById('topic').value;
+        const numStudents = document.getElementById('numStudents').value;
+        const sessionDateTime = document.getElementById('sessionDateTime').value;
+        const sessionLink = document.getElementById('sessionLink').value;
+        const criteria = document.getElementById('criteria').value;
+        const fromMark = document.getElementById('fromMark').value || "N/A";
+        const toMark = document.getElementById('toMark').value || "N/A";
+        const description = document.getElementById('description').value || "N/A";
+
+        document.getElementById('confirmation-details').innerHTML = `
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td><strong>Subject:</strong></td><td>${subject}</td></tr>
+                <tr><td><strong>Semester:</strong></td><td>${semester}</td></tr>
+                <tr><td><strong>Classes:</strong></td><td>${classes}</td></tr>
+                <tr><td><strong>Topic:</strong></td><td>${topic}</td></tr>
+                <tr><td><strong>Number of Students:</strong></td><td>${numStudents}</td></tr>
+                <tr><td><strong>Session Date and Time:</strong></td><td>${sessionDateTime}</td></tr>
+                <tr><td><strong>Session Link:</strong></td><td>${sessionLink}</td></tr>
+                <tr><td><strong>Selection Criteria:</strong></td><td>${criteria}</td></tr>
+                <tr><td><strong>Mark Range:</strong></td><td>${fromMark} - ${toMark}</td></tr>
+                <tr><td><strong>Description:</strong></td><td>${description}</td></tr>
+            </table>
+        `;
+
+        document.getElementById('confirmation-popup').style.display = 'block';
+    }
+}
+
+function confirmSubmission() {
+    alert("Session details confirmed and submitted!");
+    document.getElementById('confirmation-popup').style.display = 'none';
+}
+    </script>
+   <script src="teacher_js.js"></script>  
+</body>
+</html>
