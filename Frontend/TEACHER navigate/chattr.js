@@ -258,7 +258,7 @@ function addFileMessage(fileName, fileUrl, date) {
     chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
 }
 // Function for Back Button
-function goBack(event) {
-    event.stopPropogation()
+function goBack() {
+    console.log("Back arrow clicked")
     window.history.back();
 }
