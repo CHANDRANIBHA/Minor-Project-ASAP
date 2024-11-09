@@ -213,6 +213,6 @@ function goBack() {
 // Function for Logout
 function logout() {
     
-        window.location.href = 'home.html'; 
+        window.location.href = "../homepage/home.html"; 
    
 }
