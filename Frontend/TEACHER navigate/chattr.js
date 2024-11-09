@@ -257,3 +257,7 @@ function addFileMessage(fileName, fileUrl, date) {
     chatMessages.appendChild(messageDiv); // Add the message to chat
     chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
 }
+// Function for Back Button
+function goBack() {
+    window.history.back();
+}
