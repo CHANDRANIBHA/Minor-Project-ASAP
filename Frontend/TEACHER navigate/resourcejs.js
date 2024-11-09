@@ -100,5 +100,9 @@ function navigateTo(page) {
     }
 }
 
+// script.js - Dashboard navigation logic
+document.getElementById('chat').addEventListener('click', function() {
+    window.location.href = 'chattr.html'; // Navigates to chat page
+});
 
 
