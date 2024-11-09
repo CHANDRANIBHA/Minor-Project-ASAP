@@ -6,7 +6,11 @@
     <title>ASAP - Evaluate, Educate, Develop</title>
     <link rel="stylesheet" href="home.css">
 </head>
-<body>
+<body> 
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    
     <!-- Navbar -->
     <header class="navbar">
         <div class="logo">
@@ -14,36 +18,35 @@
         </div>
         <nav class="nav-links">
             <a href="#home">Home</a>
-            <a href="#Features">Features</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            <a href="#login" class="login-btn">Login</a>
+            <a href="signup html.html" class="signup-btn">Sign Up</a>
+            <a href="trialpassword.html" class="login-btn">Login</a>
+            
         </nav>
         <div class="mobile-menu" id="mobile-menu">&#9776;</div>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero">
-            <div class="hero-content">
-                <h2>ASAP Banner Text</h2>
-                <p>This is a subtext for the ASAP banner, providing some additional information.</p>
-                <a href="#" class="cta-btn">Discover Features</a>
-            </div>
+        <div class="hero-content">
+            <h2>ASAP Banner Text</h2>
+            <p>This is a subtext for the ASAP banner, providing some additional information.</p>
+            <a href="#signup" class="cta-btn">Discover Features</a>
         </div>
         
         <div class="hero-illustration">
-            <img src="guy.jpg" alt="Illustration of a person at a desk" />
+            <img src="logonew.jpg" alt="Illustration of a person at a desk" />
         </div>
     </section>
 
-    <!-- Modules Section -->
+    <!-- Key Modules Section -->
     <section id="modules" class="features">
         <h2>Our Key Modules</h2>
         <div class="module-cards">
             <div class="card">
                 <h3>Personalized Interfaces</h3>
-                <p>Personalized interfaces for users based on roles ie, for students, teachers, and admins.</p>
+                <p>Personalized interfaces for users based on roles, such as students, teachers, and admins.</p>
                 <a href="#personalized" class="start-btn">Start Now!</a>
             </div>
             <div class="card">
@@ -65,6 +68,14 @@
         <p>ASAP is designed to bridge the gap between potential and achievement through personalized learning, continuous assessments, and teacher feedback.</p>
     </section>
 
+    <!-- Signup Section -->
+    <section id="signup" class="signup-section">
+        <h2>Join ASAP Today</h2>
+        <p>Sign up to start exploring all the features and enhance your learning journey.</p>
+        <a href="#" class="signup-btn">Sign Up Now</a>
+    </section>
+    
+
     <!-- Footer Section -->
     <footer id="contact" class="footer">
         <p>&copy; 2024 ASAP Platform. All rights reserved.</p>
@@ -78,7 +89,6 @@
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-
         mobileMenu.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });

@@ -1,88 +1,121 @@
-/* Reset CSS */
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
 }
 
-/* Navbar Styles */
+/* Background Animation Layers */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #5e4223;
+    z-index: -3;
+    animation: slide 10s infinite alternate;
+    opacity: 0.6;
+}
+
+.bg2 {
+    background-color: #d2a679;
+    animation-delay: 3s;
+    z-index: -2;
+}
+
+.bg3 {
+    background-color: #c8a67e;
+    animation-delay: 6s;
+    z-index: -1;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* Navbar Styling */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #493628;
-    padding: 10px 20px;
-    color: #E4E0E1;
+    padding: 15px 20px;
+    background-color: #5e4223;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
 }
 
 .nav-links a {
-    color: #E4E0E1;
+    color: white;
     text-decoration: none;
-    margin-left: 15px;
-    transition: color 0.3s;
+    font-size: 16px;
+    padding: 8px 15px;
 }
 
 .nav-links a:hover {
-    color: #AB886D;
+    background-color: #4a2f19;
+    border-radius: 5px;
 }
 
 .login-btn {
-    background-color: #AB886D;
-    padding: 5px 10px;
+    background-color: #a67c52;
+    padding: 8px 15px;
     border-radius: 5px;
-    color: #493628;
+}
+
+.signup-btn {
+    background-color: #4a2f19;
+    padding: 8px 15px;
+    border-radius: 5px;
 }
 
 .mobile-menu {
     display: none;
-    font-size: 30px;
+    font-size: 24px;
     cursor: pointer;
 }
 
 /* Hero Section */
 .hero {
-    height: 100vh; /* Full screen height */
-    background-color: #FAF7F2;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    color: #493628;
-    text-align: center;
-    padding: 20px;
+    padding: 100px 20px;
+    color: #5e4223;
+    position: relative;
+    z-index: 1;
 }
 
-.hero-content {
-    max-width: 600px;
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-/* Larger font for the banner */
 .hero-content h2 {
-    font-size: 5rem; /* Increased font size */
-    line-height: 1.2;
+    font-size: 48px;
+    margin-bottom: 10px;
 }
 
 .hero-content p {
-    margin-top: 10px;
-    font-size: 1.3rem;
-}
-
-/* Keyframes for Fade-in Animation */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .cta-btn {
-    margin-top: 30px; /* Adjust this value as needed for more spacing */
-    background-color: #E63946;
-    color: white;
+    background-color: #5e4223;
+    color: #fff;
     padding: 10px 20px;
-    text-decoration: none;
     border-radius: 5px;
-    font-weight: bold;
-    transition: transform 0.3s ease, background-color 0.3s;
+    text-decoration: none;
 }
 
 .hero-illustration img {
@@ -90,97 +123,158 @@
     height: auto;
 }
 
-/* Features Section */
+/* Key Modules Section */
 .features {
-    padding: 50px 20px;
-    background-color: #8d493a;
+    padding: 60px 20px;
     text-align: center;
-    color: white;
+    background-color: #f9f4f0;
+    color: #5e4223;
+    position: relative;
+    z-index: 1;
+}
+
+.features h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 
 .module-cards {
     display: flex;
+    justify-content: center;
+    gap: 20px;
     flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 20px;
 }
 
 .card {
-    background-color: #AB886D;
-    color: #493628;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 10px;
     width: 300px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease;
 }
 
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #5e4223;
+}
+
+.card p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
 }
 
 .start-btn {
-    display: inline-block;
-    margin-top: 10px;
-    color: #E63946;
-    font-weight: bold;
+    background-color: #5e4223;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    transition: color 0.3s;
 }
 
-.start-btn:hover {
-    color: #D62828;
+/* Signup Section */
+.signup-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f0e6da;
+    color: #5e4223;
+    position: relative;
+    z-index: 1;
+}
+
+.signup-section h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.signup-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.signup-section .signup-btn {
+    background-color: #5e4223;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 /* About Section */
 .about {
-    padding: 50px 20px;
+    padding: 60px 20px;
     text-align: center;
-    background-color: #D6C0B3;
+    background-color: #f1e8e0;
+    position: relative;
+    z-index: 1;
 }
 
-/* Footer Styles */
+.about h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+/* Footer Section */
 .footer {
-    background-color: #493628;
-    color: #E4E0E1;
+    background-color: #5e4223;
+    color: #fff;
     text-align: center;
-    padding: 10px 0;
+    padding: 15px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.footer p, .footer-links {
+    font-size: 14px;
 }
 
 .footer-links a {
-    color: #AB886D;
+    color: #d2a679;
     text-decoration: none;
-    margin: 0 10px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .module-cards {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .mobile-menu {
-        display: block;
-    }
-
     .nav-links {
         display: none;
         flex-direction: column;
+        gap: 10px;
         position: absolute;
         top: 60px;
-        left: 0;
-        width: 100%;
-        background-color: #493628;
+        right: 20px;
+        background-color: #5e4223;
+        padding: 10px;
+        border-radius: 5px;
     }
 
     .nav-links.active {
         display: flex;
     }
 
-    .nav-links a {
-        margin: 10px 0;
-        text-align: center;
+    .mobile-menu {
+        display: block;
+        color: #fff;
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+
+    .module-cards {
+        flex-direction: column;
+        align-items: center;
     }
 }
