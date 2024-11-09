@@ -191,3 +191,43 @@ sessionMenu.addEventListener('click', function() {
     // Navigate to the session page
     window.location.href = 'sessionform.html'; // Adjust this path if your session page is in a different folder
 });
+
+// Function to animate number counting
+function animateCount(element, end, duration) {
+    let start = 0; // Start from 0
+    let startTimestamp = null;
+
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        
+        // Calculate the progress as a fraction of the duration
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        // Calculate the current value based on progress
+        const currentValue = Math.floor(progress * end);
+        
+        // Update the element's text content with the current value
+        element.textContent = currentValue;
+        
+        // If progress is less than 100%, request another animation frame
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        }
+    };
+    
+    // Start the animation
+    requestAnimationFrame(step);
+}
+
+// Execute when the DOM content is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+    // Set the desired end values for each counter
+    const totalStudentsCount = 50;  // Replace with dynamic count as needed
+    const totalTeachersCount = 10;  // Replace with dynamic count as needed
+    
+    // Animate each counter
+    animateCount(document.getElementById('total-students-count'), totalStudentsCount, 2000); // 2 seconds duration
+    animateCount(document.getElementById('total-teachers-count'), totalTeachersCount, 2000);  // 2 seconds duration
+});
+
+
