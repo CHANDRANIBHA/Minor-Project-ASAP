@@ -203,3 +203,18 @@ sessionMenu.addEventListener('click', function() {
     // Navigate to the session page
     window.location.href = 'sessionform.html'; // Adjust this path if your session page is in a different folder
 });
+
+
+// Function for Back Button
+function goBack() {
+    window.history.back();
+}
+
+// Function for Logout
+function logout() {
+    const confirmLogout = confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+        // Redirect to the login page or clear session as needed
+        window.location.href = 'login.html'; // Replace 'login.html' with the actual login page path
+    }
+}

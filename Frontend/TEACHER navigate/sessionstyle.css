@@ -312,3 +312,40 @@ button[type="button"]:hover {
     text-align: left;
     color: #555;
 }
+
+/* Back button style */
+.back-button {
+    Display: inline-block;
+    Margin: 10px;
+    Padding: 8px 16px;
+    Font-size: 16px;
+    Color: #fff;
+    Background-color: #8d493a;
+    Border: none;
+    Border-radius: 5px;
+    Cursor: pointer;
+}
+
+.back-button:hover {
+    Background-color: #dfd3c3;
+    color: #8d493a;
+}
+
+/* Logout link style in the sidebar */
+.sidebar ul li {
+    Cursor: pointer;
+    Padding: 10px;
+    Color: #333;
+    Transition: background-color 0.3s;
+}
+
+.sidebar ul li:hover {
+    Background-color: #ddd;
+    Color: #000;
+}
+
+
+
+
+
+
