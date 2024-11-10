@@ -207,6 +207,33 @@
         .top-icons i:hover {
             color: #8d493a;
         }
+
+        /* Styled Confirmation Message (as a panel) */
+        .confirmation-message {
+            background-color: #ffffff;
+            color: #8d493a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #8d493a;
+            display: none; /* Initially hidden */
+            font-size: 16px;
+            text-align: center;
+            grid-column: span 3; /* Makes it span the entire row in the grid */
+            margin-top: 20px;
+            animation: fade-in 0.5s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -217,12 +244,15 @@
         <div class="sidebar" id="sidebar">
             <div class="profile">
                 <img src="profile.jpg" alt="Profile" class="profile-img">
-                <h2>Admin Name</h2>
+                <h3 id="username">Admin</h3>
+                <p id="reg-number">Reg No: AD.EN.B3FFC33033</p>
             </div>
             <div class="menu">
                 <ul>
-                    <li onclick="navigateTo('dashboard.html')">Dashboard</li>
-                    <li onclick="navigateTo('settings.html')">Settings</li>
+                    <li onclick="navigateTo('admindemo.html')">Dashboard</li>
+                    <li onclick="navigateTo('admarkview.html')">View Marks</li>
+                    <li onclick="navigateTo('history.html')">History</li>
+                    <li onclick="navigateTo('feedbackview.html')">View Feedback</li>
                     <li onclick="logout()">Logout</li>
                 </ul>
             </div>
@@ -233,13 +263,8 @@
             <button class="menu-icon" id="menuToggle"><i class="fa fa-bars"></i></button>
             <div class="banner">
                 <h1>Welcome to the Management Dashboard</h1>
-                <p>Manage classes, teachers, and semesters</p>
             </div>
             <div class="top-bar">
-                <div class="search-container">
-                    <input type="text" placeholder="Search...">
-                    <i class="fa fa-search"></i>
-                </div>
                 <div class="top-icons">
                     <i class="fa fa-bell"></i>
                     <i class="fa fa-cog"></i>
@@ -248,21 +273,42 @@
             <div class="manage-panels">
                 <!-- Add Class Panel -->
                 <div class="manage-panel">
-                    <h3>Add New Class</h3>
+                    <h3>Create New Class</h3>
                     <input type="text" placeholder="Enter class name" id="newClassName">
                     <button id="addClassBtn">Add Class</button>
                 </div>
                 <!-- Delete Class Panel -->
                 <div class="manage-panel">
-                    <h3>Delete Class</h3>
+                    <h3>Delete Existing Class</h3>
                     <input type="text" placeholder="Enter class name to delete" id="classToDelete">
-                    <button id="deleteClassBtn">Delete Class</button>
+                    <button id="deleteClassBtn">Remove Class</button>
                 </div>
                 <!-- Update Semester Panel -->
                 <div class="manage-panel">
                     <h3>Update Semester</h3>
-                    <input type="text" placeholder="Enter new semester" id="newSemester">
-                    <button id="updateSemesterBtn">Update Semester</button>
+                    <button id="updateSemesterBtn">Update</button>
+                </div>
+                <!-- Add Teacher Panel -->
+                <div class="manage-panel">
+                    <h3>Add New Teacher</h3>
+                    <input type="text" placeholder="Enter teacher name" id="newTeacherName">
+                    <button id="addTeacherBtn">Add Teacher</button>
+                </div>
+                <!-- Delete Teacher Panel -->
+                <div class="manage-panel">
+                    <h3>Remove Existing Teacher</h3>
+                    <input type="text" placeholder="Enter teacher name to delete" id="teacherToDelete">
+                    <button id="deleteTeacherBtn">Remove</button>
+                </div>
+                <!-- View class Panel -->
+                <div class="manage-panel">
+                    <h3>View Existing Classes</h3>
+                    <button id="viewclassBtn">View</button>
+                </div>
+
+                <!-- Confirmation Message (Styled as a panel) -->
+                <div id="confirmationMessage" class="confirmation-message">
+                    <p id="confirmationText"></p>
                 </div>
             </div>
         </div>
@@ -275,7 +321,7 @@
             const sidebar = document.getElementById('sidebar');
             const isOpen = sidebar.style.width === '250px';
             sidebar.style.width = isOpen ? '0' : '250px';
-            this.querySelector('i').classList.toggle('fa-bars', isOpen); // Change icon to bars if open
+            this.querySelector('i').classList.toggle('fa-bars', isOpen);
             this.querySelector('i').classList.toggle('fa-times', !isOpen);
         });
 
@@ -284,7 +330,6 @@
             const className = document.getElementById('newClassName').value;
             if (className) {
                 alert(`Class "${className}" added successfully!`);
-                // Implement actual logic to add class to the system
             }
         }
 
@@ -293,23 +338,55 @@
             const className = document.getElementById('classToDelete').value;
             if (className) {
                 alert(`Class "${className}" deleted successfully!`);
-                // Implement actual logic to delete class from the system
             }
         }
 
         // Function to update the semester
         function updateSemester() {
-            const semester = document.getElementById('newSemester').value;
             if (semester) {
-                alert(`Semester updated to "${semester}" successfully!`);
-                // Implement actual logic to update the semester in the system
+                alert(`Semester updated successfully!`);
             }
+        }
+
+        
+
+
+        // Function to add a new teacher
+        function addTeacher() {
+            const teacherName = document.getElementById('newTeacherName').value;
+            if (teacherName) {
+                showConfirmationMessage(`Teacher "${teacherName}" added successfully!`);
+            }
+        }
+
+        // Function to delete a teacher
+        function deleteTeacher() {
+            const teacherName = document.getElementById('teacherToDelete').value;
+            if (teacherName) {
+                showConfirmationMessage(`Teacher "${teacherName}" deleted successfully!`);
+            }
+        }
+
+        // Function to show confirmation message
+        function showConfirmationMessage(message) {
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const confirmationText = document.getElementById('confirmationText');
+            confirmationText.textContent = message;
+            confirmationMessage.style.display = 'block';
+
+            // Hide the confirmation message after 3 seconds
+            setTimeout(() => {
+                confirmationMessage.style.display = 'none';
+            }, 3000);
         }
 
         // Event listeners for buttons in the manage panel
         document.getElementById('addClassBtn').addEventListener('click', addClass);
         document.getElementById('deleteClassBtn').addEventListener('click', deleteClass);
         document.getElementById('updateSemesterBtn').addEventListener('click', updateSemester);
+        document.getElementById('viewclassBtn').addEventListener('click', viewclass);
+        document.getElementById('addTeacherBtn').addEventListener('click', addTeacher);
+        document.getElementById('deleteTeacherBtn').addEventListener('click', deleteTeacher);
 
         // Handle logout action
         function logout() {
@@ -318,7 +395,7 @@
 
         // Handle menu item navigation
         function navigateTo(page) {
-            window.location.href = page; // Redirect to the specified page
+            window.location.href = page; 
         }
     </script>
 
