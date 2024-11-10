@@ -37,7 +37,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; // D
                         <div class="dropdown">
                             <span onclick="toggleDropdown()">Resources</span>
                             <div class="dropdown-content" id="resources-dropdown">
-                                <a href="#" onclick="navigateTo('resoaptitude.html')">Aptitude</a>
+                                <a href="#" onclick="navigateTo('resoaptitude.php')">Aptitude</a>
                                 <a href="#" onclick="navigateTo('resoverbal.html')">Verbal</a>
                                 <a href="#" onclick="navigateTo('resosoftskills.html')">Soft Skills</a>
                                 <a href="#" onclick="navigateTo('resotraining.html')">Professional Training</a>
