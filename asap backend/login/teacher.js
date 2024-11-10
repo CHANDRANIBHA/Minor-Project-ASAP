@@ -110,3 +110,9 @@ function saveMarksForStudent() {
 
     saveMarks(studentName, chapter, data);
 }
+
+// Function to toggle the dropdown visibility
+function toggleDropdown() {
+    const dropdown = document.getElementById('resources-dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
