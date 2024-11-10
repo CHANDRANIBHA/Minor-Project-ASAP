@@ -59,7 +59,20 @@ $conn->close();
     <script src="signup1.js" defer></script>
 </head>
 <body>
-   
+<div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
         <div class="signup-container">
             <h2>Signup</h2>
             <form action="signup.php" method="POST">
