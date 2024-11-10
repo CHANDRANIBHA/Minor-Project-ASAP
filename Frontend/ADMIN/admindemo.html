@@ -8,27 +8,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profilepic.jpeg" alt="Profile Image" class="profile-img">
+                <h3 id="username">Admin</h3>
+                <p id="reg-number">Reg No: AD.EN.B3FFC33033</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li onclick="navigateTo('../homepage/home.html')">Home</li>
+                    <li onclick="navigateTo('manage.html')">Manage</li>
+                    <li onclick="navigateTo('adview.html')">View</li>
+                    <li onclick="navigateTo('adhistory.html')">History</li>
+                    <li onclick="navigateTo('../feedback/feedback.html')">Feedback</li>
+                    <li onclick="logout()">Logout</li>
+                </ul>
+            </div>
+        </div>
 
-<div class="sidebar">
-    <div class="profile-section">
-        <img src="profile.png" alt="Profile Image" class="profile-image">
-        <h2>Admin</h2>
-        <p>Reg No: AD.EN.U3MIN00011</p>
-    </div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Manage</a>
-        <a href="#">View</a>
-        <a href="#">History</a>
-        <a href="#">FAQ</a>
-    </nav>
-</div>
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
 
-<div class="main-content">
-    <div class="banner">
-        <h1>Welcome Back, Admin!</h1>
-        <p>We are excited to have you back!</p>
-    </div>
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <ul>
+                                <li>No new notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Banner Section -->
+            <div class="banner">
+                <div class="confetti left"></div>
+                <h1>Welcome Back, <span id="username">Admin</span></h1>
+                <p>We are excited to have you back!</p>
+                <div class="confetti right"></div>
+            </div>
+
 
     <div class="counting-area">
         <div class="count-box">

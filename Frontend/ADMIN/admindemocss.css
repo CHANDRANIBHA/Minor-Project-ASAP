@@ -1,85 +1,178 @@
-/* Sidebar and Layout Adjustments */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #dfd3c3;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+    display: flex;
 }
 
 .sidebar {
     width: 250px;
     background-color: #8d493a;
     color: white;
-    height: 100vh; /* Ensures sidebar fills full height on desktop */
-    position: fixed; /* Fixed sidebar */
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
+    transition: width 0.3s;
+    overflow: hidden; /* Hide overflow when collapsed */
+    height: auto;
 }
 
-.sidebar .profile-section {
+.sidebar .profile {
     text-align: center;
     padding: 20px;
 }
-
-.profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.sidebar h2 {
-    margin: 0;
-    font-size: 1.5em;
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Round profile picture */
+}
+.menu {
+    padding: 10px 0;
 }
 
-.sidebar p {
-    font-size: 0.9em;
+.menu ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.sidebar nav {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+.menu li {
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-.sidebar nav a {
-    color: white;
+.menu li:hover {
+    background-color: #dfd3c3; /* Highlight on hover */
+    color: black;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; /* Hide by default */
+    position: absolute;
+    background-color: #d0b8a8;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
     text-decoration: none;
-    padding: 10px;
-    font-size: 1.1em;
     display: block;
 }
 
-.sidebar nav a:hover {
-    background-color: #b75e4c;
-    border-radius: 5px;
+.dropdown-content a:hover {
+    background-color: #8d493a;
+}
+
+.menu-icon {
+    position: absolute; /* Absolute positioning */
+    top: 20px; /* Adjust as needed */
+    left: 10px; /* Position outside the sidebar */
+    background: #d0b8a8; /* Button background color */
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    z-index: 10;
+}
+
+.menu-icon:hover {
+    background: #8d493a; /* Darker shade on hover */
 }
 
 .main-content {
-    margin-left: 250px;
+    flex-grow: 1;
     padding: 20px;
-    overflow-y: auto;
 }
 
-.banner {
-    background-color: #8d493a;
-    color: white;
-    text-align: center;
-    padding: 40px;
-    border-radius: 10px;
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.banner h1 {
-    font-size: 2em;
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.banner p {
-    font-size: 1.2em;
+.search-container input {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 250px;
 }
 
-/* Counting Panels */
+.search-container i {
+    position: absolute;
+    right: 10px;
+    color: #888;
+}
+
+.top-icons {
+    display: flex;
+    align-items: center;
+}
+
+.top-icons .notification, .top-icons .chat {
+    position: relative;
+    margin-left: 20px;
+}
+
+.top-icons i {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.top-icons i:hover {
+    color: #8d493a; /* Change color on hover */
+}
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #dfd3c3;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    top: 30px;
+    right: 0;
+    z-index: 10;
+}
+
+.notification-dropdown ul {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.notification-dropdown ul li {
+    padding: 5px 0;
+}
+
+.panels-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
 .counting-area {
     display: flex;
     gap: 15px; /* Reduced gap between count boxes */
@@ -118,4 +211,62 @@ body {
     color: #8d493a;
     font-weight: bold;
     transition: transform 0.5s ease; /* Smooth transition for scaling effect */
+}
+
+.banner {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #8d493a; /* Light background for contrast */
+    overflow: hidden; /* Prevent scroll bars */
+    background-image: url('banner-bg.jpg'); /* Replace with your sleek image */
+    background-size: cover; /* Cover the entire banner area */
+    background-position: center; /* Center the image */
+    color: white; /* White text color */
+    text-align: center;
+    padding: 60px 20px; /* Increased height with padding */
+    position: relative; /* Relative positioning for effects */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 10px; /* Rounded corners */
+transition: transform 0.3s, background-color 0.3s; /* Smooth transitions */
+animation: pop-in 0.5s ease forwards; /* Pop-in effect */
+}
+
+@keyframes pop-in {
+from {
+    transform: scale(0.5); /* Start small */
+    opacity: 0; /* Invisible */
+}
+to {
+    transform: scale(1); /* Grow to normal size */
+    opacity: 1; /* Fully visible */
+}
+}
+
+.banner:hover {
+transform: scale(1.05); /* Bulging effect */
+background-color: #d0b8a8; /* Change color on hover */
+color: #8d493a;
+}
+
+.banner h1 {
+font-size: 2.8em; /* Large font size */
+margin: 0; /* Remove default margin */
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+}
+
+.banner p {
+font-size: 1.5em; /* Subtitle font size */
+margin-top: 10px; /* Margin for spacing */
+animation: fade-in 0.5s ease forwards; /* Fade-in effect */
+opacity: 0; /* Start invisible */
+animation-delay: 0.3s; /* Delay for subtitle */
+}
+
+@keyframes fade-in {
+from {
+    opacity: 0; /* Start invisible */
+}
+to {
+    opacity: 1; /* Fully visible */
+}
 }
