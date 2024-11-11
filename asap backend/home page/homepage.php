@@ -43,7 +43,7 @@
         </div>
         
         <div class="hero-illustration">
-            <img src="logonew.jpg" alt="Illustration of a person at a desk" />
+            <img src="logooo.png",size:40px,alt="Illustration of a person at a desk" />
         </div>
     </section>
 
