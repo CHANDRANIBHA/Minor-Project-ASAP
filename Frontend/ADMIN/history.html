@@ -3,78 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My History</title>
-    <link rel="stylesheet" href="admincss.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Session History</title>
+    <style>
+        /* Page Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dfd3c3;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dashboard Structure */
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #8d493a;
+            color: white;
+            transition: width 0.3s;
+            overflow: hidden;
+        }
+
+        .sidebar .profile {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .menu {
+            padding: 10px 0;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu li:hover {
+            background-color: #dfd3c3;
+            color: black;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            background: #d0b8a8;
+            border: none;
+            color: white;
+            font-size: 30px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-icon:hover {
+            background: #8d493a;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Top Bar Styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 250px;
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 10px;
+            color: #888;
+        }
+
+        .top-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-icons i {
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .top-icons i:hover {
+            color: #8d493a;
+        }
+
+        /* Session Table Styles */
+        .session-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .session-table th, .session-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 250px; /* Ensure text doesn't overflow */
+        }
+
+        .session-table th {
+            background-color: #8d493a;
+            color: white;
+        }
+
+                .back-arrow {
+            Margin: 15px;
+            Font-size: 34px;
+            Color: #8d493a;
+            Cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .session-table td {
+            background-color: #fff;
+        }
+
+        .session-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Styled Confirmation Message */
+        .confirmation-message {
+            background-color: #ffffff;
+            color: #8d493a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #8d493a;
+            display: none;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fade-in 0.5s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
 </head>
 <body>
+
+    <!-- Main Container -->
     <div class="dashboard">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="profile">
-                <img src="profile-pic.png" alt="Profile Image" class="profile-img">
-                <h3 id="username">Kiara</h3>
-                <p id="reg-number">Reg No: AD.EN.U3MIN00011</p>
+                <img src="profile.jpg" alt="Profile" class="profile-img">
+                <h3 id="username">Admin</h3>
+                <p id="reg-number">Reg No: AD.EN.B3FFC33033</p>
             </div>
-            <div id="menu" class="menu">
+            <button class="menu-icon" id="menuToggle"><i class="fa fa-bars"></i></button> <!-- Menu Toggle Button -->
+            <div class="menu">
                 <ul>
-                    <li onclick="navigateTo('teacher html.html')">Home</li>
-                    <li onclick="navigateTo('Manage.html')">Manage</li>
-                    <li onclick="navigateTo('viewadmin.html')">View</li>
-                    <li onclick="navigateTo('history.html')">History</li>
-                    <li onclick="navigateTo('faq')">FAQ</li>
+                    <li onclick="navigateTo('../homepage/home.html')">Home</li>
+                    <li onclick="navigateTo('admindemo.html')">Dashboard</li>
+                    <li onclick="navigateTo('manage.html')">Manage</li>
+                    <li onclick="navigateTo('admarkview.html')">View Marks</li>
+                    <li onclick="navigateTo('viewfeedback.html')">View Feedback</li>
+                    <li onclick="navigateTo('history.html')">Session History</li>
+                    <li onclick="logout()">Logout</li>
                 </ul>
             </div>
         </div>
 
-        <button id="menuToggle" class="menu-icon">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Main Content Area -->
+        <!-- Main Content -->
         <div class="main-content">
+            <span class="back-arrow" onclick="goBack()">&#8592; </span>
+
+            <!-- Top Bar -->
             <div class="top-bar">
                 <div class="search-container">
-                    <input type="text" placeholder="Search...">
-                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search Session History..." oninput="searchSession()">
+                    <i class="fa fa-search"></i>
                 </div>
                 <div class="top-icons">
-                    <div class="notification" id="notification">
-                        <i class="fas fa-bell"></i>
-                    </div>
+                    <i class="fa fa-bell"></i>
+                    <i class="fa fa-cog"></i>
                 </div>
             </div>
 
-            <!-- Panels Section for History -->
-            <div class="panels-section">
-                <div class="panel">
-                    <h4 class="panel-title">Sessions</h4>
-                    <p>Details about your sessions will appear here.</p>
-                </div>
-                <div class="panel">
-                    <h4 class="panel-title">Updations</h4>
-                    <p>Details about updates will appear here.</p>
-                </div>
-                <div class="panel">
-                    <h4 class="panel-title">Feedback</h4>
-                    <p>Your feedback history will appear here.</p>
-                </div>
-                <div class="panel">
-                    <h4 class="panel-title">sljsldfjsldfj</h4>
-                    <p>Information about sljsldfjsldfj will appear here.</p>
-                </div>
-                <div class="panel">
-                    <h4 class="panel-title">hfdjfhdskjfsk</h4>
-                    <p>Information about hfdjfhdskjfsk will appear here.</p>
-                </div>
-                <div class="panel">
-                    <h4 class="panel-title">jafhkajfhkdsjf</h4>
-                    <p>Information about jafhkajfhkdsjf will appear here.</p>
-                </div>
+            <!-- Session Table -->
+            <table class="session-table">
+                <thead>
+                    <tr>
+                        <th>Session ID</th>
+                        <th>Teacher ID</th>
+                        <th>Teacher Name</th>
+                        <th>Subject</th>
+                        <th>Topic</th>
+                        <th>Number of Students</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="sessionList">
+                    <!-- Session rows will be inserted dynamically -->
+                </tbody>
+            </table>
+
+            <!-- Confirmation Message -->
+            <div id="confirmationMessage" class="confirmation-message">
+                <p id="confirmationText"></p>
             </div>
         </div>
     </div>
 
-    <script src="adminjs.js"></script>
+    <!-- JavaScript -->
+    <script>
+        // Toggle Sidebar Menu
+        document.getElementById('menuToggle').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const isOpen = sidebar.style.width === '250px';
+            sidebar.style.width = isOpen ? '0' : '250px';
+            this.querySelector('i').classList.toggle('fa-bars', isOpen);
+            this.querySelector('i').classList.toggle('fa-times', !isOpen);
+        });
+
+        // Sample Session Data with new subjects
+        const sessionData = [
+            { sessionId: 1, teacherId: 'T001', teacherName: 'Yedhu ', subject: 'Aptitude', topic: 'Quantitative', numStudents: 30, date: '2024-11-01' },
+            { sessionId: 2, teacherId: 'T002', teacherName: 'Karthika', subject: 'Verbal', topic: 'Grammar', numStudents: 25, date: '2024-11-02' },
+            { sessionId: 3, teacherId: 'T003', teacherName: 'Varsha', subject: 'Soft Skill', topic: 'Speaking', numStudents: 28, date: '2024-11-03' },
+            { sessionId: 4, teacherId: 'T004', teacherName: 'Ramnadh', subject: 'Professional Training', topic: 'Mock Interview', numStudents: 35, date: '2024-11-04' }
+        ];
+
+        // Display Session Data in the Table
+        function loadSessions(data) {
+            const sessionList = document.getElementById('sessionList');
+            sessionList.innerHTML = '';
+            data.forEach(session => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${session.sessionId}</td>
+                    <td>${session.teacherId}</td>
+                    <td>${session.teacherName}</td>
+                    <td>${session.subject}</td>
+                    <td>${session.topic}</td>
+                    <td>${session.numStudents}</td>
+                    <td>${session.date}</td>
+                `;
+                sessionList.appendChild(row);
+            });
+        }
+
+        // Handle logout action
+        function logout() {
+            window.location.href = "logout.html"; // Redirect to home page on logout
+        }
+        
+        // Function for Back Button
+        function goBack() {
+            window.history.back();
+        }
+
+        // Handle menu item navigation
+        function navigateTo(page) {
+            window.location.href = page; // Redirect to the specified page
+        }
+
+        // Search Session based on input
+        function searchSession() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredData = sessionData.filter(session =>
+                session.teacherName.toLowerCase().includes(searchTerm) ||
+                session.subject.toLowerCase().includes(searchTerm) ||
+                session.topic.toLowerCase().includes(searchTerm) ||
+                session.date.includes(searchTerm)
+            );
+            loadSessions(filteredData);
+        }
+
+        // Load sessions on page load
+        window.onload = () => loadSessions(sessionData);
+    </script>
+
 </body>
 </html>

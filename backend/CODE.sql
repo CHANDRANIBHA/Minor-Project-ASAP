@@ -124,3 +124,13 @@ CREATE TABLE `mark_tbl` (
 2	verbal	1
 3	soft_skill	1
 		
+
+    CREATE TABLE `users` (
+  `user_id` varchar(25) NOT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `email_id` varchar(100) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `role` enum('student','teacher','admin') DEFAULT NULL,
+  `signup_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

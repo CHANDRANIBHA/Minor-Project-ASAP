@@ -182,6 +182,15 @@
             transition: background-color 0.3s;
         }
 
+        .back-arrow {
+            Margin: 15px;
+            Font-size: 34px;
+            Color: #8d493a;
+            Cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         .reply-button:hover {
             background-color: #dfd3c3;
             color: black;
@@ -228,10 +237,11 @@
             <div class="menu">
                 <ul>
                     <li onclick="navigateTo('../homepage/home.html')">Home</li>
-                    <li onclick="navigateTo('dashboard.html')">Dashboard</li>
+                    <li onclick="navigateTo('admindemo.html')">Dashboard</li>
                     <li onclick="navigateTo('manage.html')">Manage</li>
                     <li onclick="navigateTo('admarkview.html')">View Marks</li>
-                    <li onclick="navigateTo('adhistory.html')">History</li>
+                    <li onclick="navigateTo('viewfeedback.html')">View Feedback</li>
+                    <li onclick="navigateTo('history.html')">Session History</li>
                     <li onclick="logout()">Logout</li>
                 </ul>
             </div>
@@ -239,6 +249,8 @@
 
         <!-- Main Content -->
         <div class="main-content">
+            <span class="back-arrow" onclick="goBack()">&#8592; </span>
+
             <button class="menu-icon" id="menuToggle"><i class="fa fa-bars"></i></button>
 
             <!-- Top Bar -->
@@ -345,9 +357,11 @@
 
         // Handle logout action
         function logout() {
-            window.location.href = "home.html"; // Redirect to home page on logout
+            window.location.href = "..login and password change/logout.html"; // Redirect to home page on logout
         }
-
+        function goBack() {
+            window.history.back();
+        }
         // Handle menu item navigation
         function navigateTo(page) {
             window.location.href = page; // Redirect to the specified page
