@@ -229,9 +229,12 @@ document.addEventListener("DOMContentLoaded", () => {
     animateCount(document.getElementById('total-students-count'), totalStudentsCount, 2000); // 2 seconds duration
     animateCount(document.getElementById('total-teachers-count'), totalTeachersCount, 2000);  // 2 seconds duration
 });
+function goBack() {
+    window.history.back();
+}
 function logout() {
     
-    window.location.href = "../homepage/home.html"; 
+    window.location.href = "logout.html"; 
 
 }
 
