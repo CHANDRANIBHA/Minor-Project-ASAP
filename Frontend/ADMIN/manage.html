@@ -208,6 +208,15 @@
             color: #8d493a;
         }
 
+        .back-arrow {
+            Margin: 15px;
+            Font-size: 34px;
+            Color: #8d493a;
+            Cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         /* Styled Confirmation Message (as a panel) */
         .confirmation-message {
             background-color: #ffffff;
@@ -395,6 +404,9 @@
         // Handle logout action
         function logout() {
             window.location.href = "logout.html"; 
+        }
+        function goBack() {
+            window.history.back();
         }
 
         // Handle menu item navigation

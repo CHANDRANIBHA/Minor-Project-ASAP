@@ -145,6 +145,15 @@
             color: white;
         }
 
+                .back-arrow {
+            Margin: 15px;
+            Font-size: 34px;
+            Color: #8d493a;
+            Cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         .session-table td {
             background-color: #fff;
         }
@@ -207,6 +216,8 @@
 
         <!-- Main Content -->
         <div class="main-content">
+            <span class="back-arrow" onclick="goBack()">&#8592; </span>
+
             <!-- Top Bar -->
             <div class="top-bar">
                 <div class="search-container">
@@ -285,6 +296,11 @@
         // Handle logout action
         function logout() {
             window.location.href = "logout.html"; // Redirect to home page on logout
+        }
+        
+        // Function for Back Button
+        function goBack() {
+            window.history.back();
         }
 
         // Handle menu item navigation
