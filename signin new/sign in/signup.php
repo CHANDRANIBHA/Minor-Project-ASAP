@@ -1,6 +1,6 @@
 <?php
 // Database connection
-include "C:/xampp/htdocs/asap backend/db.php"; // Database connection
+include "C:/xampp/htdocs/db.php"; // Database connection
 
 // Variables to hold form input data
 $username = $role = $user_id = $email = $password = $confirm_password = "";
