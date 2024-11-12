@@ -9,34 +9,22 @@ $errors = [];
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
-    $username = $_POST['username'] ?? '';
+    $username = strtoupper(trim($_POST['username'] ?? ''));
     $role = $_POST['role'] ?? '';
-    $user_id = $_POST['user_id'] ?? ''; 
-    $email = $_POST['email'] ?? '';
+    $user_id = strtoupper($_POST['user_id'] ?? ''); 
+    $email = strtolower(trim($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
     // Perform server-side validation
-    if (empty($username)) {
-        $errors['username'] = "Username is required.";
-    }
-    if (empty($role)) {
-        $errors['role'] = "Role is required.";
-    }
-    if (empty($user_id)) {
-        $errors['user_id'] = "User ID is required.";
-    }
-    if (empty($email)) {
-        $errors['email'] = "Email is required.";
-    }
-    if (empty($password)) {
-        $errors['password'] = "Password is required.";
-    } elseif ($password !== $confirm_password) {
-        $errors['confirm_password'] = "Passwords do not match.";
-    } else {
-        // Hash the password for security
-        $password = password_hash($password, PASSWORD_DEFAULT);
-    }
+    if (!preg_match("/^[A-Za-z ]*$/", $username)) $errors['username'] = "Username can contain only letters and spaces.";
+    if (empty($role)) $errors['role'] = "Role is required.";
+    if ($role === "student" && !preg_match("/^KH\.EN\.U3CDS\d{5}$/i", $user_id)) $errors['user_id'] = "Student ID format is 'KH.EN.U3CDSxxxxx'.";
+    if ($role === "teacher" && !preg_match("/^TH\.\S*$/", $user_id)) $errors['user_id'] = "Teacher ID must start with 'TH'.";
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors['email'] = "Invalid email format.";
+    if (!preg_match("/^(?=.*[A-Z])(?=.*\W).{8,}$/", $password)) $errors['password'] = "Password must be 8+ chars with 1 uppercase and 1 special char.";
+    elseif ($password !== $confirm_password) $errors['confirm_password'] = "Passwords do not match.";
+    else $password = password_hash($password, PASSWORD_DEFAULT);
 
     // If there are no validation errors, check for existing username and user_id
     if (count($errors) === 0) {
@@ -85,7 +73,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
-    <link rel="stylesheet" href="signup_css.css"> <!-- Correct link to your CSS file -->
+    <link rel="stylesheet" href="signup.css"> <!-- Correct link to your CSS file -->
 </head>
 <body>
     <div class="signup-container">
