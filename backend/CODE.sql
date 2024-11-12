@@ -49,8 +49,8 @@ CREATE TABLE `users` (
 
 
 CREATE TABLE subject_tbl (
-    id INT AUTO_INCREMENT,            -- id is auto-incremented
-    subject_id VARCHAR(15) NOT NULL,   -- subject_id is a regular column
+             
+    subject_id INT(15) AUTO_INCREMENT,   -- subject_id is a regular column
     subject_name VARCHAR(100) NOT NULL, -- subject_name cannot be NULL
     PRIMARY KEY (subject_id),          -- subject_id is the primary key
     UNIQUE (id)                        -- id is a unique key
