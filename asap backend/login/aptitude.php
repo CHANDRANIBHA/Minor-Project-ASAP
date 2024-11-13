@@ -1,4 +1,3 @@
-
 <?php
 session_start(); // Start the session to access session variables
 
@@ -10,13 +9,14 @@ function getClassesForSemester($semester) {
     global $conn; // Use the database connection from db.php
 
     $classes = [];
-    $stmt = $conn->prepare("SELECT class_name FROM class_tbl WHERE semester = ?");
+    // Modify the query to include class_id for each class
+    $stmt = $conn->prepare("SELECT class_id, class_name FROM class_tbl WHERE sem = ?");
     $stmt->bind_param("i", $semester);
     $stmt->execute();
     $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
-        $classes[] = ['name' => $row['class_name']];
+        $classes[] = ['class_id' => $row['class_id'], 'name' => $row['class_name']];
     }
 
     $stmt->close();
@@ -33,6 +33,7 @@ $user_id = $_SESSION['user_id'] ?? '12345678'; // Default to a placeholder if no
 // Fetch classes for the selected semester
 $classes = getClassesForSemester($semester);
 ?>
+
 
 
 <!DOCTYPE html>
@@ -76,35 +77,39 @@ $classes = getClassesForSemester($semester);
             <div class="class-panels">
                 <!-- Panels for each class -->
                 <?php foreach ($classes as $class): ?>
-                    <div class="panel">
-                        <h3><?php echo htmlspecialchars($class['name']); ?></h3>
-                        <select class="class-dropdown">
-                        <option value="">Choose Action</option>
-                            <option value="view">View</option>
-                            <option value="update">Update</option>
-                        </select>
-                    </div>
-                <?php endforeach; ?>
+    <div class="panel">
+        <h3><?php echo htmlspecialchars($class['name']); ?></h3>
+        <select class="class-dropdown">
+            <option value="">Choose Action</option>
+            <option value="view|<?php echo $class['class_id']; ?>">View</option>
+            <option value="update|<?php echo $class['class_id']; ?>">Update</option>
+        </select>
+    </div>
+<?php endforeach; ?>
+
+
             </div>
         </div>
     </div>
 
     <script>
-        document.querySelectorAll('.class-dropdown').forEach(select => {
-            select.addEventListener('change', function() {
-                const action = this.value; // Get the selected action (view or update)
-                const className = this.closest('.panel').querySelector('h3').innerText; // Get the class name from the panel's <h3>
+      document.querySelectorAll('.class-dropdown').forEach(select => {
+    select.addEventListener('change', function() {
+        const actionData = this.value; // Get the selected action and class_id
+        if (actionData) {
+            const [action, classId] = actionData.split("|"); // Split the value into action and class_id
+            const className = this.closest('.panel').querySelector('h3').innerText; // Get the class name from the panel's <h3>
 
-                if (action) {
-                    // Redirect based on the selected action
-                    if (action === 'view') {
-                        window.location.href = `view_aptitude.php?class=${encodeURIComponent(className)}`;
-                    } else if (action === 'update') {
-                        window.location.href = `update_aptitude.php?class=${encodeURIComponent(className)}`;
-                    }
-                }
-            });
-        });
+            // Redirect based on the selected action
+            if (action === 'view') {
+                window.location.href = `view_aptitude.php?class=${encodeURIComponent(className)}&class_id=${classId}`;
+            } else if (action === 'update') {
+                window.location.href = `update_aptitude.php?class=${encodeURIComponent(className)}&class_id=${classId}&semester=${<?php echo $semester; ?>}`;
+
+            }
+        }
+    });
+});      
     </script>
 </body>
 </html>

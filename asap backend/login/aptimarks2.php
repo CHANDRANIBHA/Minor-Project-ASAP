@@ -314,35 +314,46 @@ $conn->close();
 
 <script>
     // JS to calculate totals
-    const calculateTotal = () => {
-        let grandQuantTotal = 0;
-        let grandLRTotal = 0;
-        let grandTotal = 0;
+   const calculateTotal = () => {
+    let grandQuantTotal = 0;
+    let grandLRTotal = 0;
+    let grandTotal = 0;
 
-        document.querySelectorAll('tbody tr').forEach(row => {
-            const quantInput = row.querySelector('input[data-type="quant"]');
-            const lrInput = row.querySelector('input[data-type="lr"]');
-            const quant = parseFloat(quantInput.value) || 0;
-            const lr = parseFloat(lrInput.value) || 0;
+    document.querySelectorAll('tbody tr').forEach(row => {
+        const quantInput = row.querySelector('input[data-type="quant"]');
+        const lrInput = row.querySelector('input[data-type="lr"]');
+        const maxQuant = parseFloat(quantInput.getAttribute('max'));
+        const maxLR = parseFloat(lrInput.getAttribute('max'));
 
-            const rowTotal = quant + lr;
-            row.querySelector('.row-total').innerText = rowTotal;
+        let quant = parseFloat(quantInput.value) || 0;
+        let lr = parseFloat(lrInput.value) || 0;
 
-            grandQuantTotal += quant;
-            grandLRTotal += lr;
-            grandTotal += rowTotal;
-        });
+        // Enforce max value for Quantitative and LR
+        if (quant > maxQuant) quant = maxQuant;
+        if (lr > maxLR) lr = maxLR;
 
-        document.getElementById('quant-grand-total').innerText = grandQuantTotal;
-        document.getElementById('lr-grand-total').innerText = grandLRTotal;
-        document.getElementById('grand-total').innerText = grandTotal;
-    };
+        quantInput.value = quant;
+        lrInput.value = lr;
 
-    document.querySelectorAll('.marks-input').forEach(input => {
-        input.addEventListener('input', calculateTotal);
+        const rowTotal = quant + lr;
+        row.querySelector('.row-total').innerText = rowTotal;
+
+        grandQuantTotal += quant;
+        grandLRTotal += lr;
+        grandTotal += rowTotal;
     });
 
-    calculateTotal();
+    document.getElementById('quant-grand-total').innerText = grandQuantTotal;
+    document.getElementById('lr-grand-total').innerText = grandLRTotal;
+    document.getElementById('grand-total').innerText = grandTotal;
+};
+
+document.querySelectorAll('.marks-input').forEach(input => {
+    input.addEventListener('input', calculateTotal);
+});
+
+calculateTotal();
+
 </script>
 
 </body>
