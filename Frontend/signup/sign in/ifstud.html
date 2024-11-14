@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details Modal</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="ifstud.css">
+</head>
+<body>
+    <!-- Modal structure -->
+   <!-- Updated HTML in ifstud.html -->
+<div class="modal">
+    <h2>Enter Details</h2>
+
+    <!-- Error message box -->
+    <div id="error-message" class="error-message" style="display: none;"></div>
+
+    <div class="form-group">
+        <label for="batch">Batch</label>
+        <input type="text" id="batch" placeholder="Enter batch" required>
+    </div>
+
+    <div class="form-group">
+        <label for="semester">Semester</label>
+        <input type="number" id="semester" placeholder="Enter semester" min="1" max="12" required>
+    </div>
+
+    <div class="form-group">
+        <label for="year_of_joining">Year of Joining</label>
+        <input type="number" id="year_of_joining" placeholder="Enter year of joining" required>
+    </div>
+
+    <div class="form-group">
+        <label for="passing_out_year">Passing Out Year</label>
+        <input type="number" id="passing_out_year" placeholder="Enter passing out year" required>
+    </div>
+
+    <button onclick="submitForm()">Submit</button>
+</div>
+
+
+    <!-- Link to external JavaScript file -->
+    <script src="ifstud.js"></script>
+</body>
+</html>

@@ -17,14 +17,14 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
     $reg_num = $_POST['registration-number'];
-    $student_name = $_POST['username'];
+    $user_name = $_POST['username']; // Changed this variable name
     $email_id = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);  // Hash the password for security
     $role = $_POST['role'];
 
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO users (reg_num, student_name, email_id, password, role) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $reg_num, $student_name, $email_id, $password, $role);
+    $stmt = $conn->prepare("INSERT INTO users (reg_num, user_name, email_id, password, role) VALUES (?, ?, ?, ?, ?)"); // Changed student_name to user_name
+    $stmt->bind_param("sssss", $reg_num, $user_name, $email_id, $password, $role); // Changed variable name here
 
     // Execute the query
     if ($stmt->execute()) {

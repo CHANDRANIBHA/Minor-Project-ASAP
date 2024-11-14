@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Management</title>
+    <link rel="stylesheet" href="teacher css.css"> <!-- Same CSS for consistency -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar and other common content here -->
+    </div>
+
+    <div class="main-content">
+        <h2>Manage Student Marks: <span id="class-name"></span><span id="student-name"></span></h2>
+        <div>
+            <label for="semester-select">Select Semester:</label>
+            <select id="semester-select">
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+            </select>
+        </div>
+
+        <div id="marks-table-container">
+            <!-- Table for marks entry or viewing will be populated here -->
+        </div>
+
+        <table id="marks-table" border="1">
+            <thead>
+                <tr>
+                    <th>Evaluation</th>
+                    <th>Grammer</th>
+                    <th>Reading</th>
+                    <th>Total</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="marks-body">
+                <tr>
+                    <td>Mid Term</td>
+                    <td><input type="number" class="marks-input" id="midterm-grammer" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="midterm-reading" value="0"/></td>
+                    <td id="midterm-total">0</td>
+                    <td><input type="text" id="midterm-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>End Sem Mark</td>
+                    <td><input type="number" class="marks-input" id="endsem-grammer" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="endsem-reading" value="0"/></td>
+                    <td id="endsem-total">0</td>
+                    <td><input type="text" id="endsem-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Assignment 1</td>
+                    <td><input type="number" class="marks-input" id="assign1-grammer" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="assign1-reading" value="0"/></td>
+                    <td id="assign1-total">0</td>
+                    <td><input type="text" id="assign1-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Assignment 2</td>
+                    <td><input type="number" class="marks-input" id="assign2-grammer" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="assign2-reading" value="0"/></td>
+                    <td id="assign2-total">0</td>
+                    <td><input type="text" id="assign2-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Extra 1</td>
+                    <td><input type="number" class="marks-input" id="extra1-grammer" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="extra1-reading" value="0"/></td>
+                    <td id="extra1-total">0</td>
+                    <td><input type="text" id="extra1-remarks" /></td>
+                </tr>
+                <tr>
+                    <td>Extra 2</td>
+                    <td><input type="number" class="marks-input" id="extra2-grammer" value="0"/></td>
+                    <td><input type="number" class="marks-input" id="extra2-reading" value="0"/></td>
+                    <td id="extra2-total">0</td>
+                    <td><input type="text" id="extra2-remarks" /></td>
+                </tr>
+            </tbody>
+            
+            <tfoot>
+                <tr>
+                    <td>Grand Total</td>
+                    <td id="grammer-grand-total">0</td>
+                    <td id="reading-grand-total">0</td>
+                    <td id="grand-total">0</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <button id="save-button" style="display: none;">Save Marks</button>
+    </div>
+
+    <script>
+        // Get student name and mode from the query parameters
+const params = new URLSearchParams(window.location.search);
+const studentName = params.get('student');
+const mode = params.get('mode'); // 'update' or 'view'
+const className = params.get('class');
+document.getElementById('class-name').innerText = className;
+document.getElementById('student-name').innerText = studentName;
+
+const saveButton = document.getElementById('save-button');
+const marksInputs = document.querySelectorAll('.marks-input');
+
+// Initialize marks data if it's not already available
+let marksData = {
+            grammarMidterm: 0,
+            readingMidterm: 0,
+            grammarEndsem: 0,
+            readingEndsem: 0,
+            grammarAssignment1: 0,
+            readingAssignment1: 0,
+            grammarAssignment2: 0,
+            readingAssignment2: 0,
+            grammarExtra1: 0,
+            readingExtra1: 0,
+            grammarExtra2: 0,
+            readingExtra2: 0,
+            remarksMidterm: '',
+            remarksEndsem: '',
+            remarksAssignment1: '',
+            remarksAssignment2: '',
+            remarksExtra1: '',
+            remarksExtra2: ''
+        };
+// Load saved marks from localStorage (if any)
+const savedMarks = JSON.parse(localStorage.getItem(`${studentName}-marks`));
+if (savedMarks) {
+    marksData = savedMarks;
+}
+
+// Show the table and pre-fill it with marks data
+function loadMarksTable() {
+    document.getElementById('grammar-midterm').value = marksData.grammarMidterm;
+            document.getElementById('reading-midterm').value = marksData.readingMidterm;
+            document.getElementById('grammar-endsem').value = marksData.grammarEndsem;
+            document.getElementById('reading-endsem').value = marksData.readingEndsem;
+            document.getElementById('grammar-assignment1').value = marksData.grammarAssignment1;
+            document.getElementById('reading-assignment1').value = marksData.readingAssignment1;
+            document.getElementById('grammar-assignment2').value = marksData.grammarAssignment2;
+            document.getElementById('reading-assignment2').value = marksData.readingAssignment2;
+            document.getElementById('grammar-extra1').value = marksData.grammarExtra1;
+            document.getElementById('reading-extra1').value = marksData.readingExtra1;
+            document.getElementById('grammar-extra2').value = marksData.grammarExtra2;
+            document.getElementById('reading-extra2').value = marksData.readingExtra2;
+            document.getElementById('remarks-midterm').value = marksData.remarksMidterm;
+            document.getElementById('remarks-endsem').value = marksData.remarksEndsem;
+            document.getElementById('remarks-assignment1').value = marksData.remarksAssignment1;
+            document.getElementById('remarks-assignment2').value = marksData.remarksAssignment2;
+            document.getElementById('remarks-extra1').value = marksData.remarksExtra1;
+            document.getElementById('remarks-extra2').value = marksData.remarksExtra2;
+            calculateTotals();
+
+    calculateTotals(); // Recalculate totals after loading data
+}
+
+// Handle saving of marks
+if (mode === 'update') {
+    saveButton.style.display = 'block'; // Show save button in update mode
+
+    // Enable marks input for teacher
+    marksInputs.forEach(input => {
+        input.disabled = false;
+    });
+
+    saveButton.addEventListener('click', () => {
+        const updatedMarksData = {
+            grammarMidterm: document.getElementById('grammar-midterm').value,
+                    readingMidterm: document.getElementById('reading-midterm').value,
+                    grammarEndsem: document.getElementById('grammar-endsem').value,
+                    readingEndsem: document.getElementById('reading-endsem').value,
+                    grammarAssignment1: document.getElementById('grammar-assignment1').value,
+                    readingAssignment1: document.getElementById('reading-assignment1').value,
+                    grammarAssignment2: document.getElementById('grammar-assignment2').value,
+                    readingAssignment2: document.getElementById('reading-assignment2').value,
+                    grammarExtra1: document.getElementById('grammar-extra1').value,
+                    readingExtra1: document.getElementById('reading-extra1').value,
+                    grammarExtra2: document.getElementById('grammar-extra2').value,
+                    readingExtra2: document.getElementById('reading-extra2').value,
+                    remarksMidterm: document.getElementById('remarks-midterm').value,
+                    remarksEndsem: document.getElementById('remarks-endsem').value,
+                    remarksAssignment1: document.getElementById('remarks-assignment1').value,
+                    remarksAssignment2: document.getElementById('remarks-assignment2').value,
+                    remarksExtra1: document.getElementById('remarks-extra1').value,
+                    remarksExtra2: document.getElementById('remarks-extra2').value
+        };
+
+        // Save the marks data to localStorage
+        localStorage.setItem(`${studentName}-marks`, JSON.stringify(updatedMarksData));
+        alert('Marks saved!');
+    });
+} else if (mode === 'view') {
+    // Hide save button and disable inputs in view mode
+    saveButton.style.display = 'none';
+
+    // Disable marks input for viewing mode
+    marksInputs.forEach(input => {
+        input.disabled = true;
+    });
+
+    // If saved marks data exists, populate it into the form
+    if (savedMarks) {
+        loadMarksTable();
+    } else {
+        alert('No marks data available');
+    }
+}
+
+// Function to auto-calculate totals dynamically
+function calculateTotals() {
+    const evaluations = ['midterm', 'endsem', 'assign1', 'assign2', 'extra1', 'extra2'];
+
+    let quantGrandTotal = 0;
+    let lrGrandTotal = 0;
+
+    evaluations.forEach(eval => {
+        const quantScore = parseFloat(document.getElementById(`${eval}-grammer`).value) || 0;
+        const lrScore = parseFloat(document.getElementById(`${eval}-reading`).value) || 0;
+
+        const totalScore = quantScore + lrScore;
+        document.getElementById(`${eval}-total`).innerText = totalScore;
+
+        quantGrandTotal += quantScore;
+        lrGrandTotal += lrScore;
+    });
+
+    const grandTotal = quantGrandTotal + lrGrandTotal;
+    document.getElementById('grammer-grand-total').innerText = quantGrandTotal;
+    document.getElementById('reading-grand-total').innerText = lrGrandTotal;
+    document.getElementById('grand-total').innerText = grandTotal;
+}
+
+// Add event listeners to all input fields for dynamic total calculation
+marksInputs.forEach(input => {
+    input.addEventListener('input', calculateTotals);
+});
+
+// Initial calculation on page load
+calculateTotals();
+loadMarksTable();
+
+    </script>
+</body>
+</html>

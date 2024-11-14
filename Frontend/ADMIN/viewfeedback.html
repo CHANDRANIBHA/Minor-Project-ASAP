@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Feedback</title>
+    <style>
+        /* Page Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dfd3c3;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dashboard Structure */
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #8d493a;
+            color: white;
+            transition: width 0.3s;
+            overflow: hidden;
+        }
+
+        .sidebar .profile {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .menu {
+            padding: 10px 0;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu li:hover {
+            background-color: #dfd3c3;
+            color: black;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            background: #d0b8a8;
+            border: none;
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-icon:hover {
+            background: #8d493a;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Top Bar Styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 250px;
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 10px;
+            color: #888;
+        }
+
+        .top-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-icons i {
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .top-icons i:hover {
+            color: #8d493a;
+        }
+
+        /* Feedback Table Styles */
+        .feedback-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .feedback-table th, .feedback-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 250px; /* Ensure feedback text doesn't overflow */
+        }
+
+        .feedback-table th {
+            background-color: #8d493a;
+            color: white;
+        }
+
+        .feedback-table td {
+            background-color: #fff;
+        }
+
+        .feedback-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Reply Section Styles */
+        .reply-section {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reply-textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            height: 100px;
+            resize: vertical;
+        }
+
+        .reply-button {
+            align-self: flex-start;
+            background-color: #8d493a;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .back-arrow {
+            Margin: 15px;
+            Font-size: 34px;
+            Color: #8d493a;
+            Cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .reply-button:hover {
+            background-color: #dfd3c3;
+            color: black;
+        }
+
+        /* Styled Confirmation Message */
+        .confirmation-message {
+            background-color: #ffffff;
+            color: #8d493a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #8d493a;
+            display: none;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fade-in 0.5s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profile.jpg" alt="Profile" class="profile-img">
+                <h3 id="username">Admin</h3>
+                <p id="reg-number">Reg No: AD.EN.B3FFC33033</p>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li onclick="navigateTo('../homepage/home.html')">Home</li>
+                    <li onclick="navigateTo('admindemo.html')">Dashboard</li>
+                    <li onclick="navigateTo('manage.html')">Manage</li>
+                    <li onclick="navigateTo('admarkview.html')">View Marks</li>
+                    <li onclick="navigateTo('viewfeedback.html')">View Feedback</li>
+                    <li onclick="navigateTo('history.html')">Session History</li>
+                    <li onclick="logout()">Logout</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <span class="back-arrow" onclick="goBack()">&#8592; </span>
+
+            <button class="menu-icon" id="menuToggle"><i class="fa fa-bars"></i></button>
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search Feedback..." oninput="searchFeedback()">
+                    <i class="fa fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <i class="fa fa-bell"></i>
+                    <i class="fa fa-cog"></i>
+                </div>
+            </div>
+
+            <!-- Feedback Table -->
+            <table class="feedback-table">
+                <thead>
+                    <tr>
+                        <th>Feedback ID</th>
+                        <th>User</th>
+                        <th>Feedback</th>
+                        <th>Date</th>
+                        <th>Reply</th>
+                    </tr>
+                </thead>
+                <tbody id="feedbackList">
+                    <!-- Feedback rows will be inserted dynamically -->
+                </tbody>
+            </table>
+
+            <!-- Confirmation Message -->
+            <div id="confirmationMessage" class="confirmation-message">
+                <p id="confirmationText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle Sidebar Menu
+        document.getElementById('menuToggle').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const isOpen = sidebar.style.width === '250px';
+            sidebar.style.width = isOpen ? '0' : '250px';
+            this.querySelector('i').classList.toggle('fa-bars', isOpen);
+            this.querySelector('i').classList.toggle('fa-times', !isOpen);
+        });
+
+        // Sample Feedback Data
+        const feedbackData = [
+            { id: 1, user: 'Zehra', feedback: 'Great website for students like me.', date: '2024-11-01', reply: '' },
+            { id: 2, user: 'Meera', feedback: 'Very helpful to interact with teachers', date: '2024-11-02', reply: '' },
+            { id: 3, user: 'Trisha', feedback: 'Smooth experience', date: '2024-11-03', reply: '' },
+        ];
+
+        // Display Feedback in the Table
+        function loadFeedback(data) {
+            const feedbackList = document.getElementById('feedbackList');
+            feedbackList.innerHTML = '';
+            data.forEach(feedback => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${feedback.id}</td>
+                    <td>${feedback.user}</td>
+                    <td>${feedback.feedback}</td>
+                    <td>${feedback.date}</td>
+                    <td>
+                        <div class="reply-section">
+                            <textarea class="reply-textarea" id="reply-${feedback.id}" placeholder="Write a reply...">${feedback.reply}</textarea>
+                            <button class="reply-button" onclick="submitReply(${feedback.id})">Submit Reply</button>
+                            <p id="replyText-${feedback.id}" class="reply-text"></p>
+                        </div>
+                    </td>
+                `;
+                feedbackList.appendChild(row);
+            });
+        }
+
+        // Handle Reply Submission
+        function submitReply(feedbackId) {
+            const replyTextarea = document.getElementById(`reply-${feedbackId}`);
+            const replyTextElement = document.getElementById(`replyText-${feedbackId}`);
+            const replyText = replyTextarea.value.trim();
+            if (replyText) {
+                feedbackData.find(feedback => feedback.id === feedbackId).reply = replyText; // Store reply
+                replyTextElement.textContent = replyText; // Display the reply in the Reply column
+                showConfirmationMessage(`Reply to Feedback #${feedbackId} submitted successfully!`);
+                replyTextarea.value = ''; // Clear the textarea after submission
+            } else {
+                showConfirmationMessage('Please enter a reply before submitting.');
+            }
+        }
+
+        // Show Confirmation Message
+        function showConfirmationMessage(message) {
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const confirmationText = document.getElementById('confirmationText');
+            confirmationText.textContent = message;
+            confirmationMessage.style.display = 'block';
+            setTimeout(() => {
+                confirmationMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Handle logout action
+        function logout() {
+            window.location.href = "..login and password change/logout.html"; // Redirect to home page on logout
+        }
+        function goBack() {
+            window.history.back();
+        }
+        // Handle menu item navigation
+        function navigateTo(page) {
+            window.location.href = page; // Redirect to the specified page
+        }
+
+        // Search Feedback based on input
+        function searchFeedback() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredData = feedbackData.filter(feedback =>
+                feedback.user.toLowerCase().includes(searchTerm) ||
+                feedback.feedback.toLowerCase().includes(searchTerm) ||
+                feedback.date.includes(searchTerm)
+            );
+            loadFeedback(filteredData);
+        }
+
+        // Load feedback on page load
+        window.onload = () => loadFeedback(feedbackData);
+    </script>
+
+</body>
+</html>

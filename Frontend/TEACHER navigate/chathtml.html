@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="chatcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-list">
+            <h2>Chat List</h2>
+            <ul>
+                <li onclick="openChat('Sachin Tendulkar')">
+                    <img src="profile1.webp" alt="Profile">
+                    <span>Sachin Tendulkar</span>
+                </li>
+                <li onclick="openChat('Rohith Sharma')">
+                    <img src="profile2.jpg" alt="Profile">
+                    <span>Rohith Sharma</span>
+                </li>
+                <li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li>
+                <li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li>
+                <li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li>
+                <li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li>
+                <li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li>
+                <li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li><li onclick="openChat('Virat Kohli')">
+                    <img src="profile3.avif" alt="Profile">
+                    <span>Virat Kohli</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chat-area">
+            <div class="chat-header">
+                <img src="profile1.webp" alt="Profile" id="profileImage">
+                <h2><span id="chatWith">Sachin Tendulkar</span></h2>
+            </div>
+            <div id="chatMessages" class="chat-messages">
+                <!-- Messages will be appended here -->
+            </div>
+            <div class="message-input">
+                <label for="fileButton" class="file-label">
+                    <i class="fa fa-paperclip"></i>
+                </label>
+                <input type="file" id="fileButton" style="display: none;" multiple>
+                <input type="text" id="messageInput" placeholder="Type a message..." />
+                <button id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+    <script src="chatjs.js"></script>
+</body>
+</html>

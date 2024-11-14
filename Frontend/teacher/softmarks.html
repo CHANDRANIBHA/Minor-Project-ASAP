@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Speaking Test Marks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Manage Student Speaking Test Marks</h2>
+
+<!-- Dropdown for selecting semester -->
+<div>
+    <label for="semester-select">Select Semester:</label>
+    <select id="semester-select">
+        <option value="3">Sem 3</option>
+        <option value="4">Sem 4</option>
+        <option value="5">Sem 5</option>
+    </select>
+</div>
+
+<!-- Table structure -->
+<table id="marks-table">
+    <thead>
+        <tr>
+            <th>Evaluation</th>
+            <th>Body Language</th>
+            <th>Grammar</th>
+            <th>Vocabulary</th>
+            <th>Confidence</th>
+            <th>Extra 1</th>
+            <th>Extra 2</th>
+            <th>Grand Total</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody id="marks-body">
+        <!-- Rows for input -->
+        <tr>
+            <td>Test 1</td>
+            <td><input type="number" class="marks-input" id="body-lang-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-1" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-1" value="0" /></td>
+            <td id="total-1">0</td>
+            <td><input type="text" id="remark-1" /></td>
+        </tr>
+        <tr>
+            <td>Speaking Test 1</td>
+            <td><input type="number" class="marks-input" id="body-lang-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-2" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-2" value="0" /></td>
+            <td id="total-2">0</td>
+            <td><input type="text" id="remark-2" /></td>
+        </tr>
+        <tr>
+            <td>Speaking Test 2</td>
+            <td><input type="number" class="marks-input" id="body-lang-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-3" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-3" value="0" /></td>
+            <td id="total-3">0</td>
+            <td><input type="text" id="remark-3" /></td>
+        </tr>
+        <tr>
+            <td>Extra 1</td>
+            <td><input type="number" class="marks-input" id="body-lang-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-4" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-4" value="0" /></td>
+            <td id="total-4">0</td>
+            <td><input type="text" id="remark-4" /></td>
+        </tr>
+        <tr>
+            <td>Extra 2</td>
+            <td><input type="number" class="marks-input" id="body-lang-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="grammar-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="vocab-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="confidence-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra1-5" value="0" /></td>
+            <td><input type="number" class="marks-input" id="extra2-5" value="0" /></td>
+            <td id="total-5">0</td>
+            <td><input type="text" id="remark-5" /></td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td id="total-body-lang">0</td>
+            <td id="total-grammar">0</td>
+            <td id="total-vocab">0</td>
+            <td id="total-confidence">0</td>
+            <td id="total-extra1">0</td>
+            <td id="total-extra2">0</td>
+            <td id="grand-total">0</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<table border="1">
+    <tr>
+        <th>Overall Total Marks</th>
+        <td id="overall-total-marks">0</td>
+    </tr>
+</table>
+
+<button id="save-button" style="display: none;">Save Marks</button>
+
+<script>
+    const saveButton = document.getElementById('save-button');
+    const marksInputs = document.querySelectorAll('.marks-input');
+
+    // Load saved marks from localStorage (if any)
+    const savedMarks = JSON.parse(localStorage.getItem('student-marks'));
+    if (savedMarks) {
+        // Load marks into the input fields here if required
+    }
+
+    // Function to auto-calculate totals dynamically
+    function calculateTotals() {
+        let totalBodyLang = 0, totalGrammar = 0, totalVocab = 0, totalConfidence = 0, totalExtra1 = 0, totalExtra2 = 0, grandTotal = 0;
+
+        // Loop through each row, assuming there are 2 rows for tests (modify as needed)
+        for (let i = 1; i <= 5; i++) { // Change the limit to match your number of tests
+            const bodyLang = parseFloat(document.getElementById(`body-lang-${i}`).value) || 0;
+            const grammar = parseFloat(document.getElementById(`grammar-${i}`).value) || 0;
+            const vocab = parseFloat(document.getElementById(`vocab-${i}`).value) || 0;
+            const confidence = parseFloat(document.getElementById(`confidence-${i}`).value) || 0;
+            const extra1 = parseFloat(document.getElementById(`extra1-${i}`).value) || 0;
+            const extra2 = parseFloat(document.getElementById(`extra2-${i}`).value) || 0;
+            
+            const total = bodyLang + grammar + vocab + confidence + extra1 + extra2;
+            document.getElementById(`total-${i}`).textContent = total;
+
+            // Sum up for the overall totals
+            totalBodyLang += bodyLang;
+            totalGrammar += grammar;
+            totalVocab += vocab;
+            totalConfidence += confidence;
+            totalExtra1 += extra1;
+            totalExtra2 += extra2;
+            grandTotal += total;
+        }
+
+        // Display the total marks for each category and grand total
+        document.getElementById('total-body-lang').textContent = totalBodyLang;
+        document.getElementById('total-grammar').textContent = totalGrammar;
+        document.getElementById('total-vocab').textContent = totalVocab;
+        document.getElementById('total-confidence').textContent = totalConfidence;
+        document.getElementById('total-extra1').textContent = totalExtra1;
+        document.getElementById('total-extra2').textContent = totalExtra2;
+        // document.getElementById('grand-total').textContent = grandTotal;
+
+        // Update the overall total marks
+        document.getElementById('overall-total-marks').textContent = grandTotal; 
+    }
+
+    // Attach event listeners to input fields for dynamic updates
+    marksInputs.forEach(input => {
+        input.addEventListener('input', calculateTotals);
+    });
+
+    // Initial calculation
+    calculateTotals();
+</script>
+
+</body>
+</html>

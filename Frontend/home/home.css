@@ -1,0 +1,149 @@
+/* Reset CSS */
+•	{
+    Margin: 0;
+    Padding: 0;
+    Box-sizing: border-box;
+    Font-family: ‘Arial’, sans-serif;
+}
+
+/* Navbar Styles */
+.navbar {
+    Display: flex;
+    Justify-content: space-between;
+    Align-items: center;
+    Background-color: #493628;
+    Padding: 10px 20px;
+    Color: #E4E0E1;
+}
+
+.nav-links a {
+    Color: #E4E0E1;
+    Text-decoration: none;
+    Margin-left: 15px;
+    Transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    Color: #AB886D;
+}
+
+.login-btn {
+    Background-color: #AB886D;
+    Padding: 5px 10px;
+    Border-radius: 5px;
+    color: #493628;
+}
+
+.mobile-menu {
+    Display: none;
+    Font-size: 30px;
+    Cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    Height: 90vh;
+    Background-color: #D6C0B3;
+    Display: flex;
+    Justify-content: center;
+    Align-items: center;
+    Text-align: center;
+    Color: #493628;
+    Padding: 20px;
+}
+
+.hero-content h2 {
+    Font-size: 2.5rem;
+}
+
+.hero-content p {
+    Margin-top: 10px;
+    Font-size: 1.2rem;
+}
+
+.cta-btn {
+    Margin-top: 20px;
+    Background-color: #ab886d;
+    Color: white;
+    Padding: 10px 20px;
+    Text-decoration: none;
+    Border-radius: 5px;
+    Font-weight: bold;
+}
+
+/* Modules Section */
+.features {
+    Padding: 50px 20px;
+    Background-color: #8d493a;
+    Text-align: center;
+    color:white;
+}
+
+.module-cards {
+    Display: flex;
+    Flex-wrap: wrap;
+    Justify-content: space-around;
+    Margin-top: 20px;
+}
+
+.card {
+    Background-color:#AB886D;
+    color: #493628;
+    Padding: 20px;
+    Margin: 10px;
+    Width: 300px;
+    Box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* About Section */
+.about {
+    Padding: 50px 20px;
+    Text-align: center;
+    Background-color: #D6C0B3;
+}
+
+/* Footer Styles */
+.footer {
+    Background-color: #493628;
+    Color: #E4E0E1;
+    Text-align: center;
+    Padding: 10px 0;
+}
+
+.footer-links a {
+    Color: #AB886D;
+    Text-decoration: none;
+    Margin: 0 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .module-cards {
+        Flex-direction: column;
+        Align-items: center;
+    }
+
+    .mobile-menu {
+        Display: block;
+    }
+
+    .nav-links {
+        Display: none;
+        Flex-direction: column;
+        Position: absolute;
+        Top: 60px;
+        Left: 0;
+        Width: 100%;
+        Background-color: #493628;
+    }
+
+    .nav-links.active {
+        Display: flex;
+    }
+
+    .nav-links a {
+        Margin: 10px 0;
+        Text-align: center;
+    }
+}
+

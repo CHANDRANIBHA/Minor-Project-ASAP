@@ -1,10 +1,18 @@
+<?php
+session_start(); // Start the session
+
+// Retrieve the user_name and reg_number from the session or default to placeholders
+$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
+$reg_number = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; // Example registration number
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
-    <link rel="stylesheet" href="stud_css.css">
+    <link rel="stylesheet" href="stud.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
@@ -12,13 +20,13 @@
         <!-- Left Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="profile">
-                <img src="pro2.jpeg" alt="Profile Image" class="profile-img">
-                <h3 id="username">GEETHA C</h3>
-                <p id="reg-number">Reg No: 12345678</p>
+                <img src="asap.jpg" alt="Profile Image" class="profile-img">
+                <h3 id="username"><?php echo htmlspecialchars($user_name); ?></h3> <!-- PHP to display the user's name -->
+                <p id="reg-number">Reg No: <?php echo htmlspecialchars($reg_number); ?></p> <!-- PHP to display the reg number -->
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('stud_html.html')">Home</li>
+                    <li onclick="navigateTo('teacher html.html')">Home</li>
                     <li>
                         <div class="dropdown">
                             <span onclick="toggleDropdown()">Resources</span>
@@ -30,12 +38,11 @@
                             </div>
                         </div>
                     </li>
-                    <li onclick="navigateTo('chathtml.html')">Chat</li>
-                    <li onclick="navigateTo('session_student.html')">Session</li>
-                    <li onclick="navigateTo('history.html')">My History</li>
-                    <li onclick="navigateTo('faq.html')">FAQ</li>
+                    <li onclick="navigateTo('chattr.html')">Chat</li>
+                    <li onclick="navigateTo('sessionform.html')">Session</li>
+                    <li onclick="navigateTo('history')">My History</li>
+                    <li onclick="navigateTo('faq')">FAQ</li>
                 </ul>
-                
             </div>
         </div>
 
@@ -69,7 +76,6 @@
             <!-- Graph Section -->
             <div class="graph-section">
                 <div class="select-criteria-dropdown">
-                    
                     <select id="select-criteria">
                         <option value="" disabled selected>Select Criteria</option>
                         <option value="subject">Subject</option>
@@ -89,7 +95,7 @@
                     <button class="select-sem-btn">Select Semester</button>
                     <div class="semester-dropdown" id="sem-dropdown-aptitude">
                         <select>
-                            
+                            <option value="" disabled selected>Select Semester</option>
                             <option value="sem3">Sem 3</option>
                             <option value="sem4">Sem 4</option>
                             <option value="sem5">Sem 5</option>
@@ -139,6 +145,6 @@
         </div>
     </div>
 
-    <script src="stud_js.js"></script>
+    <script src="stud.js"></script>
 </body>
 </html>
