@@ -1,0 +1,107 @@
+/* Global styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+body {
+    background: linear-gradient(135deg, #f8ede3, #8d493a);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #333333;
+    font-weight: 600;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: #555555;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f8ede3;
+    font-size: 1em;
+    margin-bottom: 16px;
+    outline: none;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #8d493a;
+    box-shadow: 0 0 8px rgba(141, 73, 58, 0.3);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #8d493a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #d0b8a8;
+    box-shadow: 0 4px 15px rgba(208, 184, 168, 0.5);
+}
+
+.error {
+    color: #8d493a;
+    font-size: 0.85em;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Style for student-specific fields */
+#studentFields {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 480px) {
+    .signup-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+}
