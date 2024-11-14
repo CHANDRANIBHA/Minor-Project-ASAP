@@ -1,7 +1,10 @@
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
+<<<<<<< HEAD:Frontend/TEACHER ORGINAL/resourcecss.css
+=======
 
+>>>>>>> 8d042656bd26945584a27d2a39da5186f3018bd9:Frontend/TEACHER navigate/resourcecss.css
 }
 
 .dashboard {
@@ -12,6 +15,14 @@ body {
     width: 250px;
     background-color: #8d493a;
     color: white;
+<<<<<<< HEAD:Frontend/TEACHER ORGINAL/resourcecss.css
+    padding: 20px;
+    transition: transform 0.3s ease;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+=======
     transition: width 0.3s;
     overflow: hidden; /* Hide overflow when collapsed */
     height: auto;
@@ -174,6 +185,7 @@ body {
 }
 
 
+>>>>>>> 8d042656bd26945584a27d2a39da5186f3018bd9:Frontend/TEACHER navigate/resourcecss.css
 .sidebar.open {
     transform: translateX(-250px);
 }
@@ -332,6 +344,8 @@ body {
 .dropdown-content a:hover {
     background-color: #dfd3c3;
 }
+<<<<<<< HEAD:Frontend/TEACHER ORGINAL/resourcecss.css
+=======
 
 .back-arrow {
     Margin: 15px;
@@ -361,3 +375,4 @@ body,select,input,label,textarea{
     Color: #000;
 }
 
+>>>>>>> 8d042656bd26945584a27d2a39da5186f3018bd9:Frontend/TEACHER navigate/resourcecss.css
