@@ -134,3 +134,15 @@ CREATE TABLE `mark_tbl` (
   `signup_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE admin_tbl (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    admin_id VARCHAR(20) NOT NULL UNIQUE,
+    admin_name VARCHAR(25) NOT NULL,
+    password VARCHAR(64) NOT NULL, -- Storing the SHA2 hashed password
+    email_id VARCHAR(50) NOT NULL UNIQUE
+);
+INSERT INTO admin_tbl (admin_id, admin_name, password, email_id)
+VALUES ('AD.EN.AD2201', 'Admin', SHA2('adminstudent', 256), 'asap2k24project@gmail.com');
