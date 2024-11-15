@@ -228,3 +228,4 @@ if ($mode === 'update') {
     ?>
 </body>
 </html>
+Fatal error: Uncaught Error: Call to a member function bind_param() on bool in C:\xampp\htdocs\login\hash2.php:79 Stack trace: #0 {main} thrown in C:\xampp\htdocs\login\hash2.php on line 79
