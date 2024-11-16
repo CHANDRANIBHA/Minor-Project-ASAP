@@ -1,98 +1,110 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #dfd3c3;
+:root {
+    --bg-color: #dfd3c3;
+    --sidebar-color: #8d493a;
+    --highlight-color: #1ABC9C;
+    --font-family: 'Arial', sans-serif;
+}
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .dashboard {
     display: flex;
+    height: 100%;
 }
 
 .sidebar {
     width: 250px;
-    background-color: #8d493a;
+    background-color: var(--sidebar-color);
     color: white;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
     transition: width 0.3s;
-    overflow: hidden; /* Hide overflow when collapsed */
-    height: auto;
 }
 
-.sidebar .profile {
+.profile-container {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
-}
-.profile {
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 .profile-img {
     width: 100px;
     height: 100px;
-    border-radius: 50%; /* Round profile picture */
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
 }
+
+.profile-container h3, .profile-container p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+}
+
+.profile-container .reg-num {
+    font-size: 0.9rem;
+}
+
+.profile-container .name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
 .menu {
-    padding: 10px 0;
+    margin-top: 20px;
 }
 
 .menu ul {
     list-style-type: none;
-    padding: 0;
 }
 
 .menu li {
-    padding: 15px 20px;
+    padding: 15px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background-color 0.3s;
 }
 
 .menu li:hover {
-    background-color: #dfd3c3; /* Highlight on hover */
+    background-color: var(--bg-color);
     color: black;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none; /* Hide by default */
-    position: absolute;
-    background-color: #d0b8a8;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #8d493a;
 }
 
 .menu-icon {
-    position: absolute; /* Absolute positioning */
-    top: 20px; /* Adjust as needed */
-    left: 10px; /* Position outside the sidebar */
-    background: #d0b8a8; /* Button background color */
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    background-color: #d0b8a8;
     border: none;
     color: white;
     font-size: 20px;
     padding: 10px;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px;
     cursor: pointer;
     z-index: 10;
 }
 
 .menu-icon:hover {
-    background: #8d493a; /* Darker shade on hover */
+    background-color: var(--sidebar-color);
 }
 
 .main-content {
@@ -139,17 +151,17 @@ body {
 .top-icons i {
     font-size: 20px;
     cursor: pointer;
-    transition: color 0.3s; /* Transition for hover effect */
+    transition: color 0.3s;
 }
 
 .top-icons i:hover {
-    color: #8d493a; /* Change color on hover */
+    color: var(--sidebar-color);
 }
 
 .notification-dropdown {
     display: none;
     position: absolute;
-    background-color: #dfd3c3;
+    background-color: var(--bg-color);
     color: black;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -179,18 +191,18 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
+    transition: background-color 0.3s, transform 0.3s;
+    will-change: transform, background-color;
 }
 
 .panel:hover {
-    background-color: #8d493a; /* Change color on hover */
-    transform: scale(1.05); /* Zoom effect on hover */
+    background-color: var(--sidebar-color);
+    transform: scale(1.05);
 }
 
 .panel-title {
-    font-size: 24px; /* Enlarged font size */
+    font-size: 24px;
     font-weight: bold;
-    font-family: 'Arial', sans-serif; /* Stylish font */
 }
 
 .select-sem-btn, .select-training-btn {
@@ -204,222 +216,104 @@ body {
 }
 
 .select-sem-btn:hover, .select-training-btn:hover {
-    background-color: #8d493a; /* Darker shade on hover */
+    background-color: var(--sidebar-color);
 }
 
-.semester-dropdown, .training-options {
-    display: none; /* Initially hidden */
+.semester-dropdown, .training-options, .view-by-dropdown, .select-criteria-dropdown {
+    display: none;
     margin-top: 10px;
+    position: relative;
 }
 
-.canvas {
+.semester-dropdown select, .training-options select, .view-by-dropdown select, .select-criteria-dropdown select {
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
-    margin-top: 10px;
-}
-/* Stylish Dropdown Styles */
-.semester-dropdown, .training-options {
-    display: none; /* Initially hidden */
-    margin-top: 10px;
-    position: relative; /* Position for absolute child elements */
-}
-
-.semester-dropdown select, .training-options select {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding inside the select */
-    border: 1px solid #ccc; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    background-color: #ffffff; /* Background color */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
-}
-
-/* Change border color and add shadow on focus */
-.semester-dropdown select:focus, .training-options select:focus {
-    border-color: #1ABC9C; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
-}
-.class-dropdown select:focus, .training-options select:focus {
-    border-color: #1ABC9C; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
-}
-
-/* Style the dropdown arrow */
-.semester-dropdown select::-ms-expand,
-.training-options select::-ms-expand {
-    display: none; /* Remove default dropdown arrow */
-}
-
-.semester-dropdown select {
-    appearance: none; /* Remove default styling */
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%231ABC9C"><path d="M2 6l6 6 6-6z"/></svg>') no-repeat; /* Custom dropdown arrow */
-    background-position: right 10px center; /* Position the custom arrow */
-    background-size: 12px; /* Size of the custom arrow */
-}
-
-/* Hover Effect for Dropdowns */
-.semester-dropdown select:hover, .training-options select:hover {
-    border-color: #1ABC9C; /* Change border color on hover */
-}
-
-/* Custom Training Options Dropdown Arrow */
-.training-options select {
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #ffffff;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%231ABC9C"><path d="M2 6l6 6 6-6z"/></svg>') no-repeat;
     background-position: right 10px center;
     background-size: 12px;
 }
-/* Stylish View by Dropdown Styles */
-.view-by-dropdown {
-    margin-top: 20px; /* Margin for spacing */
-    position: relative; /* Position for absolute child elements */
-}
 
-.view-by-dropdown select {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding inside the select */
-    border: 1px solid #ccc; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    background-color: #ffffff; /* Background color */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
-}
-
-/* Change border color and add shadow on focus */
-.view-by-dropdown select:focus {
-    border-color: #1ABC9C; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
-}
-
-/* Style the dropdown arrow */
-.view-by-dropdown select::-ms-expand {
-    display: none; /* Remove default dropdown arrow */
-}
-
-.view-by-dropdown select {
-    appearance: none; /* Remove default styling */
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%231ABC9C"><path d="M2 6l6 6 6-6z"/></svg>') no-repeat; /* Custom dropdown arrow */
-    background-position: right 10px center; /* Position the custom arrow */
-    background-size: 12px; /* Size of the custom arrow */
-}
-
-/* Hover Effect for View by Dropdown */
-.view-by-dropdown select:hover {
-    border-color: #1ABC9C; /* Change border color on hover */
-}
-/* Stylish Select Criteria Dropdown Styles */
-.select-criteria-dropdown {
-    margin-top: 20px; /* Margin for spacing */
-    position: relative; /* Position for absolute child elements */
-}
-
-.select-criteria-dropdown select {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding inside the select */
-    border: 1px solid #ccc; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    background-color: #ffffff; /* Background color */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
-}
-
-/* Change border color and add shadow on focus */
-.select-criteria-dropdown select:focus {
-    border-color: #1ABC9C; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
-}
-
-/* Style the dropdown arrow */
-.select-criteria-dropdown select::-ms-expand {
-    display: none; /* Remove default dropdown arrow */
-}
-
-.select-criteria-dropdown select {
-    appearance: none; /* Remove default styling */
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%231ABC9C"><path d="M2 6l6 6 6-6z"/></svg>') no-repeat; /* Custom dropdown arrow */
-    background-position: right 10px center; /* Position the custom arrow */
-    background-size: 12px; /* Size of the custom arrow */
-}
-
-/* Hover Effect for Select Criteria Dropdown */
-.select-criteria-dropdown select:hover {
-    border-color: #1ABC9C; /* Change border color on hover */
+.semester-dropdown select:focus, .training-options select:focus, .view-by-dropdown select:focus, .select-criteria-dropdown select:focus {
+    border-color: var(--highlight-color);
+    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
 }
 
 .banner {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #8d493a; /* Light background for contrast */
-    overflow: hidden; /* Prevent scroll bars */
-    background-image: url('banner-bg.jpg'); /* Replace with your sleek image */
-    background-size: cover; /* Cover the entire banner area */
-    background-position: center; /* Center the image */
-    color: white; /* White text color */
+    background-color: var(--sidebar-color);
+    color: white;
     text-align: center;
-    padding: 60px 20px; /* Increased height with padding */
-    position: relative; /* Relative positioning for effects */
+    padding: 60px 20px;
+    position: relative;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    border-radius: 10px; /* Rounded corners */
-    transition: transform 0.3s, background-color 0.3s; /* Smooth transitions */
-    animation: pop-in 0.5s ease forwards; /* Pop-in effect */
+    border-radius: 10px;
+    background-image: url('banner-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s, background-color 0.3s;
+    animation: pop-in 0.5s ease forwards;
 }
 
 @keyframes pop-in {
     from {
-        transform: scale(0.5); /* Start small */
-        opacity: 0; /* Invisible */
+        transform: scale(0.5);
+        opacity: 0;
     }
     to {
-        transform: scale(1); /* Grow to normal size */
-        opacity: 1; /* Fully visible */
+        transform: scale(1);
+        opacity: 1;
     }
 }
 
 .banner:hover {
-    transform: scale(1.05); /* Bulging effect */
-    background-color: #d0b8a8; /* Change color on hover */
-    color: #8d493a;
+    transform: scale(1.05);
+    background-color: #d0b8a8;
 }
 
 .banner h1 {
-    font-size: 2.8em; /* Large font size */
-    margin: 0; /* Remove default margin */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    font-size: 2.8em;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .banner p {
-    font-size: 1.5em; /* Subtitle font size */
-    margin-top: 10px; /* Margin for spacing */
-    animation: fade-in 0.5s ease forwards; /* Fade-in effect */
-    opacity: 0; /* Start invisible */
-    animation-delay: 0.3s; /* Delay for subtitle */
+    font-size: 1.5em;
+    margin-top: 10px;
+    animation: fade-in 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.3s;
 }
 
 @keyframes fade-in {
     from {
-        opacity: 0; /* Start invisible */
+        opacity: 0;
     }
     to {
-        opacity: 1; /* Fully visible */
+        opacity: 1;
     }
 }
 
-/* Party popper effect styles */
 .confetti {
     position: absolute;
     width: 50px;
     height: 50px;
-    background: url('party-popper.png') no-repeat center center; /* Replace with your party popper image */
-    background-size: contain; /* Adjust size */
-    animation: pop 1s forwards; /* Pop animation */
+    background: url('party-popper.png') no-repeat center;
+    background-size: contain;
+    animation: pop 1s forwards;
 }
 
 .left {
-    left: -70px; /* Position to the left */
-    animation-name: pop-left; /* Animation name for left side */
+    left: -70px;
+    animation-name: pop-left;
 }
 
 .right {
-    right: -70px; /* Position to the right */
-    animation-name: pop-right; /* Animation name for right side */
+    right: -70px;
+    animation-name: pop-right;
 }
 
 @keyframes pop-left {
@@ -450,4 +344,17 @@ body {
         transform: translateY(0);
         opacity: 0;
     }
+}
+
+.mystyle {
+    font-family: var(--font-family);
+    font-weight: 300;
+    color: white;
+}
+
+.mystyle1 {
+    font-family: var(--font-family);
+    font-weight: 700;
+    color: white;
+    font-size: 1.2em;
 }
