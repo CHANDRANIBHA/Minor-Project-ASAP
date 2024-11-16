@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Management</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="reso.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <img src="profile.jpg" alt="Profile Image" class="profile-img">
+                <h3 id="username">GEETHA C</h3>
+                <p id="reg-number">Reg No: KH.EN.U3CDS22019</p>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <li onclick="navigateTo('teacher_html.html')">Home</li>
+                    <li onclick="navigateTo('reso.html')">Resource</li>
+                    <li onclick="navigateTo('chattr.html')">Chat</li>
+                    <li onclick="navigateTo('sessionform.html')">Session</li>
+                    <li onclick="navigateTo('history')">My History</li>
+                    <li onclick="navigateTo('faq')">FAQ</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="menuToggle" class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="top-icons">
+                    <div class="notification" id="notification">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <ul>
+                                <li>No new notifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chat" id="chat">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                <header>
+                    <h1>Resource Management</h1>
+                </header>
+                <main>
+                    <div id="teacher-actions" class="upload-section">
+                        <form id="upload-form">
+                            <input type="file" id="file-upload" class="file-input" required>
+                            <input type="text" id="file-title" class="text-input" placeholder="Enter title (e.g., aptitude)" required>
+                            <button type="submit" class="btn-upload">Upload</button>
+                        </form>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="search-bar" placeholder="Search by title or file name..." />
+                    </div>
+                    <div id="file-list" class="file-list"></div>
+                </main>
+           </div>
+
+            <div id="file-view-modal" class="hidden">
+                <div class="modal-content">
+                  <button id="close-modal" class="close-button">Close</button>
+                  <div id="file-content"></div>
+                </div>
+              </div>
+              
+        </div>
+    <script src="reso.js"></script>
+</body>
+</html>

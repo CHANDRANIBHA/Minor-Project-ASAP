@@ -40,18 +40,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// JavaScript to handle the Go button for Verbal panel
-document.getElementById('goToVerbalPage').addEventListener('click', function() {
-    const semester = document.getElementById('verbal-semester').value;
-    if (semester) {
-        // Redirect to verbal.html with the selected semester as a query parameter
-        window.location.href = `verbal.html?semester=${semester}`;
-    } else {
-        alert("Please select a semester."); // Alert if no semester is selected
-    }
-});
-
-
 // Navigation for semesters
 document.querySelectorAll('.semester-dropdown select').forEach(select => {
     select.addEventListener('change', function() {
@@ -70,9 +58,9 @@ document.querySelectorAll('.class-dropdown').forEach(select => {
         const className = this.closest('.panel').querySelector('h3').innerText;
         if (action) {
             if (action === 'view') {
-                window.location.href = `view-class.html?class=${className}`;
+                window.location.href = `view-class.php?class=${className}`;
             } else if (action === 'update') {
-                window.location.href = `update-class.html?class=${className}`;
+                window.location.href = `update-class.php?class=${className}`;
             }
         }
     });
@@ -96,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 // Function to save marks to localStorage
 function saveMarks(studentName, chapter, data) {
     let studentData = JSON.parse(localStorage.getItem(studentName)) || {};
@@ -122,13 +111,13 @@ function saveMarksForStudent() {
 
     saveMarks(studentName, chapter, data);
 }
+
 // script.js - Dashboard navigation logic
 document.getElementById('chat').addEventListener('click', function() {
-    window.location.href = 'chattr.html'; // Navigates to chat page
+    window.location.href = 'chat.php'; // Navigates to chat page
 });
 
 // chat.js - You can add more functionalities like search, messaging, etc.
-
 
 // Function to toggle the dropdown visibility
 function toggleDropdown() {
@@ -139,20 +128,22 @@ function toggleDropdown() {
 // Function to handle navigation
 function navigateTo(page) {
     if (page === 'home') {
-        window.location.href = 'teacher_html.html'; // Redirect to Teacher Page
+        window.location.href = 'teacher_interface.php'; // Redirect to Teacher Page
     } else if (page === 'aptitude') {
-        window.location.href = 'resoaptitude.html'; // Redirect to Aptitude Resources
+        window.location.href = 'resoaptitude.php'; // Redirect to Aptitude Resources
     } else if (page === 'verbal') {
-        window.location.href = 'resoverbal.html'; // Redirect to Verbal Resources
+        window.location.href = 'resoverbal.php'; // Redirect to Verbal Resources
     } else if (page === 'softskills') {
-        window.location.href = 'resosoftskills.html'; // Redirect to Soft Skills Resources
+        window.location.href = 'resosoftskills.php'; // Redirect to Soft Skills Resources
     } else if (page === 'training') {
-        window.location.href = 'resotraining.html'; // Redirect to Personal Training Resources
+        window.location.href = 'resotraining.php'; // Redirect to Personal Training Resources
     }
 }
 
 function navigateTo(page) {
-    window.location.href = page; // This will redirect to the specified page
+    // Log to confirm the function is triggered
+    console.log("Navigating to:", page);
+    window.location.href = page;
 }
 
 // Close dropdown when clicking outside
@@ -204,17 +195,7 @@ sessionMenu.addEventListener('click', function() {
     window.location.href = 'sessionform.html'; // Adjust this path if your session page is in a different folder
 });
 
-
-// Function for Back Button
-function goBack() {
-    window.history.back();
-}
-
-// Function for Logout
+// Logout Function
 function logout() {
-        window.location.href = "../homepage/home.html";  
-}
-
-function navigateToProfile() {
-    window.location.href = 'teaprofile.html';
+    window.location.href = "../homepage/homepage.php";
 }

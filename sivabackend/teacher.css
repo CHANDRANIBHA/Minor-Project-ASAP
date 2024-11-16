@@ -2,86 +2,59 @@
     --bg-color: #dfd3c3;
     --sidebar-color: #8d493a;
     --highlight-color: #1ABC9C;
-    --font-family: 'Arial', sans-serif;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: Arial, sans-serif;
     background-color: var(--bg-color);
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
 }
 
 .dashboard {
     display: flex;
-    height: 100%;
+    height: 100vh; /* Ensures the dashboard takes full screen height */
 }
 
 .sidebar {
     width: 250px;
     background-color: var(--sidebar-color);
     color: white;
-    height: 100%;
-    padding: 20px;
-    overflow-y: auto;
     transition: width 0.3s;
+    height: 100vh; /* Sidebar takes full height of the screen */
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    padding-bottom: 20px; /* Space for footer or additional content */
 }
 
-.profile-container {
+.sidebar .profile {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .profile-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-bottom: 10px;
-    object-fit: cover;
-}
-
-.profile-container h3, .profile-container p {
-    margin: 5px 0;
-    font-size: 1rem;
-    color: white;
-    text-align: center;
-}
-
-.profile-container .reg-num {
-    font-size: 0.9rem;
-}
-
-.profile-container .name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 5px;
 }
 
 .menu {
-    margin-top: 20px;
+    padding: 10px 0;
 }
 
 .menu ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .menu li {
-    padding: 15px;
+    padding: 15px 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background 0.3s;
 }
 
 .menu li:hover {
@@ -89,11 +62,36 @@ body {
     color: black;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #d0b8a8;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--sidebar-color);
+}
+
 .menu-icon {
     position: absolute;
     top: 20px;
     left: 10px;
-    background-color: #d0b8a8;
+    background: #d0b8a8;
     border: none;
     color: white;
     font-size: 20px;
@@ -104,7 +102,7 @@ body {
 }
 
 .menu-icon:hover {
-    background-color: var(--sidebar-color);
+    background: var(--sidebar-color);
 }
 
 .main-content {
@@ -203,6 +201,7 @@ body {
 .panel-title {
     font-size: 24px;
     font-weight: bold;
+    font-family: 'Arial', sans-serif;
 }
 
 .select-sem-btn, .select-training-btn {
@@ -232,6 +231,8 @@ body {
     border-radius: 5px;
     font-size: 16px;
     background-color: #ffffff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    appearance: none;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%231ABC9C"><path d="M2 6l6 6 6-6z"/></svg>') no-repeat;
     background-position: right 10px center;
     background-size: 12px;
@@ -242,18 +243,24 @@ body {
     box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
 }
 
+.semester-dropdown select:hover, .training-options select:hover, .view-by-dropdown select:hover, .select-criteria-dropdown select:hover {
+    border-color: var(--highlight-color);
+}
+
 .banner {
     margin: 0;
+    font-family: 'Arial', sans-serif;
     background-color: var(--sidebar-color);
+    overflow: hidden;
+    background-image: url('banner-bg.jpg');
+    background-size: cover;
+    background-position: center;
     color: white;
     text-align: center;
     padding: 60px 20px;
     position: relative;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-image: url('banner-bg.jpg');
-    background-size: cover;
-    background-position: center;
     transition: transform 0.3s, background-color 0.3s;
     animation: pop-in 0.5s ease forwards;
 }
@@ -272,6 +279,7 @@ body {
 .banner:hover {
     transform: scale(1.05);
     background-color: #d0b8a8;
+    color: var(--sidebar-color);
 }
 
 .banner h1 {
@@ -289,12 +297,8 @@ body {
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .confetti {
@@ -317,43 +321,25 @@ body {
 }
 
 @keyframes pop-left {
-    0% {
-        transform: translateY(0);
-        opacity: 0;
-    }
-    50% {
-        transform: translateY(-50px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 0;
-    }
+    0% { transform: translateY(0); opacity: 0; }
+    50% { transform: translateY(-50px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0; }
 }
 
 @keyframes pop-right {
-    0% {
-        transform: translateY(0);
-        opacity: 0;
-    }
-    50% {
-        transform: translateY(-50px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 0;
-    }
+    0% { transform: translateY(0); opacity: 0; }
+    50% { transform: translateY(-50px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0; }
 }
 
 .mystyle {
-    font-family: var(--font-family);
+    font-family: 'Arial', sans-serif;
     font-weight: 300;
     color: white;
 }
 
 .mystyle1 {
-    font-family: var(--font-family);
+    font-family: 'Arial', sans-serif;
     font-weight: 700;
     color: white;
     font-size: 1.2em;

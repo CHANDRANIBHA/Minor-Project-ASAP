@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="studstyle.css">
+    <link rel="stylesheet" href="teaprofile.css">
     <title>Student Profile</title>
 </head>
 <body>
+    <button onclick="goBack()" class="back-button"><<</button>
     <div class="profile-container">
         <div class="profile-header">
             <img src="profiletea.jpeg" alt="Profile Picture" class="profile-pic">
@@ -17,5 +18,10 @@
             <p><strong>Register Number:</strong> TH.EN.U3CDS22015</p>
         </div>
     </div>
+    <script>
+        function goBack() {
+            window.location.href = 'teacher_html.html';
+        }
+    </script>
 </body>
 </html>
