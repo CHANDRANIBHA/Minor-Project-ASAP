@@ -1,12 +1,18 @@
+<?php
+session_start(); // Start the session
+
+// Retrieve the user_name and reg_number from the session or default to placeholders
+$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
+$reg_number = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; // Example registration number
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
-    <!-- <link rel="stylesheet" href="stud_css.css"> -->
-    <link rel="stylesheet" href="teacher css.css">
-
+    <link rel="stylesheet" href="stud.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
@@ -14,13 +20,13 @@
         <!-- Left Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="profile">
-                <img src="pr" alt="Profile Image" class="profile-img">
-                <h3 id="username">GEETHA C</h3>
-                <p id="reg-number">Reg No: KH.EN.U3CDS22019</p>
+                <img src="asap.jpg" alt="Profile Image" class="profile-img">
+                <h3 id="username"><?php echo htmlspecialchars($user_name); ?></h3> <!-- PHP to display the user's name -->
+                <p id="reg-number">Reg No: <?php echo htmlspecialchars($reg_number); ?></p> <!-- PHP to display the reg number -->
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('stud_html.html')">Home</li>
+                    <li onclick="navigateTo('teacher html.html')">Home</li>
                     <li>
                         <div class="dropdown">
                             <span onclick="toggleDropdown()">Resources</span>
@@ -32,12 +38,11 @@
                             </div>
                         </div>
                     </li>
-                    <li onclick="navigateTo('chathtml.html')">Chat</li>
-                    <li onclick="navigateTo('session_student.html')">Session</li>
-                    <li onclick="navigateTo('history.html')">My History</li>
-                    <li onclick="navigateTo('faq.html')">FAQ</li>
+                    <li onclick="navigateTo('chattr.html')">Chat</li>
+                    <li onclick="navigateTo('sessionform.html')">Session</li>
+                    <li onclick="navigateTo('history')">My History</li>
+                    <li onclick="navigateTo('faq')">FAQ</li>
                 </ul>
-                
             </div>
         </div>
 
@@ -68,21 +73,19 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-       <!-- Banner Section -->
-       <div class="banner">
-        <div class="confetti left"></div>
-        <h1>Welcome, <span id="username">Geetha C</span>!!!</h1>
-        <p>We are excited to have you here!</p>
-        <div class="confetti right"></div>
-    </div>                
-=======
-            <div class="banner">
-                <div class="confetti left"></div>
-                <h1>Welcome Back, <span id="username">LEENA </span>!!!</h1>
-                <p>We are excited to have you here!</p>
-                <div class="confetti right"></div>
->>>>>>> c1ae07ee79c1ee171e1332eb9f7daf64dac94f56
+            <!-- Graph Section -->
+            <div class="graph-section">
+                <div class="select-criteria-dropdown">
+                    <select id="select-criteria">
+                        <option value="" disabled selected>Select Criteria</option>
+                        <option value="subject">Subject</option>
+                        <option value="semester">Semester</option>
+                    </select>
+                </div>
+                <div id="graph-placeholder">
+                    <h3>Graph will appear here</h3>
+                    <canvas id="randomGraph"></canvas> <!-- Placeholder for the graph -->
+                </div>
             </div>
 
             <!-- Panels Section -->
@@ -92,7 +95,7 @@
                     <button class="select-sem-btn">Select Semester</button>
                     <div class="semester-dropdown" id="sem-dropdown-aptitude">
                         <select>
-                            
+                            <option value="" disabled selected>Select Semester</option>
                             <option value="sem3">Sem 3</option>
                             <option value="sem4">Sem 4</option>
                             <option value="sem5">Sem 5</option>
@@ -142,6 +145,6 @@
         </div>
     </div>
 
-    <script src="teacher js.js"></script>
+    <script src="stud.js"></script>
 </body>
 </html>

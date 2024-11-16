@@ -3,14 +3,6 @@ body {
     background-color: #dfd3c3;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
 .dashboard {
@@ -19,11 +11,11 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color:#8d493a;
+    background-color: #8d493a;
     color: white;
     transition: width 0.3s;
     overflow: hidden; /* Hide overflow when collapsed */
-    box-sizing: border-box;
+    height: auto;
 }
 
 .sidebar .profile {
@@ -42,7 +34,6 @@ body {
 }
 .menu {
     padding: 10px 0;
-   
 }
 
 .menu ul {
@@ -55,11 +46,17 @@ body {
     cursor: pointer;
     transition: background 0.3s;
 }
+
+.menu li:hover {
+    background-color: #dfd3c3; /* Highlight on hover */
+    color: black;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
- 
+
 .dropdown-content {
     display: none; /* Hide by default */
     position: absolute;
@@ -68,32 +65,25 @@ body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
- 
+
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
- 
+
 .dropdown-content a:hover {
     background-color: #8d493a;
-}
- 
- 
-
-.menu li:hover {
-    background-color: #dfd3c3; /* Highlight on hover */
-    color: black;
 }
 
 .menu-icon {
     position: absolute; /* Absolute positioning */
     top: 20px; /* Adjust as needed */
     left: 10px; /* Position outside the sidebar */
-    background: #dfd3c3 ; /* Button background color */
+    background: #d0b8a8; /* Button background color */
     border: none;
-    color: rgb(17, 16, 16);
+    color: white;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px; /* Rounded corners */
@@ -102,7 +92,7 @@ body {
 }
 
 .menu-icon:hover {
-    background: #f8ede3; /* Darker shade on hover */
+    background: #8d493a; /* Darker shade on hover */
 }
 
 .main-content {
@@ -126,14 +116,14 @@ body {
 .search-container input {
     padding: 10px;
     border-radius: 20px;
-    border: 1px solid #8d493a;
+    border: 1px solid #ccc;
     width: 250px;
 }
 
 .search-container i {
     position: absolute;
     right: 10px;
-    color: #dfd3c3;
+    color: #888;
 }
 
 .top-icons {
@@ -150,17 +140,16 @@ body {
     font-size: 20px;
     cursor: pointer;
     transition: color 0.3s; /* Transition for hover effect */
-    color:#8d493a
 }
 
 .top-icons i:hover {
-    color: #ab886d; /* Change color on hover */
+    color: #8d493a; /* Change color on hover */
 }
 
 .notification-dropdown {
     display: none;
     position: absolute;
-    background-color: #d0b8a8;
+    background-color: #dfd3c3;
     color: black;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -186,7 +175,7 @@ body {
 }
 
 .panel {
-    background-color: #f8ede3;
+    background-color: #d0b8a8;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -196,10 +185,6 @@ body {
 .panel:hover {
     background-color: #8d493a; /* Change color on hover */
     transform: scale(1.05); /* Zoom effect on hover */
-    .select-sem-btn:hover, .select-training-btn:hover {
-        background-color: #dfd3c3; /* Darker shade on hover */
-    }
-    
 }
 
 .panel-title {
@@ -210,16 +195,16 @@ body {
 
 .select-sem-btn, .select-training-btn {
     margin-top: 10px;
-    background-color: #8d493a;
+    background-color: #d0b8a8;
     color: white;
+    border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .select-sem-btn:hover, .select-training-btn:hover {
-    background-color: #ab886d; /* Darker shade on hover */
-    color: black;
+    background-color: #8d493a; /* Darker shade on hover */
 }
 
 .semester-dropdown, .training-options {
@@ -244,13 +229,17 @@ body {
     border: 1px solid #ccc; /* Border color */
     border-radius: 5px; /* Rounded corners */
     font-size: 16px; /* Font size */
-    background-color: #dfd3c3; /* Background color */
+    background-color: #ffffff; /* Background color */
     transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
 }
 
 /* Change border color and add shadow on focus */
 .semester-dropdown select:focus, .training-options select:focus {
-    border-color: #dfd3c3; /* Change border color on focus */
+    border-color: #1ABC9C; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
+}
+.class-dropdown select:focus, .training-options select:focus {
+    border-color: #1ABC9C; /* Change border color on focus */
     box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
 }
 
@@ -269,7 +258,7 @@ body {
 
 /* Hover Effect for Dropdowns */
 .semester-dropdown select:hover, .training-options select:hover {
-    border-color: #dfd3c3; /* Change border color on hover */
+    border-color: #1ABC9C; /* Change border color on hover */
 }
 
 /* Custom Training Options Dropdown Arrow */
@@ -290,13 +279,13 @@ body {
     border: 1px solid #ccc; /* Border color */
     border-radius: 5px; /* Rounded corners */
     font-size: 16px; /* Font size */
-    background-color: #dfd3c3; /* Background color */
+    background-color: #ffffff; /* Background color */
     transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
 }
 
 /* Change border color and add shadow on focus */
 .view-by-dropdown select:focus {
-    border-color: #f8ede3; /* Change border color on focus */
+    border-color: #1ABC9C; /* Change border color on focus */
     box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
 }
 
@@ -314,7 +303,7 @@ body {
 
 /* Hover Effect for View by Dropdown */
 .view-by-dropdown select:hover {
-    border-color: #d0b8a8; /* Change border color on hover */
+    border-color: #1ABC9C; /* Change border color on hover */
 }
 /* Stylish Select Criteria Dropdown Styles */
 .select-criteria-dropdown {
@@ -328,13 +317,13 @@ body {
     border: 1px solid #ccc; /* Border color */
     border-radius: 5px; /* Rounded corners */
     font-size: 16px; /* Font size */
-    background-color: #ab886d; /* Background color */
+    background-color: #ffffff; /* Background color */
     transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
 }
 
 /* Change border color and add shadow on focus */
 .select-criteria-dropdown select:focus {
-    border-color: #dfd3c3; /* Change border color on focus */
+    border-color: #1ABC9C; /* Change border color on focus */
     box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Add shadow on focus */
 }
 
@@ -352,5 +341,113 @@ body {
 
 /* Hover Effect for Select Criteria Dropdown */
 .select-criteria-dropdown select:hover {
-    border-color: #d0b8a8; /* Change border color on hover */
+    border-color: #1ABC9C; /* Change border color on hover */
+}
+
+.banner {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #8d493a; /* Light background for contrast */
+    overflow: hidden; /* Prevent scroll bars */
+    background-image: url('banner-bg.jpg'); /* Replace with your sleek image */
+    background-size: cover; /* Cover the entire banner area */
+    background-position: center; /* Center the image */
+    color: white; /* White text color */
+    text-align: center;
+    padding: 60px 20px; /* Increased height with padding */
+    position: relative; /* Relative positioning for effects */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.3s, background-color 0.3s; /* Smooth transitions */
+    animation: pop-in 0.5s ease forwards; /* Pop-in effect */
+}
+
+@keyframes pop-in {
+    from {
+        transform: scale(0.5); /* Start small */
+        opacity: 0; /* Invisible */
+    }
+    to {
+        transform: scale(1); /* Grow to normal size */
+        opacity: 1; /* Fully visible */
+    }
+}
+
+.banner:hover {
+    transform: scale(1.05); /* Bulging effect */
+    background-color: #d0b8a8; /* Change color on hover */
+    color: #8d493a;
+}
+
+.banner h1 {
+    font-size: 2.8em; /* Large font size */
+    margin: 0; /* Remove default margin */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+}
+
+.banner p {
+    font-size: 1.5em; /* Subtitle font size */
+    margin-top: 10px; /* Margin for spacing */
+    animation: fade-in 0.5s ease forwards; /* Fade-in effect */
+    opacity: 0; /* Start invisible */
+    animation-delay: 0.3s; /* Delay for subtitle */
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        opacity: 1; /* Fully visible */
+    }
+}
+
+/* Party popper effect styles */
+.confetti {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url('party-popper.png') no-repeat center center; /* Replace with your party popper image */
+    background-size: contain; /* Adjust size */
+    animation: pop 1s forwards; /* Pop animation */
+}
+
+.left {
+    left: -70px; /* Position to the left */
+    animation-name: pop-left; /* Animation name for left side */
+}
+
+.right {
+    right: -70px; /* Position to the right */
+    animation-name: pop-right; /* Animation name for right side */
+}
+
+@keyframes pop-left {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-50px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+@keyframes pop-right {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-50px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
 }
