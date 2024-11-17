@@ -113,3 +113,26 @@ CREATE TABLE `total_tbl` (
   `signup_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `mark_tbl` (
+  `mark_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(25) NOT NULL,
+  `subject_id` int NOT NULL,
+  `topic_id` int NOT NULL,
+  `Mid term` int DEFAULT '0',
+  `End Sem Mark` int DEFAULT '0',
+  `Assignment 1` int DEFAULT '0',
+  `Assignment 2` int DEFAULT '0',
+  `Extra 1` int DEFAULT '0',
+  `Extra 2` int DEFAULT '0',
+  `sem` int DEFAULT NULL,
+  `mark` decimal(5,2) DEFAULT NULL,
+  `Remark` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`mark_id`),
+  KEY `subject_id` (`subject_id`),
+  KEY `topic_id` (`topic_id`),
+  KEY `mark_tbl_ibfk_5` (`user_id`),
+  CONSTRAINT `mark_tbl_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject_tbl` (`subject_id`),
+  CONSTRAINT `mark_tbl_ibfk_3` FOREIGN KEY (`topic_id`) REFERENCES `topic_tbl` (`topic_id`),
+  CONSTRAINT `mark_tbl_ibfk_5` FOREIGN KEY (`user_id`) REFERENCES `students_tbl` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
