@@ -91,25 +91,31 @@ if ($class_id && $semester) {
             <h2>Update Students' Marks: <?php echo htmlspecialchars($subject_name); ?> (Class: <?php echo htmlspecialchars($class_id); ?>, Semester: <?php echo htmlspecialchars($semester); ?>)</h2>
 
             <div class="student-panels" id="student-panels-container">
-                <?php if (count($students) > 0): ?>
-                    <?php foreach ($students as $student): ?>
-                        <div class="panel">
-                            <h3 onclick="studentClicked('<?php echo htmlspecialchars($student['user_id']); ?>')">
-                                <?php echo htmlspecialchars($student['user_name']); ?> (Roll No: <?php echo htmlspecialchars($student['user_id']); ?>)
-                            </h3>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No students found for this class and semester.</p>
+    <?php if (count($students) > 0): ?>
+        <?php foreach ($students as $student): ?>
+            <div class="panel">
+                <h3 onclick="studentClicked('<?php echo htmlspecialchars($student['user_id']); ?>')">
+                    <?php echo htmlspecialchars($student['user_name']); ?> (Roll No: <?php echo htmlspecialchars($student['user_id']); ?>)
+                </h3>
+
+                <?php if ($subject_id == 2): ?>
+                    <!-- Dropdown for Verbal Section -->
+                    <select onchange="handleVerbalOption(this, '<?php echo htmlspecialchars($student['user_id']); ?>')">
+                        <option value="">Choose Option</option>
+                        <option value="writing">Writing</option>
+                        <option value="speaking">Speaking</option>
+                    </select>
                 <?php endif; ?>
             </div>
-        </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No students found for this class and semester.</p>
+    <?php endif; ?>
+</div>
 
-        <script src="teacher.js"></script>
-
-        <script>
+<script>
     function studentClicked(studentId) {
-        const mode = "view";
+        const mode = "update";
         const classId = "<?php echo $class_id; ?>";
         const semester = "<?php echo $semester; ?>";
         const subjectId = "<?php echo $subject_id; ?>";
@@ -120,16 +126,42 @@ if ($class_id && $semester) {
         if (subjectId == 1) {
             fileName = "aptimarks1.php";
         } else if (subjectId == 2) {
-            fileName = "verbalmarks.php";
+            // This case now handles dropdown actions
+            return;
         } else {
-            fileName = "softskill_mark.php"; // Default to softskill if not 1 or 2
+            fileName = "softskills.php"; // Default to softskill if not 1 or 2
         }
 
         // Construct the URL with all parameters
         const url = `${fileName}?class_id=${classId}&semester=${semester}&subject_id=${subjectId}&user_id=${userId}&mode=${mode}`;
         window.location.href = url;
     }
+
+    function handleVerbalOption(selectElement, studentId) {
+        const mode = "view";
+        const classId = "<?php echo $class_id; ?>";
+        const semester = "<?php echo $semester; ?>";
+        const subjectId = "<?php echo $subject_id; ?>";
+        const userId = studentId;
+
+        let fileName;
+        switch (selectElement.value) {
+            case "writing":
+                fileName = "verbalmarks.php";
+                break;
+            case "speaking":
+                fileName = "speaking_verbal.php";
+                break;
+            default:
+                return; // Do nothing if "Choose Option" is selected
+        }
+
+        // Redirect to the selected file
+        const url = `${fileName}?class_id=${classId}&semester=${semester}&subject_id=${subjectId}&user_id=${userId}&mode=${mode}`;
+        window.location.href = url;
+    }
 </script>
+
 
     </div>
 </body>

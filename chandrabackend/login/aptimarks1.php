@@ -95,6 +95,10 @@ $existing_lr_marks = array_merge([
 
 // Handle form submission (Insert or Update)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
+    echo"<pre>";
+    print_r($_POST);
+    echo"<pre>";
+    exit;
     $topics = ['quantitative' => $quantitative_topic_id, 'lr' => $lr_topic_id];
 
     foreach ($topics as $topic_name => $topic_id) {

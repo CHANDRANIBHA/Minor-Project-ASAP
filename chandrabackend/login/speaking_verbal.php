@@ -39,7 +39,7 @@ if (!$student) {
 
 $topic_query = "SELECT topic_id, topic_name 
                 FROM topic_tbl 
-                WHERE LOWER(topic_name) IN ('bl_softskill', 'grammar_softskill', 'vocabulary_softskill', 'confidence_softskill', 'extra1', 'extra2')";
+                WHERE topic_name IN ('bl_verbal', 'grammar_verbal', 'vocabulary_verbal', 'confidence_verbal', 'add1', 'add2')";
 
 // Execute the query
 $result = $conn->query($topic_query);
@@ -52,48 +52,30 @@ if (!$result) {
 // Fetch topic IDs dynamically
 $topics = [];
 while ($row = $result->fetch_assoc()) {
-    $topics[strtolower($row['topic_name'])] = $row['topic_id'];
+    $topics[$row['topic_name']] = $row['topic_id'];
 }
+
 
 // Assign the topic IDs to variables
-$bl_topic_id = $topics['bl_softskill'] ?? null;
-$vocab_topic_id = $topics['vocabulary_softskill'] ?? null;
-$grammar_topic_id = $topics['grammar_softskill'] ?? null;
-$confidence_topic_id = $topics['confidence_softskill'] ?? null;
-$extra1_topic_id = $topics['extra1'] ?? null;
-$extra2_topic_id = $topics['extra2'] ?? null;
+$bl_topic_id = $topics['bl_verbal'] ?? null;
+$vocab_topic_id = $topics['vocabulary_verbal'] ?? null;
+$grammar_topic_id = $topics['grammar_verbal'] ?? null;
+$confidence_topic_id = $topics['confidence_verbal'] ?? null;
+$extra1_topic_id = $topics['add1'] ?? null;
+$extra2_topic_id = $topics['add2'] ?? null;
 
-// Check if all required topics are found
-if (!$bl_topic_id) {
-    echo "BL Softskill topic is missing.<br>";
-}
-if (!$vocab_topic_id) {
-    echo "Vocabulary Softskill topic is missing.<br>";
-}
-if (!$grammar_topic_id) {
-    echo "Grammar Softskill topic is missing.<br>";
-}
-if (!$confidence_topic_id) {
-    echo "Confidence Softskill topic is missing.<br>";
-}
-if (!$extra1_topic_id) {
-    echo "Extra 1 topic is missing.<br>";
-}
-if (!$extra2_topic_id) {
-    echo "Extra 2 topic is missing.<br>";
-}
 
 if (!$bl_topic_id || !$vocab_topic_id || !$grammar_topic_id || !$confidence_topic_id || !$extra1_topic_id || !$extra2_topic_id) {
     die("Required topics are not found in the database.");
 }
 
 
-$bl_topic_id = 13;
-$vocab_topic_id = 15;
-$grammar_topic_id = 16;
-$confidence_topic_id = 17;
-$extra1_topic_id = 18;
-$extra2_topic_id = 19;
+$bl_topic_id = 5;
+$vocab_topic_id = 7;
+$grammar_topic_id = 8;
+$confidence_topic_id = 9;
+$extra1_topic_id = 10;
+$extra2_topic_id = 11;
 
 
 // Function to fetch existing marks
@@ -195,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
     foreach ($topics as $topic_name => $topic_id) {
         $data = [
             'Mid term' => (int)($_POST["Mid_term_$topic_name"] ?? 0),
-            'End Sem Mark' => (int)($_POST["End_Sem_$topic_name"] ?? 0),
+            'End Sem Mark' => (int)($_POST["End_Sem_Mark_$topic_name"] ?? 0),
             'Assignment 1' => (int)($_POST["Assignment_1_$topic_name"] ?? 0),
             'Assignment 2' => (int)($_POST["Assignment_2_$topic_name"] ?? 0),
             'Extra 1' => (int)($_POST["Extra_1_$topic_name"] ?? 0),
@@ -212,9 +194,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
         $total_extra2 = $existing_extra2_marks['Mid term'] +  $existing_extra2_marks['End Sem Mark'] +  $existing_extra2_marks['Assignment 1'] +  $existing_extra2_marks['Assignment 2'] + $existing_extra2_marks['Extra 1'] +  $existing_extra2_marks['Extra 2']
    
     ];
+    // Check if record exists
+    $existing = getExistingMarks($conn, $std_id, $subject_id, $semester, $topic_id);
+
     
-        // Check if record exists for this topic
-        $existing = $existing_marks[$topic_name];
+        // // Check if record exists for this topic
+        // $existing = $existing_marks[$topic_name];
 
         if (isset($existing['mark_id'])) {
             // Update existing record
@@ -266,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
             );
         } elseif ($topic_id == $confidence_topic_id) {
             $stmt->bind_param(
-               "siiddddddsid", 
+               "siiddddddsid",  
                 $std_id, $subject_id, $topic_id, $data['Mid term'], $data['End Sem Mark'],
                 $data['Assignment 1'], $data['Assignment 2'], $data['Extra 1'], 
                 $data['Extra 2'], $data['Remark'], $semester, $total_confi
@@ -365,40 +350,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
     <tr>
     
     <td>Mid Term</td>
-    <td><input type="number" name="midterm_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Mid Term'] ?? 0); ?>"></td>
-    <td><input type="number" name="midterm_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Mid Term'] ?? 0); ?>"></td>
-    <td><input type="number" name="midterm_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Mid Term'] ?? 0); ?>"></td>
-    <td><input type="number" name="midterm_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Mid Term'] ?? 0); ?>"></td>
-    <td><input type="number" name="midterm_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['Mid Term'] ?? 0); ?>"></td>
-    <td><input type="number" name="midterm_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['Mid Term'] ?? 0); ?>"></td>
+    <td><input type="number" name="Mid_term_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Mid term'] ?? 0); ?>"></td>
+    <td><input type="number" name="Mid_term_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Mid term'] ?? 0); ?>"></td>
+    <td><input type="number" name="Mid_term_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Mid term'] ?? 0); ?>"></td>
+    <td><input type="number" name="Mid_term_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Mid term'] ?? 0); ?>"></td>
+    <td><input type="number" name="Mid_term_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['Mid term'] ?? 0); ?>"></td>
+    <td><input type="number" name="Mid_term_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['Mid term'] ?? 0); ?>"></td>
     <td id="midterm-total">
         <?php echo htmlspecialchars(
-            ($existing_bl_marks['Mid Term'] ?? 0) +
-            ($existing_grammar_marks['Mid Term'] ?? 0) +
-            ($existing_vocab_marks['Mid Term'] ?? 0) +
-            ($existing_confidence_marks['Mid Term'] ?? 0) +
-            ($existing_extra1_marks['Mid Term'] ?? 0) +
-            ($existing_extra2_marks['Mid Term'] ?? 0)
+            ($existing_bl_marks['Mid term'] ?? 0) +
+            ($existing_grammar_marks['Mid term'] ?? 0) +
+            ($existing_vocab_marks['Mid term'] ?? 0) +
+            ($existing_confidence_marks['Mid term'] ?? 0) +
+            ($existing_extra1_marks['Mid term'] ?? 0) +
+            ($existing_extra2_marks['Mid term'] ?? 0)
         ); ?>
     </td>
     </tr>
 
 <tr>
     <td>End Sem</td>
-    <td><input type="number" name="endsem_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['End Sem'] ?? 0); ?>"></td>
-    <td><input type="number" name="endsem_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['End Sem'] ?? 0); ?>"></td>
-    <td><input type="number" name="endsem_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['End Sem'] ?? 0); ?>"></td>
-    <td><input type="number" name="endsem_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['End Sem'] ?? 0); ?>"></td>
-    <td><input type="number" name="endsem_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['End Sem'] ?? 0); ?>"></td>
-    <td><input type="number" name="endsem_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['End Sem'] ?? 0); ?>"></td>
+    <td><input type="number" name="End_Sem_Mark_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['End Sem Mark'] ?? 0); ?>"></td>
+    <td><input type="number" name="End_Sem_Mark_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['End Sem Mark'] ?? 0); ?>"></td>
+    <td><input type="number" name="End_Sem_Mark_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['End Sem Mark'] ?? 0); ?>"></td>
+    <td><input type="number" name="End_Sem_Mark_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['End Sem Mark'] ?? 0); ?>"></td>
+    <td><input type="number" name="End_Sem_Mark_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['End Sem Mark'] ?? 0); ?>"></td>
+    <td><input type="number" name="End_Sem_Mark_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['End Sem Mark'] ?? 0); ?>"></td>
     <td id="endsem-total">
         <?php echo htmlspecialchars(
-            ($existing_bl_marks['End Sem'] ?? 0) +
-            ($existing_grammar_marks['End Sem'] ?? 0) +
-            ($existing_vocab_marks['End Sem'] ?? 0) +
-            ($existing_confidence_marks['End Sem'] ?? 0) +
-            ($existing_extra1_marks['End Sem'] ?? 0) +
-            ($existing_extra2_marks['End Sem'] ?? 0)
+            ($existing_bl_marks['End Sem Mark'] ?? 0) +
+            ($existing_grammar_marks['End Sem Mark'] ?? 0) +
+            ($existing_vocab_marks['End Sem Mark'] ?? 0) +
+            ($existing_confidence_marks['End Sem Mark'] ?? 0) +
+            ($existing_extra1_marks['End Sem Mark'] ?? 0) +
+            ($existing_extra2_marks['End Sem Mark'] ?? 0)
         ); ?>
     </td>
    
@@ -406,12 +391,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
 
 <tr>
     <td>Assignment 1</td>
-    <td><input type="number" name="assign1_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Assignment 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign1_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Assignment 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign1_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Assignment 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign1_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Assignment 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign1_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['Assignment 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign1_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['Assignment 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_1_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Assignment 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_1_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Assignment 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_1_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Assignment 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_1_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Assignment 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_1_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['Assignment 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_1_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['Assignment 1'] ?? 0); ?>"></td>
     <td id="assign1-total">
         <?php echo htmlspecialchars(
             ($existing_bl_marks['Assignment 1'] ?? 0) +
@@ -427,12 +412,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
 
 <tr>
     <td>Assignment 2</td>
-    <td><input type="number" name="assign2_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Assignment 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign2_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Assignment 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign2_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Assignment 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign2_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Assignment 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign2_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['Assignment 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="assign2_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['Assignment 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_2_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Assignment 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_2_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Assignment 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_2_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Assignment 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_2_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Assignment 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_2_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['Assignment 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Assignment_2_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['Assignment 2'] ?? 0); ?>"></td>
     <td id="assign2-total">
         <?php echo htmlspecialchars(
             ($existing_bl_marks['Assignment 2'] ?? 0) +
@@ -447,12 +432,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
 </tr>
 
 <td>Extra 1</td>
-    <td><input type="number" name="extra1_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Extra 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra1_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Extra 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra1_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Extra 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra1_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Extra 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra1_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['Extra 1'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra1_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['Extra 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_1_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Extra 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_1_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Extra 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_1_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Extra 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_1_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Extra 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_1_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['Extra 1'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_1_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['Extra 1'] ?? 0); ?>"></td>
     <td id="extra1-total">
         <?php echo htmlspecialchars(
             ($existing_bl_marks['Extra 2'] ?? 0) +
@@ -467,12 +452,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
 </tr>
     <tr>
     <td>Extra 2</td>
-    <td><input type="number" name="extra2_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Extra 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra2_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Extra 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra2_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Extra 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra2_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Extra 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra2_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['Extra 2'] ?? 0); ?>"></td>
-    <td><input type="number" name="extra2_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['Extra 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_2_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Extra 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_2_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Extra 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_2_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Extra 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_2_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Extra 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_2_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['Extra 2'] ?? 0); ?>"></td>
+    <td><input type="number" name="Extra_2_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['Extra 2'] ?? 0); ?>"></td>
     <td id="extra2-total">
         <?php echo htmlspecialchars(
             ($existing_bl_marks['Extra 2'] ?? 0) +
@@ -488,12 +473,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
 
 <tr>
     <td>Remark</td>
-    <td><input type="text" name="remark_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Remark'] ?? ''); ?>"></td>
-    <td><input type="text" name="remark_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Remark'] ?? ''); ?>"></td>
-    <td><input type="text" name="remark_vocab_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Remark'] ?? ''); ?>"></td>
-    <td><input type="text" name="remark_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Remark'] ?? ''); ?>"></td>
-    <td><input type="text" name="remark_extra1_softskill" value="<?php echo htmlspecialchars($existing_extra1_marks['Remark'] ?? ''); ?>"></td>
-    <td><input type="text" name="remark_extra2_softskill" value="<?php echo htmlspecialchars($existing_extra2_marks['Remark'] ?? ''); ?>"></td>
+    <td><input type="text" name="Remark_bl_softskill" value="<?php echo htmlspecialchars($existing_bl_marks['Remark'] ?? ''); ?>"></td>
+    <td><input type="text" name="Remark_grammar_softskill" value="<?php echo htmlspecialchars($existing_grammar_marks['Remark'] ?? ''); ?>"></td>
+    <td><input type="text" name="Remark_vocabulary_softskill" value="<?php echo htmlspecialchars($existing_vocab_marks['Remark'] ?? ''); ?>"></td>
+    <td><input type="text" name="Remark_confidence_softskill" value="<?php echo htmlspecialchars($existing_confidence_marks['Remark'] ?? ''); ?>"></td>
+    <td><input type="text" name="Remark_extra1" value="<?php echo htmlspecialchars($existing_extra1_marks['Remark'] ?? ''); ?>"></td>
+    <td><input type="text" name="Remark_extra2" value="<?php echo htmlspecialchars($existing_extra2_marks['Remark'] ?? ''); ?>"></td>
     <td></td>
 </tr>
 
