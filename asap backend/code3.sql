@@ -15,6 +15,7 @@ CREATE TABLE `class_tbl` (
   `additional_info` text,
   PRIMARY KEY (`class_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE `evaluation_tbl` (
   `evaluation_id` int NOT NULL AUTO_INCREMENT,
   `evaluation_name` varchar(100) NOT NULL,
