@@ -37,6 +37,7 @@ if (!$student) {
     die("Student not found or invalid student ID.");
 }
 
+
 // Fetch topic names dynamically
 $topic_query = "SELECT topic_id, topic_name FROM topic_tbl WHERE topic_name IN ('quantitative', 'lr')";
 $result = $conn->query($topic_query);
@@ -49,7 +50,6 @@ $lr_topic_id = $topics['lr'] ?? null;
 
 
 if (!$quantitative_topic_id || !$lr_topic_id) {
-    
     die("Required topics 'Quantitative' or 'LR' not found in the database.");
 }
 $quantitative_topic_id=1;
@@ -96,7 +96,6 @@ $existing_lr_marks = array_merge([
 
 // Handle form submission (Insert or Update)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
     $topics = ['quantitative' => $quantitative_topic_id, 'lr' => $lr_topic_id];
 
     foreach ($topics as $topic_name => $topic_id) {
@@ -216,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th>Evaluation</th>
                             <th>Quantitative</th>
                             <th>Logical Reasoning</th>
-                            <th>total<>
+                            <th>total</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -49,7 +49,6 @@ $lr_topic_id = $topics['lr'] ?? null;
 
 
 if (!$quantitative_topic_id || !$lr_topic_id) {
-    
     die("Required topics 'Quantitative' or 'LR' not found in the database.");
 }
 $quantitative_topic_id=1;
@@ -96,7 +95,6 @@ $existing_lr_marks = array_merge([
 
 // Handle form submission (Insert or Update)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
     $topics = ['quantitative' => $quantitative_topic_id, 'lr' => $lr_topic_id];
 
     foreach ($topics as $topic_name => $topic_id) {
