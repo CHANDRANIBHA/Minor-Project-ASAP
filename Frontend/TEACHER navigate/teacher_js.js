@@ -212,7 +212,9 @@ function goBack() {
 
 // Function for Logout
 function logout() {
-    
-        window.location.href = "../homepage/home.html"; 
-   
+        window.location.href = "../homepage/home.html";  
+}
+
+function navigateToProfile() {
+    window.location.href = 'teaprofile.html';
 }

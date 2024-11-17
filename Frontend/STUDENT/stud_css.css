@@ -179,23 +179,6 @@ body {
     padding: 5px 0;
 }
 
-.graph-section {
-    margin-bottom: 30px;
-}
-
-.graph-options {
-    margin-bottom: 10px;
-}
-
-#graph-placeholder {
-    background: #f8ede3;
-    border: 1px solid #8d493a;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .panels-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
