@@ -4,16 +4,16 @@ session_start();
 // Include the db.php file using the correct relative path
 require_once __DIR__ . '/../db.php';
 
-// Retrieve user information from the session
 $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'N/A'; // Default to 'N/A' if not set
 
 // Retrieve class_id and semester from the URL
 $class_id = isset($_GET['class_id']) ? (int)$_GET['class_id'] : 0;
 $semester = isset($_GET['semester']) ? (int)$_GET['semester'] : 0;
+$subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : 0;
+$std_id = isset($_GET['std_id']) ? (string)$_GET['std_id'] : ''; // Cast to string
 
-// echo "Class ID: " . $class_id . " | Semester: " . $semester;
-
+// ... (rest of the code for fetching students)
 // Initialize an empty array to hold the student data
 $students = [];
 
@@ -50,6 +50,7 @@ if ($class_id && $semester) {
     }
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +63,7 @@ if ($class_id && $semester) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div class="dashboard">
     <div class="dashboard">
         <div class="sidebar" id="sidebar">
             <div class="profile">
@@ -83,16 +85,14 @@ if ($class_id && $semester) {
         <button id="menuToggle" class="menu-icon">
             <i class="fas fa-bars"></i>
         </button>
-
         <div class="main-content">
             <h2>Update Students' Marks: Aptitude (Class: <?php echo htmlspecialchars($class_id); ?>, Semester: <?php echo htmlspecialchars($semester); ?>)</h2>
 
             <div class="student-panels" id="student-panels-container">
-                <!-- Student panels will be inserted here dynamically -->
                 <?php if (count($students) > 0): ?>
                     <?php foreach ($students as $student): ?>
                         <div class="panel">
-                            <h3 onclick="studentClicked('<?php echo htmlspecialchars($student['user_name']); ?>')">
+                            <h3 onclick="studentClicked('<?php echo htmlspecialchars($student['user_id']); ?>')">
                                 <?php echo htmlspecialchars($student['user_name']); ?> (Roll No: <?php echo htmlspecialchars($student['user_id']); ?>)
                             </h3>
                         </div>
@@ -106,9 +106,16 @@ if ($class_id && $semester) {
         <script src="teacher.js"></script>
 
         <script>
-            function studentClicked(studentName) {
+            function studentClicked(studentId) {
                 const mode = "update";
-                window.location.href = `aptimarks2.php?student=${studentName}&mode=${mode}`;
+                const classId = "<?php echo $class_id; ?>";
+                const semester = "<?php echo $semester; ?>";
+                const subjectId = "<?php echo $subject_id; ?>";
+                const userId = studentId; // Use userId instead of std_id
+
+                // Construct the URL with all parameters
+                const url = `8.php?class_id=${classId}&semester=${semester}&subject_id=${subjectId}&user_id=${userId}&mode=${mode}`;
+                window.location.href = url;
             }
         </script>
     </div>
