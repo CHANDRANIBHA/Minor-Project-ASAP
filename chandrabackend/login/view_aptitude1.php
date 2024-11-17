@@ -109,7 +109,7 @@ if ($class_id && $semester) {
 
         <script>
     function studentClicked(studentId) {
-        const mode = "update";
+        const mode = "view";
         const classId = "<?php echo $class_id; ?>";
         const semester = "<?php echo $semester; ?>";
         const subjectId = "<?php echo $subject_id; ?>";
@@ -122,7 +122,7 @@ if ($class_id && $semester) {
         } else if (subjectId == 2) {
             fileName = "verbalmarks.php";
         } else {
-            fileName = "softskills.php"; // Default to softskill if not 1 or 2
+            fileName = "softskill_mark.php"; // Default to softskill if not 1 or 2
         }
 
         // Construct the URL with all parameters

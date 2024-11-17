@@ -40,31 +40,7 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// // Navigation for semesters
-// document.querySelectorAll('.semester-dropdown select').forEach(select => {
-//     select.addEventListener('change', function() {
-//         const semester = this.value;
-//         const panelId = this.closest('.panel').id;
-//         if (semester) {
-//             window.location.href = `classes.html?panel=${panelId}&semester=${semester}`;
-//         }
-//     });
-// });
 
-// Navigation for classes
-// document.querySelectorAll('.class-dropdown').forEach(select => {
-//     select.addEventListener('change', function() {
-//         const action = this.value;
-//         const className = this.closest('.panel').querySelector('h3').innerText;
-//         if (action) {
-//             if (action === 'view') {
-//                 window.location.href = `view-aptitude.html?class=${className}`;
-//             } else if (action === 'update') {
-//                 window.location.href = `update-aptitude.html?class=${className}`;
-//             }
-//         }
-//     });
-// });
 
 // Handle menu toggle on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
