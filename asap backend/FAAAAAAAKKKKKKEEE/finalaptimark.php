@@ -67,27 +67,46 @@ function getExistingMarks($conn, $std_id, $subject_id, $semester, $topic_id) {
 }
 
 // Fetch existing marks
-$existing_quant_marks = getExistingMarks($conn, $std_id, $subject_id, $semester, $quantitative_topic_id);
-$existing_lr_marks = getExistingMarks($conn, $std_id, $subject_id, $semester, $lr_topic_id);
+$existing_quant_marks = getExistingMarks($conn, $std_id, $subject_id, $semester, $quantitative_topic_id) ?? [];
+$existing_lr_marks = getExistingMarks($conn, $std_id, $subject_id, $semester, $lr_topic_id) ?? [];
+
+// Predefine values for missing data
+$existing_quant_marks = array_merge([
+    'Mid term' => 0,
+    'End Sem Mark' => 0,
+    'Assignment 1' => 0,
+    'Assignment 2' => 0,
+    'Extra 1' => 0,
+    'Extra 2' => 0,
+    'Remark' => ''
+], $existing_quant_marks);
+
+$existing_lr_marks = array_merge([
+    'Mid term' => 0,
+    'End Sem Mark' => 0,
+    'Assignment 1' => 0,
+    'Assignment 2' => 0,
+    'Extra 1' => 0,
+    'Extra 2' => 0,
+    'Remark' => ''
+], $existing_lr_marks);
+
 
 // Handle form submission (Insert or Update)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $updates = [];
-    $topics = ['quantitative' => $quantitative_topic_id, 'lr' => $lr_topic_id];
+    $topics = ['quantitative' => 1, 'lr' => 2]; // Manually assigning topic IDs
 
     foreach ($topics as $topic_name => $topic_id) {
-        $data = [
-            'Mid term' => (int)($_POST["Mid_term_$topic_name"] ?? 0),
-            'End Sem Mark' => (int)($_POST["End_Sem_$topic_name"] ?? 0),
-            'Assignment 1' => (int)($_POST["Assignment_1_$topic_name"] ?? 0),
-            'Assignment 2' => (int)($_POST["Assignment_2_$topic_name"] ?? 0),
-            'Extra 1' => (int)($_POST["Extra_1_$topic_name"] ?? 0),
-            'Extra 2' => (int)($_POST["Extra_2_$topic_name"] ?? 0),
-            'Remark' => $_POST["Remark_$topic_name"] ?? '',
-        ];
+        $mid_term = (int)($_POST["Mid_term_$topic_name"] ?? 0);
+        $end_sem = (int)($_POST["End_Sem_$topic_name"] ?? 0);
+        $assignment_1 = (int)($_POST["Assignment_1_$topic_name"] ?? 0);
+        $assignment_2 = (int)($_POST["Assignment_2_$topic_name"] ?? 0);
+        $extra_1 = (int)($_POST["Extra_1_$topic_name"] ?? 0);
+        $extra_2 = (int)($_POST["Extra_2_$topic_name"] ?? 0);
+        $remark = $_POST["Remark_$topic_name"] ?? '';
 
         // Check if record exists
-        $existing = getExistingMarks($conn, $std_id, $subject_id, $semester, $topic_id);
+        $existing = getExistingMarks($conn, $std_id, 1, $semester, $topic_id); // subject_id = 1
 
         if ($existing) {
             // Update existing record
@@ -98,9 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare($query);
             $stmt->bind_param(
                 "iiiiissi",
-                $data['Mid term'], $data['End Sem Mark'], $data['Assignment 1'],
-                $data['Assignment 2'], $data['Extra 1'], $data['Extra 2'], 
-                $data['Remark'], $existing['mark_id']
+                $mid_term, $end_sem, $assignment_1,
+                $assignment_2, $extra_1, $extra_2, 
+                $remark, $existing['mark_id']
             );
             $stmt->execute();
             $stmt->close();
@@ -111,13 +130,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          `Assignment 1`, `Assignment 2`, `Extra 1`, `Extra 2`, `Remark`, sem) 
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param(
-                "siiiiiiiiis",
-                $std_id, $subject_id, $topic_id, $data['Mid term'], $data['End Sem Mark'],
-                $data['Assignment 1'], $data['Assignment 2'], $data['Extra 1'],
-                $data['Extra 2'], $data['Remark'], $semester
-            );
-            $stmt->execute();
+
+            // Bind variables explicitly
+           $stmt->bind_param(
+    "siiddddddds", // Format: 1 string, 1 integer, 6 decimals, 1 string
+    $std_id,      // 1. String: Student ID
+    $subject_id,  // 2. Integer: Subject ID (manually set to 1)
+    $topic_id,    // 3. Integer: Topic ID
+    $mid_term,    // 4. Decimal: Mid term
+    $end_sem,     // 5. Decimal: End sem mark
+    $assignment_1,// 6. Decimal: Assignment 1
+    $assignment_2,// 7. Decimal: Assignment 2
+    $extra_1,     // 8. Decimal: Extra 1
+    $extra_2,     // 9. Decimal: Extra 2
+    $remark,      // 10. String: Remark
+    $semester     // 11. Integer: Semester
+);
+
+
+            if ($stmt->execute()) {
+                echo "New record for $topic_name inserted successfully.<br>";
+            } else {
+                echo "Error inserting record for $topic_name: " . $stmt->error . "<br>";
+            }
             $stmt->close();
         }
     }
@@ -126,7 +161,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit;
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -219,15 +256,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <tfoot>
                         <tr>
                             <td>Grand Total</td>
-                            <td><?php echo htmlspecialchars($existing_quant_marks['Mid term'] + $existing_quant_marks['End Sem Mark'] ?? 0); ?></td>
-                            <td><?php echo htmlspecialchars($existing_lr_marks['Mid term'] + $existing_lr_marks['End Sem Mark'] ?? 0); ?></td>
+
+                            <td><?php echo htmlspecialchars($existing_quant_marks['Mid term'] + $existing_quant_marks['End Sem Mark']+ $existing_quant_marks['Assignment 1']+ $existing_quant_marks['Assignment 2']+ $existing_quant_marks['Extra 1']+ $existing_quant_marks['Extra 2'] ?? 0); ?></td>
+                            <td><?php echo htmlspecialchars($existing_lr_marks['Mid term'] + $existing_lr_marks['End Sem Mark']+ $existing_lr_marks['Assignment 1']+ $existing_lr_marks['Assignment 2']+ $existing_lr_marks['Extra 1']+ $existing_lr_marks['Extra 2'] ?? 0); ?></td>
                             <td>
-                                <?php
-                                echo htmlspecialchars(
-                                    ($existing_quant_marks['Mid term'] + $existing_quant_marks['End Sem Mark'] ?? 0) +
-                                    ($existing_lr_marks['Mid term'] + $existing_lr_marks['End Sem Mark'] ?? 0)
-                                );
-                                ?>
+                                
                             </td>
                         </tr>
                         <tr>
