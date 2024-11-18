@@ -218,18 +218,10 @@ header h1 {
     transition: background-color 0.3s ease;
 }
 
-.btn-view {
-    background-color: #007bff;
-}
-
-.btn-view:hover {
-    background-color: #0056b3;
-}
-
 .btn-download {
-    background-color: #28a745;
+    background-color: #8d493a;
 }
 
 .btn-download:hover {
-    background-color: #218838;
+    background-color: #d0b8a8;
 }
