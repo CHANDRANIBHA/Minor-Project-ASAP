@@ -83,6 +83,7 @@ $conn->close();
 
             <!-- Panels Section -->
             <div class="panels-section">
+                <!-- Aptitude Panel -->
                 <div class="panel" id="aptitude-panel">
                     <h4>Aptitude</h4>
                     <select id="aptitude-semester">
@@ -93,6 +94,7 @@ $conn->close();
                     <button onclick="redirectToPage('aptitude')">Go</button>
                 </div>
 
+                <!-- Verbal Panel -->
                 <div class="panel" id="verbal-panel">
                     <h4>Verbal</h4>
                     <select id="verbal-semester">
@@ -100,9 +102,17 @@ $conn->close();
                         <option value="4">Semester 4</option>
                         <option value="5">Semester 5</option>
                     </select>
+                    <div id="verbal-options" style="display: none; margin-top: 10px;">
+                        <select id="verbal-type">
+                            <option value="">Choose</option>
+                            <option value="writing">Writing</option>
+                            <option value="speaking">Speaking</option>
+                        </select>
+                    </div>
                     <button onclick="redirectToPage('verbal')">Go</button>
                 </div>
 
+                <!-- Soft Skills Panel -->
                 <div class="panel" id="softskills-panel">
                     <h4>Soft Skills</h4>
                     <select id="softskills-semester">
@@ -113,6 +123,7 @@ $conn->close();
                     <button onclick="redirectToPage('softskills')">Go</button>
                 </div>
 
+                <!-- Professional Training Panel -->
                 <div class="panel" id="training-panel">
                     <h4>Professional Training</h4>
                     <select id="training-semester">
@@ -130,25 +141,46 @@ $conn->close();
         // Predefined subject IDs and pages
         const subjectConfig = {
             'aptitude': { id: 1, page: 'aptimarks1.php' },
-            'verbal': { id: 2, page: 'verbalmarks.php' },
+            'verbal': { id: 2, pages: { default: 'verbalmarks.php', writing: 'verbalmarks.php', speaking: 'speaking_verbal.php' } },
             'softskills': { id: 3, page: 'softskills.php' },
             'professional_training': { id: 4, page: 'ptr.php' }
         };
+
+        // Show additional dropdown for Verbal
+        const verbalDropdown = document.getElementById('verbal-options');
+        document.getElementById('verbal-semester').addEventListener('change', () => {
+            verbalDropdown.style.display = 'block';
+        });
 
         // Function to handle redirection
         function redirectToPage(subject) {
             const userId = "<?php echo $user_id; ?>";
             const classId = "<?php echo $class_id; ?>";
-            const subjectId = subjectConfig[subject].id;
-            const subjectPage = subjectConfig[subject].page;
+            const subjectData = subjectConfig[subject];
+            const subjectId = subjectData.id;
 
-            // Get the selected semester based on the subject
+            // Get the selected semester
             const semester = document.getElementById(`${subject}-semester`).value;
 
-            // Generate the URL
-            const url = `${subjectPage}?user_id=${userId}&subject_id=${subjectId}&class_id=${classId}&semester=${semester}&mode=view`;
+            // Handle Verbal's specific logic
+            if (subject === 'verbal') {
+                const verbalType = document.getElementById('verbal-type').value || 'default';
+                const subjectPage = subjectData.pages[verbalType];
 
-            // Redirect to the generated URL
+                if (!subjectPage) {
+                    alert("Please select a valid option for Verbal.");
+                    return;
+                }
+
+                // Generate and redirect to Verbal-specific URL
+                const url = `${subjectPage}?user_id=${userId}&subject_id=${subjectId}&class_id=${classId}&semester=${semester}&mode=view`;
+                window.location.href = url;
+                return;
+            }
+
+            // Default redirection for other subjects
+            const subjectPage = subjectData.page;
+            const url = `${subjectPage}?user_id=${userId}&subject_id=${subjectId}&class_id=${classId}&semester=${semester}&mode=view`;
             window.location.href = url;
         }
     </script>
