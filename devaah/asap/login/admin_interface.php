@@ -54,12 +54,11 @@ $conn->close();
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('home.html')">Home</li>
-                    <li onclick="navigateTo('admin.php')">Dashboard</li>
+                    <li onclick="window.location.href='../home page/homepage.php';">Home</li>
+                    <li onclick="window.location.href='admin_interface.php';">Dashboard</li>
                     <li onclick="navigateTo('manage.php')">Manage</li>
                     <li onclick="navigateTo('admarkview.php')">View Marks</li>
                     <li onclick="window.location.href='../feedback/view_feedback.php';">View Feedback</li>
-                    <li onclick="navigateTo('history.php')">Session History</li>
                     <li onclick="logout()">Logout</li>
                 </ul>
             </div>
@@ -71,30 +70,16 @@ $conn->close();
         </button>
 
         <!-- Top Right Icons -->
-        <div class="top-right-icons">
-            <div class="notification" onclick="toggleNotificationDropdown()">
-                <i class="fas fa-bell"></i>
-                <div class="notification-dropdown" id="notificationDropdown">
-                    <ul>
-                        <li>No new notifications</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+       
 
         <!-- Main Content Area -->
         <div class="main-content">
-            <div class="top-bar">
-                <div class="search-container">
-                    <input type="text" placeholder="Search...">
-                    <i class="fas fa-search"></i>
-                </div>
-            </div>
+            
             
             <!-- Banner Section -->
             <div class="banner">
-                <h1>Welcome Back, <span id="username"><?php echo htmlspecialchars($adminName); ?></span></h1>
-                <p>We are excited to have you back!</p>
+                <h1>Welcome , <span id="username"><?php echo htmlspecialchars($adminName); ?></span></h1>
+                <p>We are excited to have you here!</p>
             </div>
 
             <!-- Counting Area -->
@@ -129,4 +114,5 @@ $conn->close();
     <script src="admin.js"></script>
 </body>
 </html>
+
 

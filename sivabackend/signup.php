@@ -1,84 +1,105 @@
 <?php
-session_start();
+session_start(); // Start the session at the very top
 
-// Include PHPMailer classes at the top of the file
+// Include PHPMailer classes
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'C:/xampp/htdocs/asap backend/PHPMailer-master/src/Exception.php'; 
-require 'C:/xampp/htdocs/asap backend/PHPMailer-master/src/PHPMailer.php'; 
-require 'C:/xampp/htdocs/asap backend/PHPMailer-master/src/SMTP.php'; // Database connection
-include "C:/xampp/htdocs/asap backend/db.php"; // Update the path as needed
+require 'C:/xampp/htdocs/asap backend/PHPMailer-master/src/Exception.php';
+require 'C:/xampp/htdocs/asap backend/PHPMailer-master/src/PHPMailer.php';
+require 'C:/xampp/htdocs/asap backend/PHPMailer-master/src/SMTP.php';
 
-// Variables to hold form input data
-$username = $role = $user_id = $email = $password = $confirm_password = "";
+// Database connection
+include "C:/xampp/htdocs/asap backend/db.php";
+
+// Check if user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php"); // Redirect to dashboard if logged in
+    exit();
+}
+
 $errors = [];
 
+// Process signup
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fetch and sanitize input
     $username = strtoupper(trim($_POST['username'] ?? ''));
     $role = $_POST['role'] ?? '';
-    $user_id = strtoupper($_POST['user_id'] ?? ''); 
+    $user_id = strtoupper(trim($_POST['user_id'] ?? ''));
     $email = strtolower(trim($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
     // Server-side validations
-    if (!preg_match("/^[A-Za-z ]*$/", $username)) $errors['username'] = "Username can contain only letters and spaces.";
-    if (empty($role)) $errors['role'] = "Role is required.";
-    if ($role === "student" && !preg_match("/^KH\.EN\.U3CDS\d{5}$/i", $user_id)) $errors['user_id'] = "Student ID format is 'KH.EN.U3CDSxxxxx'.";
-    if ($role === "teacher" && !preg_match("/^TH\.\S*$/", $user_id)) $errors['user_id'] = "Teacher ID must start with 'TH'.";
+    if (!preg_match("/^[A-Za-z ]*$/", $username)) {
+        $errors['username'] = "Username can contain only letters and spaces.";
+    }
+    if (empty($role)) {
+        $errors['role'] = "Role is required.";
+    }
+    if ($role === "student" && !preg_match("/^KH\.EN\./i", $user_id)) {
+        $errors['user_id'] = "Student ID must start with 'KH.EN.'";
+    }
+    if ($role === "teacher" && !preg_match("/^TH\.\S*$/", $user_id)) {
+        $errors['user_id'] = "Teacher ID must start with 'TH'.";
+    }
 
     // Check email format as per role
     if (empty($email)) {
         $errors['email'] = "Email is required.";
     } else {
-        // Set the expected email format based on the role
+        $expected_email = '';
         if ($role === 'teacher') {
-            $expected_email = strtolower($username . '@kh.amrita.edu'); // For teachers, use user_name
+            $expected_email = strtolower($username . '@kh.amrita.edu');
         } elseif ($role === 'student') {
-            $expected_email = strtolower($user_id . '@kh.students.amrita.edu'); // For students, use user_id
-        } else {
-            $expected_email = ''; // If the role is not recognized, leave expected_email blank
+            $expected_email = strtolower($user_id . '@kh.students.amrita.edu');
         }
 
-        // Validate the email format based on role
         if (empty($expected_email) || strtolower($email) !== $expected_email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = "Invalid email format. Expected format: $expected_email";
         }
     }
 
     // Validate password
-    if (!preg_match("/^(?=.*[A-Z])(?=.*\W).{8,}$/", $password)) $errors['password'] = "Password must be 8+ chars with 1 uppercase and 1 special char.";
-    elseif ($password !== $confirm_password) $errors['confirm_password'] = "Passwords do not match.";
-    else $password = password_hash($password, PASSWORD_DEFAULT);
+    if (!preg_match("/^(?=.*[A-Z])(?=.*\W).{8,}$/", $password)) {
+        $errors['password'] = "Password must be 8+ chars with 1 uppercase and 1 special char.";
+    } elseif ($password !== $confirm_password) {
+        $errors['confirm_password'] = "Passwords do not match.";
+    } else {
+        $password = password_hash($password, PASSWORD_DEFAULT); // Hash password
+    }
 
     // Proceed if no errors
     if (count($errors) === 0) {
-        // **CHECK IF THE USER ID ALREADY EXISTS - Before INSERTING**
+        // Generate a unique verification code
+        $verificationCode = bin2hex(random_bytes(16));
+
+        // Check if user ID already exists
         $checkStmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
         $checkStmt->bind_param("s", $user_id);
         $checkStmt->execute();
         $result = $checkStmt->get_result();
 
-        // If user_id already exists, show an error and stop further execution
         if ($result->num_rows > 0) {
-            $errors['duplicate'] = "User ID already exists. Use a different one.";
+            $errors['duplicate'] = "User  ID already exists. Use a different one.";
         } else {
-            // **Insert the user data into the database only if no duplicate found**
-            $stmt = $conn->prepare("INSERT INTO users (user_id, user_name, email_id, password, role) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $user_id, $username, $email, $password, $role);
+            // Insert user into the database along with the verification code
+            $stmt = $conn->prepare("INSERT INTO users (user_id, user_name, email_id, password, role, verification_code) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $user_id, $username, $email, $password, $role, $verificationCode);
 
             if ($stmt->execute()) {
-                // Set session variables
+                // Set session variables after signup
                 $_SESSION['user_id'] = $user_id;
+                $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
                 $_SESSION['role'] = $role;
 
-                // Send welcome email to user's email
-                sendWelcomeEmail($email, $username);
+                // Send welcome email
+                sendWelcomeEmail($email, $username, $verificationCode);
 
-                // Redirect to ifstud.php for additional details if role is student
-                if ($role === "student") {
+                // Redirect based on role
+                if ($role === " student") {
+                    // Redirect to ifstud.php for additional details if role is student
                     echo "<script>alert('Signup successful! Redirecting to details page.'); window.location.href = 'ifstud.php';</script>";
                 } else {
                     // Redirect to the login page for teachers
@@ -96,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Function to send welcome email using PHPMailer
-function sendWelcomeEmail($email, $username) {
+function sendWelcomeEmail($email, $username, $verificationCode) {
     $mail = new PHPMailer(true);
 
     try {
@@ -126,11 +147,7 @@ function sendWelcomeEmail($email, $username) {
         echo "Mailer Error: {$mail->ErrorInfo}";
     }
 }
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -145,7 +162,7 @@ function sendWelcomeEmail($email, $username) {
     <div class="signup-container">
         <h2>Signup</h2>
         <form action="signup.php" method="POST">
-            <label for="username">User Name</label>
+            <label for="username">User  Name</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" value="<?php echo htmlspecialchars($username); ?>" required>
             <p class="error"><?php echo $errors['username'] ?? ''; ?></p>
 
@@ -157,7 +174,7 @@ function sendWelcomeEmail($email, $username) {
             </select>
             <p class="error"><?php echo $errors['role'] ?? ''; ?></p>
 
-            <label for="user_id">User ID</label>
+            <label for="user_id">User  ID</label>
             <input type="text" id="user_id" name="user_id" placeholder="Enter your user ID" value="<?php echo htmlspecialchars($user_id); ?>" required>
             <p class="error"><?php echo $errors['user_id'] ?? ''; ?></p>
 
@@ -174,7 +191,7 @@ function sendWelcomeEmail($email, $username) {
             <p class="error"><?php echo $errors['confirm_password'] ?? ''; ?></p>
             <p class="error"><?php echo $errors['duplicate'] ?? ''; ?></p>
 
-            <button type="submit" class="signup-btn">Signup</button>
+            <button type="submit" class="signup-btn ">Signup</button>
         </form>
     </div>
 </body>

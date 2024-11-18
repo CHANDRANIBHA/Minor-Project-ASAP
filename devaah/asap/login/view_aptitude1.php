@@ -79,8 +79,6 @@ if ($class_id && $semester) {
                     <li onclick="window.location.href='reso.php';">Resources</li>
                     <li onclick="window.location.href='../feedback/feedback_form.php';">Feedback</li>
                     <li onclick="window.location.href='logout.php';">Logout</li>
-
-
                 </ul>
             </div>
         </div>
@@ -117,7 +115,7 @@ if ($class_id && $semester) {
 
 <script>
     function studentClicked(studentId) {
-        const mode = "update";
+        const mode = "view";
         const classId = "<?php echo $class_id; ?>";
         const semester = "<?php echo $semester; ?>";
         const subjectId = "<?php echo $subject_id; ?>";
@@ -140,7 +138,7 @@ if ($class_id && $semester) {
     }
 
     function handleVerbalOption(selectElement, studentId) {
-        const mode = "update";
+        const mode = "view";
         const classId = "<?php echo $class_id; ?>";
         const semester = "<?php echo $semester; ?>";
         const subjectId = "<?php echo $subject_id; ?>";
