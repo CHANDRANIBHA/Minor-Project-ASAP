@@ -1,4 +1,5 @@
 /* Sidebar Styling */
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -104,7 +105,7 @@
     margin-left: 270px;
     padding: 20px;
     min-height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #dfd3c3;
     box-sizing: border-box;
 }
 
@@ -156,3 +157,51 @@
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+.panels-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.panel {
+    background-color: #f8ede3;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
+}
+
+.panel:hover {
+    background-color: #8d493a; /* Change color on hover */
+    transform: scale(1.05); /* Zoom effect on hover */
+    .select-sem-btn:hover, .select-training-btn:hover {
+        background-color: #dfd3c3; /* Darker shade on hover */
+    }
+    
+}
+
+.panel-title {
+    font-size: 24px; /* Enlarged font size */
+    font-weight: bold;
+    font-family: 'Arial', sans-serif; /* Stylish font */
+}
+
+.select-sem-btn, .select-training-btn {
+    margin-top: 10px;
+    background-color: #8d493a;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.select-sem-btn:hover, .select-training-btn:hover {
+    background-color: #ab886d; /* Darker shade on hover */
+    color: black;
+}
+
+.semester-dropdown, .training-options {
+    display: none; /* Initially hidden */
+    margin-top: 10px;
+}
+

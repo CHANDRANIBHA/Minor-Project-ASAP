@@ -12,7 +12,7 @@ $reg_number = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; /
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
-    <link rel="stylesheet" href="stud.css">
+    <link rel="stylesheet" href="teacher.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
@@ -26,12 +26,12 @@ $reg_number = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; /
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('teacher html.html')">Home</li>
-                    <li onclick="navigateTo('resource.php')">Resources</li>
-                    <li onclick="navigateTo('chattr.html')">Chat</li>
-                    <li onclick="navigateTo('sessionform.html')">Session</li>
-                    <li onclick="navigateTo('history')">My History</li>
-                    <li onclick="navigateTo('faq')">FAQ</li>
+                    <li onclick="window.location.href='../home page/homepage.php';">Home</li>
+                    <li onclick="window.location.href='student_interface.php';">Dashboard</li>
+                    <li onclick="window.location.href='reso.php';">Resources</li>
+                    <li onclick="window.location.href='../feedback/feedback_form.php';">Feedback</li>
+                    <li onclick="logout()">Logout</li>
+
                 </ul>
             </div>
         </div>
@@ -43,93 +43,70 @@ $reg_number = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; /
         <!-- Main Content Area -->
         <div class="main-content">
             <!-- Top Bar -->
-            <div class="top-bar">
-                <div class="search-container">
-                    <input type="text" placeholder="Search...">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="top-icons">
-                    <div class="notification" id="notification">
-                        <i class="fas fa-bell"></i>
-                        <div class="notification-dropdown" id="notificationDropdown">
-                            <ul>
-                                <li>No new notifications</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="chat" id="chat">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                </div>
-            </div>
+            
 
             <!-- Graph Section -->
-            <div class="graph-section">
-                <div class="select-criteria-dropdown">
-                    <select id="select-criteria">
-                        <option value="" disabled selected>Select Criteria</option>
-                        <option value="subject">Subject</option>
-                        <option value="semester">Semester</option>
-                    </select>
-                </div>
-                <div id="graph-placeholder">
-                    <h3>Graph will appear here</h3>
-                    <canvas id="randomGraph"></canvas> <!-- Placeholder for the graph -->
-                </div>
+            <div class="banner">
+                <div class="confetti left"></div>
+                <h1>Welcome , <span id="user_name"><?php echo htmlspecialchars($user_name); ?></span>!!!</h1> <!-- Dynamic welcome message -->
+                <p>We are excited to have you here!</p>
+                <div class="confetti right"></div>
             </div>
 
             <!-- Panels Section -->
             <div class="panels-section">
-                <div class="panel" id="aptitude">
-                    <h4 class="panel-title">Aptitude</h4>
-                    <button class="select-sem-btn">Select Semester</button>
-                    <div class="semester-dropdown" id="sem-dropdown-aptitude">
-                        <select>
-                            <option value="" disabled selected>Select Semester</option>
-                            <option value="sem3">Sem 3</option>
-                            <option value="sem4">Sem 4</option>
-                            <option value="sem5">Sem 5</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="panel" id="aptitude">
+        <h4 class="panel-title">Aptitude</h4>
+        <button class="select-sem-btn">Select Semester</button>
+        <div class="semester-dropdown" id="sem-dropdown-aptitude">
+            <select id="aptitude-semester">
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+            </select>
+            <button id="goToAptitudePage">Go</button>
+        </div>
+    </div>
 
-                <div class="panel" id="verbal">
-                    <h4 class="panel-title">Verbal</h4>
-                    <button class="select-sem-btn">Select Semester</button>
-                    <div class="semester-dropdown" id="sem-dropdown-verbal">
-                        <select>
-                            <option value="" disabled selected>Select Semester</option>
-                            <option value="sem3">Sem 3</option>
-                            <option value="sem4">Sem 4</option>
-                            <option value="sem5">Sem 5</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="panel" id="verbal">
+        <h4 class="panel-title">Verbal</h4>
+        <button class="select-sem-btn">Select Semester</button>
+        <div class="semester-dropdown" id="sem-dropdown-verbal">
+            <select id="verbal-semester">
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+            </select>
+            <button id="goToVerbalPage">Go</button>
+        </div>
+    </div>
 
-                <div class="panel" id="softskill">
-                    <h4 class="panel-title">Soft Skill</h4>
-                    <button class="select-sem-btn">Select Semester</button>
-                    <div class="semester-dropdown" id="sem-dropdown-softskill">
-                        <select>
-                            <option value="" disabled selected>Select Semester</option>
-                            <option value="sem3">Sem 3</option>
-                            <option value="sem4">Sem 4</option>
-                            <option value="sem5">Sem 5</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="panel" id="softskill">
+        <h4 class="panel-title">Soft Skill</h4>
+        <button class="select-sem-btn">Select Semester</button>
+        <div class="semester-dropdown" id="sem-dropdown-verbal">
+            <select id="softskill-semester">
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+            </select>
+            <button id="goTosoftskillPage">Go</button>
+        </div>
+    </div>
 
-                <div class="panel" id="training">
-                    <h4 class="panel-title">Professional Training</h4>
-                    <button class="select-training-btn">Select Training</button>
-                    <div class="training-options" id="training-dropdown" style="display: none;">
-                        <select>
-                            <option value="" disabled selected>Select Training</option>
-                            <option value="gd">Group Discussion</option>
-                            <option value="mock">Mock Interview</option>
-                            <option value="public-speaking">Public Speaking</option>
-                        </select>
-                    </div>
+    <div class="panel" id="training">
+        <h4 class="panel-title">Professional Training</h4>
+        <button class="select-training-btn">Select Training</button>
+        <div class="training-options" id="training-dropdown" style="display: none;">
+            <select>
+                <option value="gd">Group Discussion</option>
+                <option value="mock">Mock Interview</option>
+                <option value="public-speaking">Public Speaking</option>
+            </select>
+        </div>
+    </div>
+
+
                 </div>
             </div>
         </div>
