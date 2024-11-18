@@ -1,0 +1,269 @@
+/* Root variables for consistent colors */
+:root {
+    --primary-bg: #8d493a;
+    --secondary-bg: #f8ede3;
+    --accent-color: #d0b8a8;
+    --text-color: #fdf8f8;
+    --hover-color: #b39482;
+    --modal-bg: #ffffff;
+}
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--secondary-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.profile-pic {
+    width: 120px; /* Fixed size for the profile picture */
+    height: 120px; /* Maintain a square shape */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the container proportionally */
+    border: 3px solid var(--accent-color); /* Highlight the picture with a border */
+    margin-bottom: 15px; /* Adds space below the image */
+    display: inline-block; /* Ensures the image behaves like a block element for centering */
+}
+
+.profile-container {
+    background-color: var(--primary-bg); /* Background color of the container */
+    border-radius: 20px; /* Smooth rounded corners for the container */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+    padding: 25px; /* Space inside the container */
+    width: 320px; /* Fixed width for the profile card */
+    text-align: center; /* Centers the content within the container */
+    color: var(--text-color); /* Ensures text color is consistent */
+    margin: 0 auto; /* Centers the container horizontally */
+}
+.profile-container h3 {
+    margin: 10px 0 5px; /* Adjusts space around the name */
+    font-size: 1.5em; /* Makes the name stand out */
+}
+
+.profile-container p {
+    font-size: 1em; /* Default size for additional text */
+    color: var(--text-secondary-color); /* Use a secondary color for the description */
+    margin: 0; /* Removes default paragraph margins */
+}
+
+
+/* Header section with image and name */
+.profile-header {
+    margin-bottom: 20px;
+}
+
+
+.Teacher-name {
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Profile details section */
+.profile-details {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.profile-details p {
+    margin: 8px 0;
+    color: #f9f5f5;
+}
+
+/* Back button styling */
+.back-button {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--hover-color);
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+    }
+
+    .Teacher-name {
+        font-size: 20px;
+    }
+
+    .profile-details {
+        font-size: 14px;
+    }
+}
+
+/* Main content styling */
+.main-content {
+    margin: 13px 20px 0 245px;
+    padding: 40px;
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    transition: margin-left 0.4s ease-in-out;
+    background-color: #ffffff;
+    height: 86.5vh;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-content h1 {
+    color: #050505;
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile section styling */
+.container {
+    padding: 18px 20px;
+    width: 1268px;
+    height: 55px;
+    margin: 12px 20px 0 245px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    transition: margin-left 0.4s ease-in-out;
+}
+
+.icon {
+    margin-left: 1px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+img {
+    height: 40px;
+    width: auto;
+}
+
+/* Dropdown menu styling */
+.dropdown-content {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 70px;
+    right: 25px;
+    background: linear-gradient(135deg, #2F5597, #1e3d7a);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+    padding: 2px;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e3d7a;
+}
+
+/* Profile picture styling */
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid #1e3d7a;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: auto;
+}
+
+/* Edit button on hover */
+#editImageButton {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #AFC8F3;
+    color: black;
+    font-size: 15px;
+    border: none;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.profile-picture:hover #editImageButton {
+    display: block;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 260px;
+    background-color: var(--modal-bg);
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1100;
+}
+
+.modal button {
+    margin-left: 120px;
+    margin-top: 5px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+}
