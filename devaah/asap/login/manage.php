@@ -267,13 +267,12 @@ $conn->close();
         </div>
         <div id="menu" class="menu">
             <ul>
-                <li onclick="navigateTo('../home page/homepage.php')">Home</li>
-                <li onclick="navigateTo('admin_interface.php')">Dashboard</li>
-                <li onclick="navigateTo('manage.php')">Manage</li>
-                <li onclick="navigateTo('admarkview.php')">View Marks</li>
-                <li onclick="navigateTo('viewfeedback.php')">View Feedback</li>
-                <li onclick="navigateTo('history.php')">Session History</li>
-                <li onclick="logout()">Logout</li>
+                    <li onclick="window.location.href='../home page/homepage.php';">Home</li>
+                    <li onclick="window.location.href='admin_interface.php';">Dashboard</li>
+                    <li onclick="navigateTo('manage.php')">Manage</li>
+                    <li onclick="navigateTo('admarkview.php')">View Marks</li>
+                    <li onclick="window.location.href='../feedback/view_feedback.php';">View Feedback</li>
+                    <li onclick="logout()">Logout</li>
             </ul>
         </div>
     </div>

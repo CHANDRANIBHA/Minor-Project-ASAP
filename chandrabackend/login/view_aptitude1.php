@@ -74,13 +74,11 @@ if ($class_id && $semester) {
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('teacher_interface.php')">Home</li>
-                    <li onclick="window.location.href='teacher_interface.php';">Dashboard</li>
-                    <li onclick="window.location.href='reso.php';">Resources</li>
-                    <li onclick="window.location.href='../feedback/feedback_form.php';">Feedback</li>
-                    <li onclick="window.location.href='logout.php';">Logout</li>
-
-
+                    <li>Home</li>
+                    <li>Resources</li>
+                    <li>Chat</li>
+                    <li>My History</li>
+                    <li>FAQ</li>
                 </ul>
             </div>
         </div>
@@ -126,7 +124,7 @@ if ($class_id && $semester) {
         // Determine the correct file based on subjectId
         let fileName;
         if (subjectId == 1) {
-            fileName = "8.php";
+            fileName = "aptimarks1.php";
         } else if (subjectId == 2) {
             // This case now handles dropdown actions
             return;
@@ -140,7 +138,7 @@ if ($class_id && $semester) {
     }
 
     function handleVerbalOption(selectElement, studentId) {
-        const mode = "update";
+        const mode = "view";
         const classId = "<?php echo $class_id; ?>";
         const semester = "<?php echo $semester; ?>";
         const subjectId = "<?php echo $subject_id; ?>";

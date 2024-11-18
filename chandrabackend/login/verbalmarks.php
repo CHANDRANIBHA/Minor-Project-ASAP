@@ -38,21 +38,21 @@ if (!$student) {
 }
 
 // Fetch topic names dynamically
-$topic_query = "SELECT topic_id, topic_name FROM topic_tbl WHERE topic_name IN ('quantitative', 'lr')";
+$topic_query = "SELECT topic_id, topic_name FROM topic_tbl WHERE topic_name IN ('reading', 'grammar')";
 $result = $conn->query($topic_query);
 $topics = [];
 while ($row = $result->fetch_assoc()) {
     $topics[$row['topic_name']] = $row['topic_id'];
 }
-$quantitative_topic_id = $topics['quantitative'] ?? null;
-$lr_topic_id = $topics['lr'] ?? null;
+$quantitative_topic_id = $topics['reading'] ?? null;
+$lr_topic_id = $topics['grammar'] ?? null;
 
 
 if (!$quantitative_topic_id || !$lr_topic_id) {
     die("Required topics 'Quantitative' or 'LR' not found in the database.");
 }
-$quantitative_topic_id=1;
-$lr_topic_id=2;
+$quantitative_topic_id=3;
+$lr_topic_id=4;
 // Function to fetch existing marks
 function getExistingMarks($conn, $std_id, $subject_id, $semester, $topic_id) {
     $query = "SELECT `mark_id`, `Mid term`, `End Sem Mark`, `Assignment 1`, `Assignment 2`, 
@@ -212,9 +212,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
                     <thead>
                         <tr>
                             <th>Evaluation</th>
-                            <th>Quantitative</th>
-                            <th>Logical Reasoning</th>
-                            <th>total<>
+                            <th>Reading</th>
+                            <th>Grammar</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>

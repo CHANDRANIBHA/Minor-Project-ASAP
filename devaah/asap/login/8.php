@@ -10,6 +10,7 @@ if (!isset($_GET['class_id'], $_GET['semester'], $_GET['subject_id'], $_GET['use
     die("Missing required parameters.");
 }
 
+
 // Extract parameters
 $class_id = (int)$_GET['class_id'];
 $semester = (int)$_GET['semester'];
@@ -184,22 +185,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('C:\XAMPP\htdocs\asap\login\teacher_interface.php')">Home</li>
-                    <li>
-                        <div class="dropdown">
-                            <span onclick="toggleDropdown()">Resources</span>
-                            <div class="dropdown-content" id="resources-dropdown">
-                                <a href="#" onclick="navigateTo('resoaptitude.php')">Aptitude</a>
-                                <a href="#" onclick="navigateTo('resoverbal.html')">Verbal</a>
-                                <a href="#" onclick="navigateTo('resosoftskills.html')">Soft Skills</a>
-                                <a href="#" onclick="navigateTo('resotraining.html')">Professional Training</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li onclick="navigateTo('chattr.html')">Chat</li>
-                    <li onclick="navigateTo('sessionform.html')">Session</li>
-                    <li onclick="navigateTo('history')">My History</li>
-                    <li onclick="navigateTo('faq')">FAQ</li>
+                    <li onclick="navigateTo('teacher_interface.php')">Home</li>
+                    <li onclick="window.location.href='teacher_interface.php';">Dashboard</li>
+                    <li onclick="window.location.href='reso.php';">Resources</li>
+                    <li onclick="window.location.href='../feedback/feedback_form.php';">Feedback</li>
+                    <li onclick="window.location.href='logout.php';">Logout</li>
                 </ul>
             </div>
         </div>
@@ -215,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th>Evaluation</th>
                             <th>Quantitative</th>
                             <th>Logical Reasoning</th>
-                            <th>total<>
+                            <th>total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -284,5 +274,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Check the mode from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode'); // This should either be 'view' or 'update'
+
+    // Get all input fields
+    const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+    
+    if (mode === 'view') {
+        // Make all inputs readonly if in 'view' mode
+        inputs.forEach(input => {
+            input.setAttribute('readonly', true);
+        });
+    }
+
+    // Optionally, you can show a message if the form is in 'view' mode
+    if (mode === 'view') {
+        const message = document.createElement('p');
+        message.textContent = "You are viewing the marks (read-only mode).";
+        message.style.color = 'red';
+        document.querySelector('.content').prepend(message);
+    }
+
+    // Optionally, you can add some basic form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        // If in 'view' mode, prevent form submission (no changes allowed)
+        if (mode === 'view') {
+            event.preventDefault();
+            alert("You cannot submit the form in view mode.");
+        }
+    });
+});
+</script>
 </body>
 </html>

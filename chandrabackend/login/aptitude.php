@@ -4,17 +4,36 @@ session_start(); // Start the session to access session variables
 // Include database connection
 require_once __DIR__ . '/../db.php';
 
-$semester = isset($_GET['semester']) ? $_GET['semester'] : '';
-$subject_id = isset($_GET['subject_id']) ? $_GET['subject_id'] : '';
+// Retrieve semester and subject_id from the GET parameters
+$semester = isset($_GET['semester']) ? (int)$_GET['semester'] : 0;
+$subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : 0;
 
+// Retrieve user information from the session
+$user_name = $_SESSION['user_name'] ?? 'Guest';
+$user_id = $_SESSION['user_id'] ?? '12345678'; // Default to a placeholder if not set
 
+// Function to fetch the subject name based on subject_id
+function getSubjectName($subject_id) {
+    global $conn; // Use the database connection from db.php
 
-// Function to fetch classes based on the semester from the database
+    $stmt = $conn->prepare("SELECT subject_name FROM subject_tbl WHERE subject_id = ?");
+    $stmt->bind_param("i", $subject_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        return $row['subject_name'];
+    }
+
+    $stmt->close();
+    return 'Unknown Subject'; // Default value if no match is found
+}
+
+// Function to fetch classes based on the semester
 function getClassesForSemester($semester) {
     global $conn; // Use the database connection from db.php
 
     $classes = [];
-    // Modify the query to include class_id for each class
     $stmt = $conn->prepare("SELECT class_id, class_name FROM class_tbl WHERE sem = ?");
     $stmt->bind_param("i", $semester);
     $stmt->execute();
@@ -28,32 +47,24 @@ function getClassesForSemester($semester) {
     return $classes;
 }
 
-// Get the selected semester from the URL parameter
-$semester = isset($_GET['semester']) ? (int)$_GET['semester'] : 0;
-
-// Optionally retrieve user information from session
-$user_name = $_SESSION['user_name'] ?? 'Guest';
-$user_id = $_SESSION['user_id'] ?? '12345678'; // Default to a placeholder if not set
-
-// Fetch classes for the selected semester
+// Fetch the subject name and classes
+$subject_name = getSubjectName($subject_id);
 $classes = getClassesForSemester($semester);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aptitude Classes</title>
+    <title><?php echo htmlspecialchars($subject_name); ?> Classes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="teacher.css"> <!-- Use the same CSS file -->
     <script src="teacher.js"></script> <!-- Use the same JS file -->
 </head>
 
 <body>
-    <div class="dashboard">
+<div class="dashboard">
         <!-- Left Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="profile">
@@ -75,27 +86,24 @@ $classes = getClassesForSemester($semester);
         <button id="menuToggle" class="menu-icon">
             <i class="fas fa-bars"></i>
         </button>
-
-        <!-- Main Content Area -->
         <div class="main-content">
-            <h2>Aptitude Select Class (Semester: <?php echo htmlspecialchars($semester); ?>)</h2>
+            <h2><?php echo htmlspecialchars($subject_name); ?> Select Class (Semester: <?php echo htmlspecialchars($semester); ?>)</h2>
             <div class="class-panels">
                 <!-- Panels for each class -->
                 <?php foreach ($classes as $class): ?>
-    <div class="panel">
-        <h3><?php echo htmlspecialchars($class['name']); ?></h3>
-        <select class="class-dropdown">
-            <option value="">Choose Action</option>
-            <option value="view|<?php echo $class['class_id']; ?>">View</option>
-            <option value="update|<?php echo $class['class_id']; ?>">Update</option>
-        </select>
-    </div>
-<?php endforeach; ?>
-
-
+                <div class="panel">
+                    <h3><?php echo htmlspecialchars($class['name']); ?></h3>
+                    <select class="class-dropdown">
+                        <option value="">Choose Action</option>
+                        <option value="view|<?php echo $class['class_id']; ?>">View</option>
+                        <option value="update|<?php echo $class['class_id']; ?>">Update</option>
+                    </select>
+                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
+
 
     <script>
       document.querySelectorAll('.class-dropdown').forEach(select => {
@@ -108,7 +116,7 @@ $classes = getClassesForSemester($semester);
             // Redirect based on the selected action
             // Redirect based on the selected action
             if (action === 'view') {
-                    window.location.href = `view_aptitude.php?class=${encodeURIComponent(className)}&class_id=${classId}&semester=${<?php echo $semester; ?>}&subject_id=${<?php echo $subject_id; ?>}`;
+                    window.location.href = `view_aptitude1.php?class=${encodeURIComponent(className)}&class_id=${classId}&semester=${<?php echo $semester; ?>}&subject_id=${<?php echo $subject_id; ?>}`;
                 } else if (action === 'update') {
                     window.location.href = `update_aptitude.php?class=${encodeURIComponent(className)}&class_id=${classId}&semester=${<?php echo $semester; ?>}&subject_id=${<?php echo $subject_id; ?>}`;
                 }

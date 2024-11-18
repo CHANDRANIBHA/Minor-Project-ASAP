@@ -94,7 +94,11 @@ $existing_lr_marks = array_merge([
 ], $existing_lr_marks);
 
 // Handle form submission (Insert or Update)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
+    echo"<pre>";
+    print_r($_POST);
+    echo"<pre>";
+    exit;
     $topics = ['quantitative' => $quantitative_topic_id, 'lr' => $lr_topic_id];
 
     foreach ($topics as $topic_name => $topic_id) {
@@ -214,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th>Evaluation</th>
                             <th>Quantitative</th>
                             <th>Logical Reasoning</th>
-                            <th>total<>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -283,5 +287,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Check the mode from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode'); // This should either be 'view' or 'update'
+
+    // Get all input fields
+    const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+    
+    if (mode === 'view') {
+        // Make all inputs readonly if in 'view' mode
+        inputs.forEach(input => {
+            input.setAttribute('readonly', true);
+        });
+    }
+
+    // Optionally, you can show a message if the form is in 'view' mode
+    if (mode === 'view') {
+        const message = document.createElement('p');
+        message.textContent = "You are viewing the marks (read-only mode).";
+        message.style.color = 'red';
+        document.querySelector('.content').prepend(message);
+    }
+
+    // Optionally, you can add some basic form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        // If in 'view' mode, prevent form submission (no changes allowed)
+        if (mode === 'view') {
+            event.preventDefault();
+            alert("You cannot submit the form in view mode.");
+        }
+    });
+});
+</script>
 </body>
 </html>

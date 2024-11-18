@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include "C:/xampp/htdocs/db.php";
+include "C:/XAMPP/htdocs/asap/db.php";
 session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -38,21 +38,21 @@ if (!$student) {
 }
 
 // Fetch topic names dynamically
-$topic_query = "SELECT topic_id, topic_name FROM topic_tbl WHERE topic_name IN ('quantitative', 'lr')";
+$topic_query = "SELECT topic_id, topic_name FROM topic_tbl WHERE topic_name IN ('reading', 'grammar')";
 $result = $conn->query($topic_query);
 $topics = [];
 while ($row = $result->fetch_assoc()) {
     $topics[$row['topic_name']] = $row['topic_id'];
 }
-$quantitative_topic_id = $topics['quantitative'] ?? null;
-$lr_topic_id = $topics['lr'] ?? null;
+$quantitative_topic_id = $topics['reading'] ?? null;
+$lr_topic_id = $topics['grammar'] ?? null;
 
 
 if (!$quantitative_topic_id || !$lr_topic_id) {
     die("Required topics 'Quantitative' or 'LR' not found in the database.");
 }
-$quantitative_topic_id=1;
-$lr_topic_id=2;
+$quantitative_topic_id=3;
+$lr_topic_id=4;
 // Function to fetch existing marks
 function getExistingMarks($conn, $std_id, $subject_id, $semester, $topic_id) {
     $query = "SELECT `mark_id`, `Mid term`, `End Sem Mark`, `Assignment 1`, `Assignment 2`, 
@@ -183,22 +183,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
             </div>
             <div id="menu" class="menu">
                 <ul>
-                    <li onclick="navigateTo('C:\xampp\htdocs\login\teacher_interface.php')">Home</li>
-                    <li>
-                        <div class="dropdown">
-                            <span onclick="toggleDropdown()">Resources</span>
-                            <div class="dropdown-content" id="resources-dropdown">
-                                <a href="#" onclick="navigateTo('resoaptitude.php')">Aptitude</a>
-                                <a href="#" onclick="navigateTo('resoverbal.html')">Verbal</a>
-                                <a href="#" onclick="navigateTo('resosoftskills.html')">Soft Skills</a>
-                                <a href="#" onclick="navigateTo('resotraining.html')">Professional Training</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li onclick="navigateTo('chattr.html')">Chat</li>
-                    <li onclick="navigateTo('sessionform.html')">Session</li>
-                    <li onclick="navigateTo('history')">My History</li>
-                    <li onclick="navigateTo('faq')">FAQ</li>
+                    <li onclick="navigateTo('teacher_interface.php')">Home</li>
+                    <li onclick="window.location.href='teacher_interface.php';">Dashboard</li>
+                    <li onclick="window.location.href='reso.php';">Resources</li>
+                    <li onclick="window.location.href='../feedback/feedback_form.php';">Feedback</li>
+                    <li onclick="window.location.href='logout.php';">Logout</li>
                 </ul>
             </div>
         </div>
@@ -212,9 +201,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $mode === 'update') {
                     <thead>
                         <tr>
                             <th>Evaluation</th>
-                            <th>Quantitative</th>
-                            <th>Logical Reasoning</th>
-                            <th>total<>
+                            <th>Reading</th>
+                            <th>Grammar</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>

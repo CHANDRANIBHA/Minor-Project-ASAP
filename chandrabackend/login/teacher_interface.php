@@ -120,8 +120,8 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; // D
     <div class="panel" id="softskill">
         <h4 class="panel-title">Soft Skill</h4>
         <button class="select-sem-btn">Select Semester</button>
-        <div class="semester-dropdown" id="sem-dropdown-softskill">
-            <select id="softskills-semester">
+        <div class="semester-dropdown" id="sem-dropdown-verbal">
+            <select id="softskill-semester">
                 <option value="3">Sem 3</option>
                 <option value="4">Sem 4</option>
                 <option value="5">Sem 5</option>
@@ -141,57 +141,34 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '12345678'; // D
             </select>
         </div>
     </div>
-</div>
+
 
 <script src="teacher.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Function to set the user's name
-        function setUserName(name) {
-            document.getElementById('user_name').innerText = name;
-        }
-
-        // Call this function with the actual user's name (assumes a PHP variable)
-        setUserName('<?php echo htmlspecialchars($user_name); ?>'); // Using PHP variable for the user's name
-
-        // Navigate to aptitude.php when the "Go" button is clicked for Aptitude
-        document.getElementById('goToAptitudePage').addEventListener('click', function() {
-            const semester = document.getElementById('aptitude-semester').value;
-            const subject_id = 1; // Assuming 1 is the ID for "Aptitude" (subject_id from subject_tbl)
+    // Function to navigate to aptitude.php
+    function navigateToPage(buttonId, dropdownId, subjectId) {
+        document.getElementById(buttonId).addEventListener('click', function () {
+            const semester = document.getElementById(dropdownId).value;
             if (semester) {
-                console.log(`Navigating to aptitude.php with semester: ${semester} and subject_id: ${subject_id}`);
-                window.location.href = `aptitude.php?semester=${encodeURIComponent(semester)}&subject_id=${encodeURIComponent(subject_id)}`;
+                console.log(`Navigating to aptitude.php with semester: ${semester} and subject_id: ${subjectId}`);
+                window.location.href = `aptitude.php?semester=${encodeURIComponent(semester)}&subject_id=${encodeURIComponent(subjectId)}`;
             } else {
                 alert("Please select a semester.");
             }
         });
+    }
 
-        // Similar functionality for Verbal
-        document.getElementById('goToVerbalPage').addEventListener('click', function() {
-            const semester = document.getElementById('verbal-semester').value;
-            const subject_id = 2; // Assuming 2 is the ID for "Verbal" (subject_id from subject_tbl)
-            if (semester) {
-                console.log(`Navigating to verbal.php with semester: ${semester} and subject_id: ${subject_id}`);
-                window.location.href = `verbal.php?semester=${encodeURIComponent(semester)}&subject_id=${encodeURIComponent(subject_id)}`;
-            } else {
-                alert("Please select a semester.");
-            }
-        });
+    // Set event listeners for each button
+    navigateToPage('goToAptitudePage', 'aptitude-semester', 1); // Aptitude
+    navigateToPage('goToVerbalPage', 'verbal-semester', 2); // Verbal
+    navigateToPage('goTosoftskillPage', 'softskill-semester', 3); // Soft Skills
+});
 
-        // Similar functionality for Soft Skills
-        document.getElementById('goTosoftskillPage').addEventListener('click', function() {
-            const semester = document.getElementById('softskills-semester').value;
-            const subject_id = 3; // Assuming 3 is the ID for "Soft Skills" (subject_id from subject_tbl)
-            if (semester) {
-                console.log(`Navigating to softskills.php with semester: ${semester} and subject_id: ${subject_id}`);
-                window.location.href = `softskills.php?semester=${encodeURIComponent(semester)}&subject_id=${encodeURIComponent(subject_id)}`;
-            } else {
-                alert("Please select a semester.");
-            }
-        });
-    });
 </script>
+</body>
+</html>
 
 
 
